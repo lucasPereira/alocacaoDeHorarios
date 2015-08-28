@@ -24,7 +24,7 @@ public class AppController {
 		aplicacaoGUI.getContentPane().removeAll();
 		System.out.println("Adicionar novos componentes painel");
 		aplicacaoGUI.getContentPane().setVisible(false);
-		aplicacaoGUI.getContentPane().add(new CaracteristicaGUI());
+		aplicacaoGUI.getContentPane().add(new CaracteristicaGUI(aplicacaoGUI));
 		aplicacaoGUI.getContentPane().setVisible(true);
 	}
 
