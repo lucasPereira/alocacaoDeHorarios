@@ -27,6 +27,7 @@ public class CaracteristicaGUI extends JPanel {
 	private JScrollPane scrollerTabela = null;
 	private JLabel lblCadastroDeCaractersticas = null;
 	private JButton btNovo = null;
+	private JButton btSalvar = null;
 	
 	private InteractiveTableCaracteristica modeloTabelaCaracteristicas = null;
 	
@@ -46,6 +47,7 @@ public class CaracteristicaGUI extends JPanel {
 		this.setLayout(null);
 		this.add(this.getLblCadastroDeCaractersticas());
 		this.add(this.getBtNovo());
+		this.add(this.getBtSalvar());
 		this.add(this.getScrollerTabela());
 		this.setVisible(true);	
 	}
@@ -116,6 +118,21 @@ public class CaracteristicaGUI extends JPanel {
 
 	public static AppGUI getAplicacaoGUI() {
 		return aplicacaoGUI;
+	}
+	
+
+	public JButton getBtSalvar() {
+		if(this.btSalvar == null){
+			this.btSalvar = new JButton();
+			this.btSalvar.setText("Salvar");
+			this.btSalvar.addActionListener(new CaracteristicaListner(this));
+			this.btSalvar.setBounds(390,11,100,22);
+		}
+		return this.btSalvar;
+	}
+
+	public void setBtSalvar(JButton btSalvar) {
+		this.btSalvar = btSalvar;
 	}
 	
 	
