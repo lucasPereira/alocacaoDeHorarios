@@ -1,14 +1,9 @@
 package br.ufsc.sar.gui.componentes;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
-import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Profissional;
-import br.ufsc.sar.service.ProfissionalService;
-import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
 
 @SuppressWarnings("unchecked")
 public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
@@ -41,7 +36,7 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		setColumnClass(4, String.class);
 		setColumnClass(5, String.class);
 		
-		initializeData();
+		setColumnEditable(0, false);				
 	}
 
 	public Object getValueAt(int row, int column)
@@ -82,12 +77,13 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 	public boolean hasEmptyRow() {
 		if(!super.hasEmptyRow()) {        
 			Profissional profissional = (Profissional)this.modelData.get(this.modelData.size() - 1);	        
-	        if (profissional.getId().toString().trim().equals("") &&
-	        	profissional.getNome().trim().equals("") &&
-	        	profissional.getProfissao().toString().trim().equals("") &&
-	        	profissional.getDtnascimento().toString().trim().equals("") &&
-	        	profissional.getTelefone().trim().equals("") &&
-	        	profissional.getCpf().trim().equals("")) 
+	        if (profissional != null && 
+	        	profissional.getId() != null && profissional.getId().toString().trim().equals("") &&
+	        	profissional.getNome() != null && profissional.getNome().trim().equals("") &&
+	        	profissional.getProfissao() != null && profissional.getProfissao().toString().trim().equals("") &&
+	        	profissional.getDtnascimento() != null && profissional.getDtnascimento().toString().trim().equals("") &&
+	        	profissional.getTelefone() != null && profissional.getTelefone().trim().equals("") &&
+	        	profissional.getCpf() != null && profissional.getCpf().trim().equals("")) 
 	        {
 	        	return true;
 	        }
@@ -99,26 +95,5 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
     @Override
     public void addEmptyRow() {
         this.addRow(new Profissional());
-    }
-    
-    private void initializeData(){
-    	ProfissionalService ps = new ProfissionalServiceImpl();
-    	List<Profissional> profissionais = null;
-    	try {
-    		profissionais = (List<Profissional>)ps.getList();
-		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
-		}
-    	
-    	if(profissionais == null){   
-    		Profissional p = new Profissional();
-    		p.setId(new Long(0));
-    		p.setNome("Dados não encontrados");
-    		p.setDtnascimento(new Date());
-    		profissionais = new ArrayList<Profissional>();
-    		profissionais.add(p);
-    	}
-    	
-    	super.addRows(profissionais);
     }
 }

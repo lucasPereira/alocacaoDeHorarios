@@ -1,11 +1,12 @@
 package br.ufsc.sar.gui.componentes;
 
-import java.lang.reflect.*;
-import java.util.*;
-import javax.swing.table.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
 
 import br.ufsc.entity.BaseEntity;
-import br.ufsc.sar.entity.Caracteristica;
 
 /**
  *  A TableModel that better supports the processing of rows of data. That
@@ -22,7 +23,7 @@ import br.ufsc.sar.entity.Caracteristica;
  *  by using the various constructors, or indirectly.
  *
  */
-abstract class EntityRowTableModel<T extends BaseEntity> extends AbstractTableModel
+public abstract class EntityRowTableModel<T extends BaseEntity> extends AbstractTableModel
 {
 	/**
 	 * 
@@ -124,7 +125,7 @@ abstract class EntityRowTableModel<T extends BaseEntity> extends AbstractTableMo
 	 */
 	protected void setDataAndColumnNames(List<T> modelData, List<String> columnNames)
 	{
-		this.modelData = modelData;
+		this.modelData = modelData;		
 		this.columnNames = columnNames;
 		columnClasses = new Class[getColumnCount()];
 		isColumnEditable = new Boolean[getColumnCount()];

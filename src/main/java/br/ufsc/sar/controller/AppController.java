@@ -41,7 +41,7 @@ public class AppController {
 	}
 	
 	public void getProfissionalGUI() {
-		getEntityGUI(new ProfissionalGUI());
+		getEntityGUI(new ProfissionalGUI(aplicacaoGUI));
 	}
 
 }
