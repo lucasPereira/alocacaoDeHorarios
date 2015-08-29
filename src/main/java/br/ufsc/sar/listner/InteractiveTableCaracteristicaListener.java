@@ -13,5 +13,4 @@ public class InteractiveTableCaracteristicaListener implements
             System.out.println("row: " + row + " column: " + column);
         }
 	}
-
 }

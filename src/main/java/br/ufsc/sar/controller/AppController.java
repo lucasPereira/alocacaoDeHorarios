@@ -37,7 +37,7 @@ public class AppController {
 	}
 	
 	public void getCaracteristicaGUI() {
-		getEntityGUI(new CaracteristicaGUI());
+		getEntityGUI(new CaracteristicaGUI(aplicacaoGUI));
 	}
 	
 	public void getProfissionalGUI() {
