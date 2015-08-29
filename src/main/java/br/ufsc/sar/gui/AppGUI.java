@@ -23,8 +23,10 @@ public class AppGUI extends JFrame{
 	
 	public void initialize(){
 		this.getContentPane().add(this.getLbBemVindo());
+		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		super.setSize(800, 600);
 		this.setJMenuBar(this.getMenu());
+		//this.pack();
 		this.setVisible(true);
 	}
 

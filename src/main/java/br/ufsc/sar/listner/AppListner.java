@@ -24,6 +24,7 @@ public class AppListner implements ActionListener {
 		// Iniciar cadstro de profissional
 		if (e.getActionCommand().equals("Profissional")){
 			System.out.println("Profissional");
+			controller.getProfissionalGUI();
 		}
 		
 		// Iniciar cadstro de espaço

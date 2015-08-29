@@ -1,7 +1,10 @@
 package br.ufsc.sar.controller;
 
+import javax.swing.JPanel;
+
 import br.ufsc.sar.gui.AppGUI;
 import br.ufsc.sar.gui.CaracteristicaGUI;
+import br.ufsc.sar.gui.ProfissionalGUI;
 import br.ufsc.sar.service.AppService;
 import br.ufsc.sar.serviceimpl.AppServiceImpl;
 
@@ -19,13 +22,26 @@ public class AppController {
 		return aplicacaoGUI;
 	}
 	
-	public void getCaracteristicaGUI() {
+	/**
+	 * 
+	 * @param gui
+	 */
+	private void getEntityGUI(JPanel entityGUI){
 		System.out.println("Remover todos os atributos do painel");
 		aplicacaoGUI.getContentPane().removeAll();
 		System.out.println("Adicionar novos componentes painel");
 		aplicacaoGUI.getContentPane().setVisible(false);
-		aplicacaoGUI.getContentPane().add(new CaracteristicaGUI());
+		aplicacaoGUI.getContentPane().add(entityGUI);
+		entityGUI.setOpaque(true);
 		aplicacaoGUI.getContentPane().setVisible(true);
+	}
+	
+	public void getCaracteristicaGUI() {
+		getEntityGUI(new CaracteristicaGUI());
+	}
+	
+	public void getProfissionalGUI() {
+		getEntityGUI(new ProfissionalGUI());
 	}
 
 }
