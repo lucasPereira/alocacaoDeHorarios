@@ -21,7 +21,7 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		"Profissão", 
 		"Data de Nascimento",
 		"Telefone",
-		"CPF"		
+		"CPF"
 	};
 
 	public ProfissionalTableModel()

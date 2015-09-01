@@ -1,8 +1,11 @@
 package br.ufsc.sar.gui;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -59,6 +62,18 @@ public abstract class EntityGUI<T extends BaseEntity> extends JPanel {
 			this.tabelaEntity = new JTable();
 			this.tabelaEntity.setModel(this.getModeloTabelaEntity());
 			this.tabelaEntity.setSurrendersFocusOnKeystroke(true);
+			this.tabelaEntity.addMouseListener(new MouseAdapter() {
+				   public void mouseClicked(MouseEvent e) {
+				      if (e.getClickCount() == 2) {
+				         JTable target = (JTable)e.getSource();
+				         int row = target.getSelectedRow();
+				         int column = target.getSelectedColumn();
+				         JFrame newFrame = new JFrame();
+				         newFrame.setTitle("Detail Screen");
+				         newFrame.setVisible(true);
+				      }
+				   }
+				});
 			if(this.modeloTabelaEntity.hasEmptyRow()){
 				modeloTabelaEntity.addEmptyRow();
 			}

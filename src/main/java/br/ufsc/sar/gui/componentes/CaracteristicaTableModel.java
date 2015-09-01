@@ -61,7 +61,7 @@ public class CaracteristicaTableModel extends EntityRowTableModel<Caracteristica
 	public boolean hasEmptyRow() {
 		if(!super.hasEmptyRow()) {        
 	        Caracteristica caracteristica = (Caracteristica)this.modelData.get(this.modelData.size() - 1);	        
-	        if (caracteristica.getId().toString().trim().equals("") && caracteristica.getNome().trim().equals("") && caracteristica.getForauso().toString().trim().equals("")) {
+	        if (caracteristica != null && caracteristica.getId() != null && caracteristica.getId().toString().trim().equals("") && caracteristica.getNome().trim().equals("") && caracteristica.getForauso().toString().trim().equals("")) {
 	        	return true;
 	        }
 		}
