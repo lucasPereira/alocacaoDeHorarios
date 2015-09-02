@@ -27,18 +27,19 @@ public class HorarioProfissional extends BaseEntity {
 	
 	@Id
 	@GeneratedValue
+	@Column(name = "id", nullable = false)
 	private Long id;	
 		
 	@ManyToOne
-	@JoinColumn(name = "idprofissional")
+	@JoinColumn(name = "idprofissional", referencedColumnName = "id", nullable = false)
 	private Profissional profissional;
 	
 	@Column(name="datainicio")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date datainicio;
 	
 	@Column(name="datatermino")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date datatermino;
 	
 	@Column(name="diadasemana")

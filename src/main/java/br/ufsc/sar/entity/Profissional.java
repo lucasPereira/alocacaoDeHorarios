@@ -26,12 +26,13 @@ public class Profissional extends BaseEntity{
 	
 	@Id
 	@GeneratedValue
+	@Column(name = "id", nullable = false)
 	private Long id;
 	
-	@Column(name="nome")
+	@Column(name="nome", nullable = false)
 	private String nome;
 	
-	@Column(name="profissao")
+	@Column(name="profissao", nullable = false)
 	private String profissao;
 	
 	@Column(name="dtnascimento")
