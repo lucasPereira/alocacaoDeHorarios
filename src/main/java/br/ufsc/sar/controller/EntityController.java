@@ -12,19 +12,13 @@ import br.ufsc.service.BaseService;
 
 public abstract class EntityController<T extends BaseEntity> {
 
-	//private static EntityGUI entityGUI = null;
 	private EntityGUI<T> entityGUI = null;
 	
 	private Set<Integer> linhasAtualizadas = new HashSet<Integer>();
 	
 	public EntityController(EntityGUI<T> entityGUI) {
-		//EntityController.entityGUI = entityGUI;
 		this.entityGUI = entityGUI;
 	}
-	
-//	public static EntityGUI getEntityGUI() {
-//		return entityGUI;
-//	}
 	
 	public EntityGUI<T> getEntityGUI() {
 		return entityGUI;
@@ -35,12 +29,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	}
 	
 	public void marcarLinhaAtualizada(int row){
-		// FIXME: Alterar para estratégia sugerida pelo Ernani, utilizando uma nova coluna na tabela para indicar se a linha foi atualizada
-				System.out.println("Linha " + row + " atualizada.");
-		T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);
-		if(entity != null){
-			//entity.
-		}
 		linhasAtualizadas.add(row);
 	}
 
@@ -48,33 +36,32 @@ public abstract class EntityController<T extends BaseEntity> {
 	
 	@SuppressWarnings("unchecked")
 	public void salvar() {
-		// FIXME: Alterar para estratégia sugerida pelo Ernani, utilizando uma nova coluna na tabela para indicar se a linha foi atualizada
+		System.out.println(linhasAtualizadas.size());
 		if(linhasAtualizadas != null && !linhasAtualizadas.isEmpty()){
 			for (Integer row : linhasAtualizadas) {
 				System.out.println("Tentando persistir entidade da linha " + row + "...");				
 				T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);				
 				BaseService<T> service = getEntityService();	
-				boolean sucesso = false;
+				boolean sucesso = true;
 				T storedEntity = null;
 				Long id = null;
 				try {
-					System.out.println("Service: " + service);
-		    		storedEntity = (T)service.getEntity(entity.getIdValue().longValue());
+					if(entity.getIdValue() != null)
+						storedEntity = (T)service.getEntity(entity.getIdValue().longValue());
 		    		if(storedEntity == null){
 		    			id = service.incluir(entity);
 		    			if(id != null) {
+		    				sucesso = sucesso && true;
 		    				storedEntity = (T)service.getEntity(id);
 		    				this.getEntityGUI().getModeloTabelaEntity().replaceRow(row, storedEntity);
 		    			}
 		    		}
 		    		else {
-		    			service.alterar(entity);
+		    			sucesso = sucesso && service.alterar(entity);
 		    		}
 				} catch (Exception e) {
-					System.out.println("Erro: " + e.getMessage());
+					sucesso = sucesso && false;
 				}
-				
-				System.out.println("Entidade " + entity.toString() + "salva? " + sucesso);
 			}
 		}
 		
@@ -149,17 +136,20 @@ public abstract class EntityController<T extends BaseEntity> {
 		if(rows.length > 0) {
 			int retorno = JOptionPane.showConfirmDialog(this.entityGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			
+			System.out.println("Excluir linha " + rows);
+			System.out.println("Retorno: " + retorno);
 			if(retorno == 0) {			
 				BaseService<T> service = getEntityService();
 				T storedEntity = null;
-				boolean sucesso = false;
+				boolean sucesso = true;
 				try {
 					System.out.println("Service: " + service);
 					for (int i = 0; i < rows.length; i++) {
 						storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(i);
 						if(storedEntity != null) {
+							System.out.println(storedEntity.getIdValue());
 							sucesso = sucesso && service.excluir(storedEntity.getIdValue().longValue());
+							
 						}
 					}
 					
@@ -167,7 +157,6 @@ public abstract class EntityController<T extends BaseEntity> {
 						this.getEntityGUI().getModeloTabelaEntity().removeRows(rows);
 						System.out.println(rows.length + " entidades removidas com sucesso");  
 						
-						// FIXME: Alterar para estratégia sugerida pelo Ernani, utilizando uma nova coluna na tabela para indicar se a linha foi atualizada
 						Set<Integer> linhasAtualizadasAux = new HashSet<Integer>();
 						for (int i : rows) {
 							linhasAtualizadas.remove(i);
