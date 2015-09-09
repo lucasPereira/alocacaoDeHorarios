@@ -34,6 +34,17 @@ public class Espaco extends BaseEntity {
 	@Column(name="capacidade")
 	private Long capacidade;
 	
+	@Column(name="forauso")
+	private boolean forauso;
+	
+	public boolean isForauso() {
+		return forauso;
+	}
+
+	public void setForauso(boolean forauso) {
+		this.forauso = forauso;
+	}
+
 	@OneToMany(fetch=FetchType.EAGER)
 	private List<Caracteristica> caracteristicas;
 	public Long getId() {
