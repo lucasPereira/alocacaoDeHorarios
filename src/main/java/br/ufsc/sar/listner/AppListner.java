@@ -30,6 +30,7 @@ public class AppListner implements ActionListener {
 		// Iniciar cadstro de espaço
 		if (e.getActionCommand().equals("Espaço")){
 			System.out.println("Espaço");
+			controller.getEspacoGUI();
 		}
 		
 		
