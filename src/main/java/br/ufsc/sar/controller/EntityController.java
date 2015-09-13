@@ -1,5 +1,6 @@
 package br.ufsc.sar.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +39,7 @@ public abstract class EntityController<T extends BaseEntity> {
 	public void salvar() {
 		System.out.println(linhasAtualizadas.size());
 		if(linhasAtualizadas != null && !linhasAtualizadas.isEmpty()){
+			List<Integer> indexLinhaAtualizadaSucesso = new ArrayList<Integer>();
 			for (Integer row : linhasAtualizadas) {
 				System.out.println("Tentando persistir entidade da linha " + row + "...");				
 				T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);				
@@ -54,17 +56,29 @@ public abstract class EntityController<T extends BaseEntity> {
 		    				sucesso = sucesso && true;
 		    				storedEntity = (T)service.getEntity(id);
 		    				this.getEntityGUI().getModeloTabelaEntity().replaceRow(row, storedEntity);
+		    				indexLinhaAtualizadaSucesso.add(row);
 		    			}
 		    		}
 		    		else {
-		    			sucesso = sucesso && service.alterar(entity);
+		    			if(service.alterar(entity)){
+		    				indexLinhaAtualizadaSucesso.add(row);
+		    			}
 		    		}
 				} catch (Exception e) {
-					sucesso = sucesso && false;
+					//
+					System.out.println("Erro: " + e.getMessage());
+					JOptionPane.showMessageDialog(this.entityGUI, 
+							"Erro ao tentar excluir a linha " + row + ":\n" + (e.getLocalizedMessage() == null ? "Obrigatório informar o nome" : e.getLocalizedMessage()),
+							"Erro de exclusão", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		}
-		
+			
+			if(!indexLinhaAtualizadaSucesso.isEmpty()){
+				for (Integer integer : indexLinhaAtualizadaSucesso) {
+					linhasAtualizadas.remove(integer);
+				}				
+			}
+		}		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,7 +88,7 @@ public abstract class EntityController<T extends BaseEntity> {
 		try {
 			System.out.println("Service: " + service);
 			storedEntities = (List<T>)service.getList();
-    		if(storedEntities != null){
+    		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getEntityGUI().getModeloTabelaEntity().addRows(storedEntities);
     			System.out.println(storedEntities.size() + " entidades encontradas");  
     		}
@@ -82,7 +96,7 @@ public abstract class EntityController<T extends BaseEntity> {
 			System.out.println("Erro: " + e.getMessage());
 		}
 		
-		if(storedEntities == null){   
+		if(storedEntities == null || storedEntities.isEmpty()){   
 			adicionarLinha();
 			System.out.println("Não há entidades armazenadas"); 
     	}   	  		
@@ -133,54 +147,40 @@ public abstract class EntityController<T extends BaseEntity> {
 	 * @param rows
 	 */
 	public void excluirLinha(int... rows) {
-		if(rows.length > 0) {
-			int retorno = JOptionPane.showConfirmDialog(this.entityGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			System.out.println("Excluir linha " + rows);
-			System.out.println("Retorno: " + retorno);
-			if(retorno == 0) {			
-				BaseService<T> service = getEntityService();
-				T storedEntity = null;
-				boolean sucesso = true;
-				try {
-					System.out.println("Service: " + service);
-					for (int i = 0; i < rows.length; i++) {
-						storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(i);
-						if(storedEntity != null) {
-							System.out.println(storedEntity.getIdValue());
-							sucesso = sucesso && service.excluir(storedEntity.getIdValue().longValue());
-							
-						}
-					}
-					
-					if(sucesso){
-						this.getEntityGUI().getModeloTabelaEntity().removeRows(rows);
-						System.out.println(rows.length + " entidades removidas com sucesso");  
-						
-						Set<Integer> linhasAtualizadasAux = new HashSet<Integer>();
+		if(!linhasAtualizadas.isEmpty()) {
+			JOptionPane.showMessageDialog(this.entityGUI, "Para excluir registros, é necessário efetivar o salvamento das alterações pendentes", "Impedimento de exclusão", JOptionPane.WARNING_MESSAGE);
+		}
+		else {
+			if(rows.length > 0) {
+				int retorno = JOptionPane.showConfirmDialog(this.entityGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				System.out.println("Excluir linha " + rows);
+				System.out.println("Retorno: " + retorno);
+				if(retorno == 0) {			
+					BaseService<T> service = getEntityService();
+					T storedEntity = null;
+					boolean sucesso = true;
+					try {
+						System.out.println("Service: " + service);
 						for (int i : rows) {
-							linhasAtualizadas.remove(i);
-							for (Integer linha : linhasAtualizadas) {
-								if(linha > i) {
-									linhasAtualizadasAux.add(linha - 1);
-								}
-								else {
-									linhasAtualizadasAux.add(linha);
+							storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(i);
+							if(storedEntity != null) {
+								System.out.println(storedEntity.getIdValue());
+								sucesso = service.excluir(storedEntity.getIdValue().longValue());
+								if(sucesso) {
+									this.getEntityGUI().getModeloTabelaEntity().removeRowRange(i,i);
+									System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
 								}
 							}
-							
-							linhasAtualizadas.clear();
-							linhasAtualizadas.addAll(linhasAtualizadasAux);
-						}
-					}			   			
-		    		
-				} catch (Exception e) {
-					System.out.println("Erro: " + e.getMessage());
-				}  		
-				
-				if(storedEntity == null || !sucesso){
-					System.out.println("Entidades não removidas"); 
-				}		
+						}				    		
+					} catch (Exception e) {
+						System.out.println("Erro: " + e.getMessage());
+					}  		
+					
+					if(storedEntity == null || !sucesso){
+						System.out.println("Entidades não removidas"); 
+					}		
+				}
 			}
 		}
 	}		
