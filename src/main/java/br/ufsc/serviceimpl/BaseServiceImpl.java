@@ -76,7 +76,7 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 	
 	protected EntityManager getEntityManager() {
 		if (this.em == null) {
-			this.em = Persistence.createEntityManagerFactory("sarDB").createEntityManager();
+			this.em = Persistence.createEntityManagerFactory("sardb").createEntityManager();
 			System.out.println("Propriedades:" + this.em.getProperties().toString());
 		}
 		return this.em;
