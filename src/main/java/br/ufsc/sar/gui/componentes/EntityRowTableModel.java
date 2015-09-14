@@ -32,10 +32,13 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	
 	protected List<T> modelData;
 	protected List<String> columnNames;
+	@SuppressWarnings("rawtypes")
 	protected Class[] columnClasses;
 	protected Boolean[] isColumnEditable;
+	@SuppressWarnings("rawtypes")
 	private Class rowClass = Object.class;
 	private boolean isModelEditable = true;
+	
 
 	/**
 	 *  Constructs a <code>RowTableModel</code> with the row class.
@@ -47,6 +50,7 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	 *
 	 * @param rowClass  the class of row data to be added to the model
 	 */
+	@SuppressWarnings("rawtypes")
 	protected EntityRowTableModel(Class rowClass)
 	{
 		setRowClass( rowClass );
@@ -108,6 +112,7 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	 *						of the new columns
 	 *  @param rowClass     the class of row data to be added to the model
 	 */
+	@SuppressWarnings("rawtypes")
 	protected EntityRowTableModel(List<T> modelData, List<String> columnNames, Class rowClass)
 	{
 		setDataAndColumnNames(modelData, columnNames);
@@ -140,6 +145,7 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	 *
 	 * @param rowClas		 the class of the row
 	 */
+	@SuppressWarnings("rawtypes")
 	protected void setRowClass(Class rowClass)
 	{
 		this.rowClass = rowClass;
@@ -157,6 +163,7 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	 *  @param column  the column being queried
 	 *  @return the Class of the column being queried
 	*/
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int column)
 	{
 		Class columnClass = null;
@@ -491,6 +498,7 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
 	 * @exception  ArrayIndexOutOfBoundsException
 	 *						if an invalid column was given
 	 */
+	@SuppressWarnings("rawtypes")
 	public void setColumnClass(int column, Class columnClass)
 	{
 		columnClasses[column] = columnClass;
@@ -568,6 +576,5 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
         return false;
     }
 
-    public abstract void addEmptyRow();
-	
+    public abstract void addEmptyRow();	
 }

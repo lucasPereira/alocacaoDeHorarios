@@ -2,7 +2,6 @@ package br.ufsc.sar.gui.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -26,7 +25,6 @@ import javax.swing.text.MaskFormatter;
 
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.EntityController;
-import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.serviceimpl.HorarioProfissionalServiceImpl;
 import br.ufsc.service.BaseService;
 
@@ -39,8 +37,10 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 	
 	private EntityRowTableModel<T> modeloTabelaHorarios = null;
 	
+	@SuppressWarnings("unused")
 	private String entityGUITitle;
 	
+	@SuppressWarnings("unused")
 	private EntityController<T> entityController;
 	
 	public EntityDetailsGUI(String entityGUITitle){
@@ -52,6 +52,7 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("rawtypes")
 	public void generateEntityGUI( String[] labels, Class[] classes, Boolean[] editables, Object [] values){
 		
 		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
@@ -136,7 +137,8 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 		tabelaHorarios.setModel(getModeloTabelaEntity());
 		tabelaHorarios.setSurrendersFocusOnKeystroke(true);
 		tabelaHorarios.addMouseListener(new MouseAdapter() {
-			   public void mouseClicked(MouseEvent e) {
+			   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
 			      if (e.getClickCount() == 2) {
 			         JTable target = (JTable)e.getSource();
 			         int row = target.getSelectedRow();
@@ -169,9 +171,10 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 		this.setVisible(true);		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public EntityRowTableModel<T> getModeloTabelaEntity() {
 		if(this.modeloTabelaHorarios == null){
-			this.modeloTabelaHorarios = (EntityRowTableModel<T>)new HorarioProfissionalTableModel();
+			this.modeloTabelaHorarios = (EntityRowTableModel<T>)new HorarioProfissionalTableModel(null);
 			//this.modeloTabelaHorarios.addTableModelListener(modeloTabelaHorarios().getEntityTableListener());
 			buscarTodos();
 		}
@@ -183,6 +186,7 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 		return this.modeloTabelaHorarios;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void buscarTodos() {
 		BaseService<T> service = (BaseService<T>)new HorarioProfissionalServiceImpl();
 		List<T> storedEntities = null;

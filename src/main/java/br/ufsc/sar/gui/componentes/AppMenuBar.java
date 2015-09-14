@@ -6,7 +6,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.gui.AppGUI;
 import br.ufsc.sar.listner.AppListner;
 
@@ -62,15 +61,15 @@ public class AppMenuBar extends JMenuBar {
 	public void setCaracteristica(JMenuItem caracteristica) {
 		this.caracteristica = caracteristica;
 	}
-	
+		
 	//Cadastro->Profissional
-	public JMenuItem getProfissional() {
-		return getEntity(this.profissional,"Profissional",KeyEvent.VK_P);
-	}
-	
-	public void setProfissional(JMenuItem profissional) {
-		this.profissional = profissional;
-	}
+		public JMenuItem getProfissional() {
+			return getEntity(this.profissional,"Profissional",KeyEvent.VK_P);
+		}
+		
+		public void setProfissional(JMenuItem profissional) {
+			this.profissional = profissional;
+		}
 	
 	//Cadastro->Espaço
 	public JMenuItem getEspaco() {
@@ -105,7 +104,5 @@ public class AppMenuBar extends JMenuBar {
 
 	public static AppGUI getAplicacao() {
 		return aplicacao;
-	}
-	
-	
+	}	
 }

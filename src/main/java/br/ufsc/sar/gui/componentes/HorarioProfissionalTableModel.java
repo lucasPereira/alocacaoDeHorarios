@@ -25,8 +25,10 @@ public class HorarioProfissionalTableModel extends EntityRowTableModel<HorarioPr
 		"Hora de Início", 
 		"Hora de Término"
 	};
+	
+	private Profissional profissional;
 
-	public HorarioProfissionalTableModel()
+	public HorarioProfissionalTableModel(Profissional profissional)
 	{
 		super( Arrays.asList(COLUMN_NAMES) );
 		setRowClass( HorarioProfissional.class );
@@ -36,11 +38,13 @@ public class HorarioProfissionalTableModel extends EntityRowTableModel<HorarioPr
 		setColumnClass(2, Date.class);
 		setColumnClass(3, Date.class);
 		setColumnClass(4, String.class);
-		setColumnClass(5, Date.class);
-		setColumnClass(6, Date.class);
+		setColumnClass(5, String.class);
+		setColumnClass(6, String.class);
 		
 		setColumnEditable(0, false);
 		setColumnEditable(1, false);
+		
+		this.profissional = profissional;
 	}
 
 	public Object getValueAt(int row, int column)
@@ -68,10 +72,7 @@ public class HorarioProfissionalTableModel extends EntityRowTableModel<HorarioPr
 		switch (column)
         {
             case 0: hrprofissional.setId((Long)value); break;
-            case 1: 
-            	Profissional p = new Profissional();
-            	p.setId((Long)value);
-            	hrprofissional.setProfissional(p); break;
+            case 1: hrprofissional.setProfissional(this.profissional); break;
             case 2: hrprofissional.setDatainicio((Date)value); break;
             case 3: hrprofissional.setDatatermino((Date)value); break;
             case 4: hrprofissional.setDiadasemana((String)value); break;
@@ -104,6 +105,8 @@ public class HorarioProfissionalTableModel extends EntityRowTableModel<HorarioPr
 	
     @Override
     public void addEmptyRow() {
-        this.addRow(new HorarioProfissional());
+    	HorarioProfissional horarioProfissional = new HorarioProfissional();
+    	horarioProfissional.setProfissional(this.profissional);
+        this.addRow(horarioProfissional);
     }
 }

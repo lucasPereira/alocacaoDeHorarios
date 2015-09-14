@@ -46,8 +46,6 @@ public class AppController {
 	}
 
 	public void getEspacoGUI() {
-		getEntityGUI(new EspacoGUI(aplicacaoGUI));
-		
-	}
-
+		getEntityGUI(new EspacoGUI(aplicacaoGUI));		
+	}	
 }

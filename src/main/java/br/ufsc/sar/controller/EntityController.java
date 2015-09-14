@@ -10,31 +10,66 @@ import javax.swing.JOptionPane;
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.gui.EntityGUI;
 import br.ufsc.service.BaseService;
+import br.ufsc.util.type.EntidadeDetalheInfo;
 
+/**
+ * 
+ * @author João
+ *
+ * @param <T>
+ */
 public abstract class EntityController<T extends BaseEntity> {
 
+	/**
+	 * 
+	 */
 	private EntityGUI<T> entityGUI = null;
 	
+	/**
+	 * 
+	 */
 	private Set<Integer> linhasAtualizadas = new HashSet<Integer>();
-	
+		
+	/**
+	 * 
+	 * @param entityGUI
+	 */
 	public EntityController(EntityGUI<T> entityGUI) {
 		this.entityGUI = entityGUI;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public EntityGUI<T> getEntityGUI() {
 		return entityGUI;
 	}
 
+	/**
+	 * 
+	 */
 	public void adicionarLinha() {
 		this.getEntityGUI().getModeloTabelaEntity().addEmptyRow();	
 	}
 	
+	/**
+	 * 
+	 * @param row
+	 */
 	public void marcarLinhaAtualizada(int row){
 		linhasAtualizadas.add(row);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract BaseService<T> getEntityService();
 	
+	/**
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public void salvar() {
 		System.out.println(linhasAtualizadas.size());
@@ -81,6 +116,9 @@ public abstract class EntityController<T extends BaseEntity> {
 		}		
 	}
 
+	/**
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public void buscarTodos() {
 		BaseService<T> service = getEntityService();
@@ -102,6 +140,37 @@ public abstract class EntityController<T extends BaseEntity> {
     	}   	  		
 	}		
 	
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public void buscarTodos(EntidadeDetalheInfo<? extends BaseEntity, T> edinfo) {
+		if(edinfo != null) {
+			BaseService<T> service = getEntityService();
+			List<T> storedEntities = null;
+			try {
+				System.out.println("Service: " + service);
+				String filtroConsulta = edinfo.getColunaDetalhe() + " = " + edinfo.getEntidadeRaiz().getIdValue().longValue();
+				storedEntities = (List<T>)service.getList(filtroConsulta);
+	    		if(storedEntities != null && !storedEntities.isEmpty()){
+	    			this.getEntityGUI().getModeloTabelaEntity().addRows(storedEntities);
+	    			System.out.println(storedEntities.size() + " entidades encontradas");  
+	    		}
+			} catch (Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+			
+			if(storedEntities == null || storedEntities.isEmpty()){   
+				adicionarLinha();
+				System.out.println("Não há entidades armazenadas"); 
+	    	}   
+		}
+	}		
+	
+	/**
+	 * 
+	 * @param id
+	 */
 	@SuppressWarnings("unchecked")
 	public void buscar(Long id) {
 		BaseService<T> service = getEntityService();
@@ -122,6 +191,11 @@ public abstract class EntityController<T extends BaseEntity> {
 		}
 	}		
 	
+	/**
+	 * 
+	 * @param id
+	 * @param row
+	 */
 	@SuppressWarnings("unchecked")
 	public void buscar(Long id, Integer row) {
 		BaseService<T> service = getEntityService();
@@ -141,6 +215,35 @@ public abstract class EntityController<T extends BaseEntity> {
 			System.out.println("Entidade não encontrada"); 
 		}
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	@SuppressWarnings("unchecked")
+	public T buscarEntity(int row) {
+		T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);	
+		if(entity != null){
+			BaseService<T> service = getEntityService();
+			T storedEntity = null;
+			try {
+				System.out.println("Service: " + service);
+				storedEntity = (T)service.getEntity(entity.getIdValue().longValue());
+	    		if(storedEntity != null){
+	    			System.out.println("Entidade " + storedEntity + " encontrada");  
+	    			return storedEntity;
+	    		}
+			} catch (Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+			}  		
+			
+			if(storedEntity == null){
+				System.out.println("Entidade não encontrada"); 
+			}
+		}
+		
+		return null;
+	}	
 
 	/**
 	 * 
@@ -183,5 +286,7 @@ public abstract class EntityController<T extends BaseEntity> {
 				}
 			}
 		}
-	}		
+	}
+
+	
 }

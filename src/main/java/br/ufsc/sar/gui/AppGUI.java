@@ -1,7 +1,5 @@
 package br.ufsc.sar.gui;
 
-import java.util.Locale;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 

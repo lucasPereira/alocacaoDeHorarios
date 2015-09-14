@@ -3,7 +3,6 @@ package br.ufsc.sar.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 
 import br.ufsc.entity.BaseEntity;

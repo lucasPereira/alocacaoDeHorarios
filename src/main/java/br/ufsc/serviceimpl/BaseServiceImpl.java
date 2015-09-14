@@ -69,6 +69,10 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u").getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<E> getList(String filtro) {
+		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u WHERE u." + filtro).getResultList();
+	}	
 	
 	protected EntityManager getEntityManager() {
 		if (this.em == null) {

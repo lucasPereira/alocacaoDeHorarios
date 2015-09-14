@@ -13,6 +13,7 @@ public class TesteDetailsGUI {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@SuppressWarnings("unused")
 			public void run() {
 				try {
 					TesteDetailsGUI window = new TesteDetailsGUI();
@@ -34,6 +35,7 @@ public class TesteDetailsGUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "deprecation", "unused" })
 	private void initialize() {
 		Profissional profissional = new Profissional();
 		profissional.setId(Long.parseLong("1000"));

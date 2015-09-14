@@ -31,13 +31,10 @@ public class AppListner implements ActionListener {
 		if (e.getActionCommand().equals("Espaço")){
 			System.out.println("Espaço");
 			controller.getEspacoGUI();
-		}
-		
-		
+		}		
 	}
 
 	public static AppController getController() {
 		return controller;
 	}
-
 }

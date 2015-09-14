@@ -21,6 +21,7 @@ public class ProfissionalDetailsGUI extends EntityDetailsGUI<Profissional>{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	private void initialize(Profissional profissional) {
 	    String[] labels = {"ID:",
 				"Nome:",

@@ -1,9 +1,11 @@
 package br.ufsc.sar.gui;
 
+import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.CaracteristicaController;
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.gui.componentes.CaracteristicaTableModel;
 import br.ufsc.sar.listner.CaracteristicaListener;
+import br.ufsc.util.type.EntidadeDetalheInfo;
 
 public class CaracteristicaGUI extends EntityGUI<Caracteristica> {
 
@@ -37,5 +39,13 @@ public class CaracteristicaGUI extends EntityGUI<Caracteristica> {
 	@Override
 	public CaracteristicaController getNewEntityController() {		
 		return new CaracteristicaController(this);		
-	}		
+	}
+
+	@Override
+	public EntidadeDetalheInfo<? extends BaseEntity, Caracteristica> getEntidadeDetalheInfo() {
+		return null;
+	}
+
+	@Override
+	public void setEntidadeDetalhe(BaseEntity entidade) {}		
 }

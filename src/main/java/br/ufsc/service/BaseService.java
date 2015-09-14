@@ -61,4 +61,11 @@ public interface BaseService <E extends BaseEntity> {
 	 * @return List<?>
 	 */
 	public List<?> getList();
+	
+	/**
+	 * Retorna uma lista de objetos que estão na base, segundo o filtro (clausula WHERE)
+	 * @param filtro
+	 * @return
+	 */
+	public List<?> getList(String filtro); 
 }
