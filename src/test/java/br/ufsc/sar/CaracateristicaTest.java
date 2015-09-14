@@ -9,6 +9,7 @@ import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
 import junit.framework.TestCase;
 
+@Ignore
 public class CaracateristicaTest extends TestCase{
 	
 	final static CaracteristicaService caracteristicaService = new CaracteristicaServiceImpl(); 
