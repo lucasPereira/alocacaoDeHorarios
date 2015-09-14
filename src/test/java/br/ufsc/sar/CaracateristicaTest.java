@@ -2,13 +2,14 @@ package br.ufsc.sar;
 
 import java.util.Random;
 
-import org.junit.Test;
+import org.junit.*;
 
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
 import junit.framework.TestCase;
 
+@Ignore
 public class CaracateristicaTest extends TestCase{
 	
 	final static CaracteristicaService caracteristicaService = new CaracteristicaServiceImpl(); 
