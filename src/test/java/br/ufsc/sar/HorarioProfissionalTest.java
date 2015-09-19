@@ -34,7 +34,7 @@ public class HorarioProfissionalTest extends TestCase{
 	
 	@Test
 	public void test0_setUp() throws Exception {
-		System.out.println("Inserir");
+		System.out.println("Setup");
 		Profissional pr = new Profissional();
 		pr.setNome("Profissional " + (Math.abs(new Random().nextInt())));
 		pr.setProfissao("Analista de Sistemas");
@@ -80,11 +80,11 @@ public class HorarioProfissionalTest extends TestCase{
 		HorarioProfissional hrProfissional = hrsProfissional.get(0);
 		assertNotNull(hrProfissional);
 		System.out.println("Nome:" + hrProfissional.getProfissional().getNome());
-		System.out.println("Nome:" + hrProfissional.getDiadasemana());
-		System.out.println("Nome:" + hrProfissional.getDatainicio());
-		System.out.println("Nome:" + hrProfissional.getDatatermino());
-		System.out.println("Nome:" + hrProfissional.getHorainicio());
-		System.out.println("Nome:" + hrProfissional.getHoratermino());
+		System.out.println("Dia da semana:" + hrProfissional.getDiadasemana());
+		System.out.println("Data de início:" + hrProfissional.getDatainicio());
+		System.out.println("Data de término:" + hrProfissional.getDatatermino());
+		System.out.println("Hora de início:" + hrProfissional.getHorainicio());
+		System.out.println("Hora de término:" + hrProfissional.getHoratermino());
 		assertNotNull(hrProfissional.getProfissional());
 		assertNotNull(hrProfissional.getDiadasemana());
 		assertFalse(hrProfissional.getDiadasemana().trim().isEmpty());
@@ -103,7 +103,7 @@ public class HorarioProfissionalTest extends TestCase{
 	
 	@After
 	public void test5_tearDown() throws Exception {
-		System.out.println("Deletar");
+		System.out.println("Tear down");
 		Long createdProfissionalId = createdProfissional.getId();
 		Profissional profissional = profissionalService.getEntity(createdProfissionalId);
 		assertNotNull(profissional);
