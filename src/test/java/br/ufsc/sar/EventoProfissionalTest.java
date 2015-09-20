@@ -74,7 +74,7 @@ public class EventoProfissionalTest extends TestCase{
 		EventoProfissional hrEventoProfissional = (EventoProfissional) eventoProfissionalService.getEntity(createdEventoProfissionalId);
 		assertNotNull(hrEventoProfissional);
 		System.out.println("Nome evento:" + hrEventoProfissional.getEvento().getNome());
-		System.out.println("Nome caracteristica:" + hrEventoProfissional.getProfissional().getNome());
+		System.out.println("Nome profissional:" + hrEventoProfissional.getProfissional().getNome());
 		assertTrue(eventoProfissionalService.alterar(hrEventoProfissional));			
 	}
 	
@@ -88,7 +88,7 @@ public class EventoProfissionalTest extends TestCase{
 		EventoProfissional hrEvento = hrsEvento.get(0);
 		assertNotNull(hrEvento);
 		System.out.println("Nome evento:" + hrEvento.getEvento().getNome());
-		System.out.println("Nome característica:" + hrEvento.getProfissional().getNome());
+		System.out.println("Nome profissional:" + hrEvento.getProfissional().getNome());
 		assertNotNull(hrEvento.getEvento());
 		assertNotNull(hrEvento.getProfissional());
 	}
