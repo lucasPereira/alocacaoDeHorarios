@@ -1,4 +1,4 @@
-package br.ufsc.sar.listner;
+package br.ufsc.sar.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import br.ufsc.sar.controller.AppController;
 import br.ufsc.sar.gui.AppGUI;
 
-public class AppListner implements ActionListener {
+public class AppListener implements ActionListener {
 
 	private static AppController controller = null;
 		
-	public AppListner(AppGUI app){
+	public AppListener(AppGUI app){
 		controller = new AppController(app);
 	}
 	

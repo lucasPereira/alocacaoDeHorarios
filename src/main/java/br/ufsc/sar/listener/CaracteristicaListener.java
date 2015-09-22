@@ -1,4 +1,4 @@
-package br.ufsc.sar.listner;
+package br.ufsc.sar.listener;
 
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.gui.CaracteristicaGUI;

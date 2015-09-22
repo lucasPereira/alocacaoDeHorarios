@@ -5,7 +5,7 @@ import br.ufsc.sar.controller.EspacoController;
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
 import br.ufsc.sar.gui.componentes.EspacoTableModel;
-import br.ufsc.sar.listner.EspacoListener;
+import br.ufsc.sar.listener.EspacoListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
 /**

@@ -577,4 +577,5 @@ public abstract class EntityRowTableModel<T extends BaseEntity> extends Abstract
     }
 
     public abstract void addEmptyRow();	
+    
 }

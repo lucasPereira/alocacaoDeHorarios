@@ -3,6 +3,8 @@
  */
 package br.ufsc.sar.controller;
 
+import javax.swing.event.TableModelEvent;
+
 import br.ufsc.sar.entity.HorarioProfissional;
 import br.ufsc.sar.gui.HorarioProfissionalGUI;
 import br.ufsc.sar.service.HorarioProfissionalService;
@@ -24,5 +26,11 @@ public class HorarioProfissionalController extends EntityController<HorarioProfi
 	@Override
 	public HorarioProfissionalService getEntityService() {
 		return new HorarioProfissionalServiceImpl();
+	}
+
+	@Override
+	public boolean tratarColunaEspecial(TableModelEvent e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -4,7 +4,7 @@ import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.CaracteristicaController;
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.gui.componentes.CaracteristicaTableModel;
-import br.ufsc.sar.listner.CaracteristicaListener;
+import br.ufsc.sar.listener.CaracteristicaListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
 public class CaracteristicaGUI extends EntityGUI<Caracteristica> {

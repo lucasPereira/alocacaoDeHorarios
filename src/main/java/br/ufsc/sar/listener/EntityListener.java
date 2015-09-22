@@ -1,7 +1,8 @@
-package br.ufsc.sar.listner;
+package br.ufsc.sar.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -38,10 +39,15 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 				if(e.getActionCommand().equals("Salvar")){
 					System.out.println("Salvando Cadastro -> " + getEntityName());
 					controller.salvar();
+				} else {
+					if (e.getActionCommand().contains("Editar@")) {
+						controller.editarRegistroDependente(e.getActionCommand());								
+					}
+				}
+					
 				}
 			}
 		}
-	}
 	
 	public abstract EntityTableListener<T> getEntityTableListener();	 
 	
@@ -49,13 +55,18 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 	protected class EntityTableListener<T> implements TableModelListener {
 
 		public void tableChanged(TableModelEvent e) {
-			if (e.getType() == TableModelEvent.UPDATE) {
-	            //Object source = e.getSource();
-				int column = e.getColumn();
-	            int row = e.getFirstRow();
-	            System.out.println("row: " + row + " column: " + column);
-	            controller.marcarLinhaAtualizada(row);
-	        }
-		}	
+			//Object source = e.getSource();
+			int column = e.getColumn();
+			int row = e.getFirstRow();
+			System.out.println("row: " + row + " column: " + column);
+			System.out.println("CellProperty: " + controller.tratarColunaEspecial(e) );
+			if (controller.tratarColunaEspecial(e) == false){
+				System.out.println("Não é célula especial (célula 'botão') ");
+				controller.marcarLinhaAtualizada(row);
+				
+			}
+						
+		}
+
 	}
 }

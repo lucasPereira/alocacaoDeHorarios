@@ -5,7 +5,7 @@ import br.ufsc.sar.controller.HorarioProfissionalController;
 import br.ufsc.sar.entity.HorarioProfissional;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.componentes.HorarioProfissionalTableModel;
-import br.ufsc.sar.listner.HorarioProfissionalListener;
+import br.ufsc.sar.listener.HorarioProfissionalListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
 public class HorarioProfissionalGUI extends EntityGUI<HorarioProfissional> {

@@ -16,7 +16,7 @@ import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.EntityController;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.componentes.EntityRowTableModel;
-import br.ufsc.sar.listner.EntityListener;
+import br.ufsc.sar.listener.EntityListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
 public abstract class EntityGUI<T extends BaseEntity> extends JPanel {

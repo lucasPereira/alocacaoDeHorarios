@@ -4,7 +4,7 @@ import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.ProfissionalController;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.componentes.ProfissionalTableModel;
-import br.ufsc.sar.listner.ProfissionalListener;
+import br.ufsc.sar.listener.ProfissionalListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
 public class ProfissionalGUI extends EntityGUI<Profissional> {

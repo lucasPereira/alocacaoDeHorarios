@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
 
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.gui.EntityGUI;
@@ -287,6 +288,13 @@ public abstract class EntityController<T extends BaseEntity> {
 			}
 		}
 	}
+
+	public void editarRegistroDependente(String actionCommand) {
+		System.out.println("editarRegistroDependente");
+		
+	}
+
+	public abstract boolean tratarColunaEspecial(TableModelEvent e);
 
 	
 }

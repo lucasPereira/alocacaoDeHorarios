@@ -3,6 +3,8 @@
  */
 package br.ufsc.sar.controller;
 
+import javax.swing.event.TableModelEvent;
+
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.ProfissionalGUI;
 import br.ufsc.sar.service.ProfissionalService;
@@ -24,6 +26,12 @@ public class ProfissionalController extends EntityController<Profissional> {
 	@Override
 	public ProfissionalService getEntityService() {
 		return new ProfissionalServiceImpl();
+	}
+
+	@Override
+	public boolean tratarColunaEspecial(TableModelEvent e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

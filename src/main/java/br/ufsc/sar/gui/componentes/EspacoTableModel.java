@@ -2,7 +2,12 @@ package br.ufsc.sar.gui.componentes;
 
 import java.util.Arrays;
 
+import javax.swing.JButton;
+import javax.swing.JTable;
+
 import br.ufsc.sar.entity.Espaco;
+import br.ufsc.sar.gui.EspacoGUI;
+import br.ufsc.sar.listener.EspacoListener;
 
 public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 
@@ -18,7 +23,8 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 		"Nome",
 		"Descrição",
 		"Capacidade",
-		"Fora uso?"
+		"Fora uso?",
+		"Características"
 	};
 
 	public EspacoTableModel()
@@ -31,12 +37,15 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 		setColumnClass(2, String.class);
 		setColumnClass(3, Long.class);
 		setColumnClass(4, Boolean.class);
+		setColumnClass(5, String.class);
 		
 		setColumnEditable(0, false);
-		setColumnEditable(1, false);
-		setColumnEditable(2, false);
-		setColumnEditable(3, false);
-		setColumnEditable(4, false);
+		setColumnEditable(1, true);
+		setColumnEditable(2, true);
+		setColumnEditable(3, true);
+		setColumnEditable(4, true);
+		setColumnEditable(5, true);
+	
 	}
 
 	public Object getValueAt(int row, int column)
@@ -45,11 +54,18 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 
 		switch (column)
         {
-            case 0: return espaco.getId();
-            case 1: return espaco.getNome();
-            case 2: return espaco.getDescricao();
-            case 3: return espaco.getCapacidade();
-            case 4: return espaco.isForauso();
+            case 0: 
+            	return espaco.getId();
+            case 1: 
+            	return espaco.getNome();
+            case 2: 
+            	return espaco.getDescricao();
+            case 3: 
+            	return espaco.getCapacidade();
+            case 4: 
+            	return espaco.isForauso();
+            case 5: 
+            	return "...";
             default: return null;
         }
 	}
@@ -66,6 +82,7 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
             case 2: espaco.setDescricao((String)value); break;
             case 3: espaco.setCapacidade((Long)value); break;
             case 4: espaco.setForauso((Boolean)value); break;
+            case 5: break;
         }
 
 		fireTableCellUpdated(row, column);

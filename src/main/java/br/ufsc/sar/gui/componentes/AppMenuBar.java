@@ -7,7 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import br.ufsc.sar.gui.AppGUI;
-import br.ufsc.sar.listner.AppListner;
+import br.ufsc.sar.listener.AppListener;
 
 public class AppMenuBar extends JMenuBar {
 
@@ -43,7 +43,7 @@ public class AppMenuBar extends JMenuBar {
 	private JMenuItem getEntity(JMenuItem entityMenuItem, String entityName, int keyEvent) {
 		if(entityMenuItem == null){
 			entityMenuItem = new JMenuItem(entityName, keyEvent);
-			entityMenuItem.addActionListener(new AppListner(aplicacao));
+			entityMenuItem.addActionListener(new AppListener(aplicacao));
 			this.setVisible(true);
 		}
 		return entityMenuItem;
@@ -53,7 +53,7 @@ public class AppMenuBar extends JMenuBar {
 	public JMenuItem getCaracteristica() {
 		if(this.caracteristica == null){
 			this.caracteristica = new JMenuItem("Característica",KeyEvent.VK_C);
-			this.caracteristica.addActionListener(new AppListner(aplicacao));
+			this.caracteristica.addActionListener(new AppListener(aplicacao));
 			this.setVisible(true);
 		}
 		return this.caracteristica;
@@ -75,7 +75,7 @@ public class AppMenuBar extends JMenuBar {
 	public JMenuItem getEspaco() {
 		if(this.espaco == null){
 			this.espaco = new JMenuItem("Espaço",KeyEvent.VK_E);
-			this.espaco.addActionListener(new AppListner(aplicacao));
+			this.espaco.addActionListener(new AppListener(aplicacao));
 			this.setVisible(true);
 		}
 		return this.espaco;
