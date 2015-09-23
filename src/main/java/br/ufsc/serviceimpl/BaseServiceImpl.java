@@ -1,6 +1,5 @@
 package br.ufsc.serviceimpl;
 
-
 import java.lang.reflect.ParameterizedType;
 import java.security.InvalidParameterException;
 import java.util.Date;
@@ -16,7 +15,7 @@ import br.ufsc.service.BaseService;
 public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseService<E> {
 
 	private EntityManager em = null;
-	
+
 	private Class<E> baseentity;
 
 	public BaseServiceImpl() {
@@ -47,15 +46,15 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 
 	public Long incluir(E objeto) throws Exception {
 		System.out.println("Nome da Classe: " + objeto.getClass().getName());
-		if ( objeto.getClass().getName().equals(Caracteristica.class.getName()))
+		if (objeto.getClass().getName().equals(Caracteristica.class.getName()))
 			System.out.println("Nome: " + ((Caracteristica) objeto).getNome());
 		else
 			System.out.println("Ops!");
-		
+
 		this.getEntityManager().getTransaction().begin();
 		this.getEntityManager().persist(objeto);
 		this.getEntityManager().getTransaction().commit();
-		
+
 		System.out.println(objeto.getIdValue());
 		Number result = ((BaseEntity) objeto).getIdValue();
 		if (result == null) {
@@ -69,11 +68,17 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u").getResultList();
 	}
 
+	public void exluirTodos() {
+		getEntityManager().getTransaction().begin();
+		getEntityManager().createQuery("DELETE FROM " + this.getBaseentity().getSimpleName()).executeUpdate();
+		getEntityManager().getTransaction().commit();
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<E> getList(String filtro) {
 		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u WHERE u." + filtro).getResultList();
-	}	
-	
+	}
+
 	protected EntityManager getEntityManager() {
 		if (this.em == null) {
 			this.em = Persistence.createEntityManagerFactory("sardb").createEntityManager();
@@ -96,7 +101,7 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 
 	@SuppressWarnings("unchecked")
 	public Class<E> getBaseentity() {
-		if (this.baseentity == null){
+		if (this.baseentity == null) {
 			try {
 				this.baseentity = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 			} catch (ClassCastException cc) {
