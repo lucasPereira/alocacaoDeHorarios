@@ -8,6 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
+
+import br.ufsc.sar.listener.FormularioEspacoListener;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.List;
@@ -21,11 +24,21 @@ public class FormularioEspacoGUI extends JPanel {
 	private JTextField nome;
 	private JTextPane descricao;
 	private JTextField capacidade;
+	private static AppGUI aplicacaoGUI;
 	
+	public static AppGUI getAplicacaoGUI() {
+		return aplicacaoGUI;
+	}
+
+	public static void setAplicacaoGUI(AppGUI aplicacaoGUI) {
+		FormularioEspacoGUI.aplicacaoGUI = aplicacaoGUI;
+	}
+
 	/**
 	 * Create the panel.
 	 */
-	public FormularioEspacoGUI() {
+	public FormularioEspacoGUI(AppGUI app) {
+		this.aplicacaoGUI = app;
 		this.setLayout(null);
 		this.setSize(600, 400);
 		
@@ -97,7 +110,7 @@ public class FormularioEspacoGUI extends JPanel {
 		panelCaracteristicasConteudo.add(caracteristicas);
 		
 		JLabel lblSelecioneAsCaractersticas = new JLabel("Selecione as características do espaço");
-		lblSelecioneAsCaractersticas.setBounds(10, 31, 189, 14);
+		lblSelecioneAsCaractersticas.setBounds(10, 31, 545, 14);
 		panelCaracteristicasConteudo.add(lblSelecioneAsCaractersticas);
 		
 		JPanel panelAgenda = new JPanel();
@@ -108,14 +121,17 @@ public class FormularioEspacoGUI extends JPanel {
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(296, 361, 89, 23);
+		btnExcluir.addActionListener(new FormularioEspacoListener(this));
 		add(btnExcluir);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(395, 361, 89, 23);
+		btnSalvar.addActionListener(new FormularioEspacoListener(this));
 		add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(491, 361, 89, 23);
+		btnCancelar.addActionListener(new FormularioEspacoListener(this));
 		add(btnCancelar);
 
 	}
