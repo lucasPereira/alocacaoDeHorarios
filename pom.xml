@@ -69,6 +69,13 @@
 			<version>1.6.4</version>
 		</dependency>
 		<dependency>
+			<groupId>estoria</groupId>
+			<artifactId>estoria-</artifactId>
+			<version>1.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/libs/estoria.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>

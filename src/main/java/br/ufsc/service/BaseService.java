@@ -4,13 +4,13 @@ import java.util.List;
 
 import br.ufsc.entity.BaseEntity;
 
-
-public interface BaseService <E extends BaseEntity> {
+public interface BaseService<E extends BaseEntity> {
 
 	/**
 	 * Incluir um objeto
 	 * 
-	 * @param objeto Objeto a ser incluido.
+	 * @param objeto
+	 *            Objeto a ser incluido.
 	 * @return Long
 	 * @throws java.lang.Exception
 	 */
@@ -19,17 +19,21 @@ public interface BaseService <E extends BaseEntity> {
 	/**
 	 * Exclui um objeto com base no seu código.
 	 * 
-	 * @param Objeto a ser excluído
+	 * @param Objeto
+	 *            a ser excluído
 	 * @return boolean <code>true</code> se o objeto foi excluído.
 	 *         <code>false</code> se o objeto não foi excluído.
 	 * @throws java.lang.Exception
 	 */
 	public boolean excluir(Long id) throws Exception;
 
+	public void exluirTodos();
+
 	/**
 	 * Altera (atualizar) um objeto.
 	 * 
-	 * @param objeto a ser atualizado.
+	 * @param objeto
+	 *            a ser atualizado.
 	 * @return boolean <code>true</code> se o objeto foi alterado.
 	 *         <code>false</code> se o objeto não foi alterado.
 	 * @throws java.lang.Exception
@@ -48,24 +52,28 @@ public interface BaseService <E extends BaseEntity> {
 	 *         padrão.
 	 */
 	public Object ping();
-	
+
 	/**
 	 * Retorna um objeto por Id
+	 * 
 	 * @param id
 	 * @return objeto
 	 */
 	public Object getEntity(Long id);
-	
+
 	/**
 	 * Retorna uma lista de objetos que estão na base
+	 * 
 	 * @return List<?>
 	 */
 	public List<?> getList();
-	
+
 	/**
-	 * Retorna uma lista de objetos que estão na base, segundo o filtro (clausula WHERE)
+	 * Retorna uma lista de objetos que estão na base, segundo o filtro
+	 * (clausula WHERE)
+	 * 
 	 * @param filtro
 	 * @return
 	 */
-	public List<?> getList(String filtro); 
+	public List<?> getList(String filtro);
 }

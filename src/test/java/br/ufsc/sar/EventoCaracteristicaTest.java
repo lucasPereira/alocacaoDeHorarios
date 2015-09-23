@@ -1,5 +1,7 @@
 package br.ufsc.sar;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 import java.util.Random;
 
@@ -17,48 +19,38 @@ import br.ufsc.sar.service.EventoService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoCaracteristicaServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
-import junit.framework.TestCase;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EventoCaracteristicaTest extends TestCase{
-	
-	final static EventoCaracteristicaService eventoCaracteristicaService = new EventoCaracteristicaServiceImpl(); 
-	
+public class EventoCaracteristicaTest {
+
+	final static EventoCaracteristicaService eventoCaracteristicaService = new EventoCaracteristicaServiceImpl();
 	final static EventoService eventoService = new EventoServiceImpl();
-	
 	final static CaracteristicaService caracteristicaService = new CaracteristicaServiceImpl();
-	
 	public static Evento createdEvento;
-	
 	public static Caracteristica createdCaracteristica;
-	
 	public static Long createdEventoCaracteristicaId;
-	
-	public EventoCaracteristicaTest(String testName){
-		super(testName);		
-	}
-	
+
 	@Test
 	public void test0_setUp() throws Exception {
 		System.out.println("Setup");
 		Evento pr = new Evento();
 		pr.setNome("Evento " + (Math.abs(new Random().nextInt())));
-		long createdEventoId = eventoService.incluir(pr);		
+		long createdEventoId = eventoService.incluir(pr);
 		assertNotNull(createdEventoId);
 		createdEvento = (Evento) eventoService.getEntity(createdEventoId);
 		assertNotNull(createdEvento);
-		
+
 		Caracteristica c = new Caracteristica();
 		c.setNome("Caracteristica " + (Math.abs(new Random().nextInt())));
-		long createdCaracteristicaId = caracteristicaService.incluir(c);		
+		long createdCaracteristicaId = caracteristicaService.incluir(c);
 		assertNotNull(createdCaracteristicaId);
 		createdCaracteristica = (Caracteristica) caracteristicaService.getEntity(createdCaracteristicaId);
 		assertNotNull(createdCaracteristica);
 	}
-	
+
 	@Test
-	//@Ignore
-	public void test1_InsertEventoCaracteristica() throws Exception{
+	// @Ignore
+	public void test1_InsertEventoCaracteristica() throws Exception {
 		System.out.println("Inserir");
 		EventoCaracteristica hrEventoCaracteristica = new EventoCaracteristica();
 		hrEventoCaracteristica.setEvento(createdEvento);
@@ -67,9 +59,9 @@ public class EventoCaracteristicaTest extends TestCase{
 		createdEventoCaracteristicaId = eventoCaracteristicaService.incluir(hrEventoCaracteristica);
 		assertNotNull(createdEventoCaracteristicaId);
 	}
-		
+
 	@Test
-	public void test2_AlterarEventoCaracteristica() throws Exception{
+	public void test2_AlterarEventoCaracteristica() throws Exception {
 		System.out.println("Alterar");
 		EventoCaracteristica hrEventoCaracteristica = (EventoCaracteristica) eventoCaracteristicaService.getEntity(createdEventoCaracteristicaId);
 		assertNotNull(hrEventoCaracteristica);
@@ -77,12 +69,12 @@ public class EventoCaracteristicaTest extends TestCase{
 		System.out.println("Nome caracteristica:" + hrEventoCaracteristica.getCaracteristica().getNome());
 		System.out.println("Quantidade:" + hrEventoCaracteristica.getQuantidade());
 		hrEventoCaracteristica.setQuantidade(45);
-		assertTrue(eventoCaracteristicaService.alterar(hrEventoCaracteristica));			
+		assertTrue(eventoCaracteristicaService.alterar(hrEventoCaracteristica));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
-	public void test3_ListEventoCaracteristica() throws Exception{
+	public void test3_ListEventoCaracteristica() throws Exception {
 		System.out.println("Listar");
 		List<EventoCaracteristica> hrsEvento = (List<EventoCaracteristica>) eventoCaracteristicaService.getList();
 		assertNotNull(hrsEvento);
@@ -96,18 +88,18 @@ public class EventoCaracteristicaTest extends TestCase{
 		assertNotNull(hrEvento.getCaracteristica());
 		assertNotNull(hrEvento.getQuantidade());
 	}
-	
+
 	@Test
-	//@Ignore
-	public void test4_DeleteEventoCaracteristica() throws Exception{
+	// @Ignore
+	public void test4_DeleteEventoCaracteristica() throws Exception {
 		System.out.println("Deletar");
 		EventoCaracteristica hrEvento = (EventoCaracteristica) eventoCaracteristicaService.getEntity(createdEventoCaracteristicaId);
 		assertNotNull(hrEvento);
 		assertTrue(eventoCaracteristicaService.excluir(createdEventoCaracteristicaId));
 		hrEvento = (EventoCaracteristica) eventoCaracteristicaService.getEntity(createdEventoCaracteristicaId);
-		assertNull(hrEvento);		
+		assertNull(hrEvento);
 	}
-	
+
 	@After
 	public void test5_tearDown() throws Exception {
 		System.out.println("Tear down");
@@ -116,13 +108,14 @@ public class EventoCaracteristicaTest extends TestCase{
 		assertNotNull(evento);
 		assertTrue(eventoService.excluir(createdEventoId));
 		evento = (Evento) eventoService.getEntity(createdEventoId);
-		assertNull(evento);	
-		
+		assertNull(evento);
+
 		Long createdCaracteristicaId = createdCaracteristica.getId();
 		Caracteristica caracteristica = (Caracteristica) caracteristicaService.getEntity(createdCaracteristicaId);
 		assertNotNull(caracteristica);
 		assertTrue(caracteristicaService.excluir(createdCaracteristicaId));
 		caracteristica = (Caracteristica) caracteristicaService.getEntity(createdCaracteristicaId);
-		assertNull(caracteristica);	
+		assertNull(caracteristica);
 	}
+
 }

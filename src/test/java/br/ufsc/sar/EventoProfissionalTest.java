@@ -1,5 +1,7 @@
 package br.ufsc.sar;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 import java.util.Random;
 
@@ -17,49 +19,39 @@ import br.ufsc.sar.service.ProfissionalService;
 import br.ufsc.sar.serviceimpl.EventoProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
 import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
-import junit.framework.TestCase;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EventoProfissionalTest extends TestCase{
-	
-	final static EventoProfissionalService eventoProfissionalService = new EventoProfissionalServiceImpl(); 
-	
+public class EventoProfissionalTest {
+
+	final static EventoProfissionalService eventoProfissionalService = new EventoProfissionalServiceImpl();
 	final static EventoService eventoService = new EventoServiceImpl();
-	
 	final static ProfissionalService profissionalService = new ProfissionalServiceImpl();
-	
 	public static Evento createdEvento;
-	
 	public static Profissional createdProfissional;
-	
 	public static Long createdEventoProfissionalId;
-	
-	public EventoProfissionalTest(String testName){
-		super(testName);		
-	}
-	
+
 	@Test
 	public void test0_setUp() throws Exception {
 		System.out.println("Setup");
 		Evento pr = new Evento();
 		pr.setNome("Evento " + (Math.abs(new Random().nextInt())));
-		long createdEventoId = eventoService.incluir(pr);		
+		long createdEventoId = eventoService.incluir(pr);
 		assertNotNull(createdEventoId);
 		createdEvento = (Evento) eventoService.getEntity(createdEventoId);
 		assertNotNull(createdEvento);
-		
+
 		Profissional p = new Profissional();
 		p.setNome("Profissional " + (Math.abs(new Random().nextInt())));
 		p.setProfissao("Analista de Sistemas");
-		long createdProfissionalId = profissionalService.incluir(p);		
+		long createdProfissionalId = profissionalService.incluir(p);
 		assertNotNull(createdProfissionalId);
 		createdProfissional = (Profissional) profissionalService.getEntity(createdProfissionalId);
 		assertNotNull(createdProfissional);
 	}
-	
+
 	@Test
-	//@Ignore
-	public void test1_InsertEventoProfissional() throws Exception{
+	// @Ignore
+	public void test1_InsertEventoProfissional() throws Exception {
 		System.out.println("Inserir");
 		EventoProfissional hrEventoProfissional = new EventoProfissional();
 		hrEventoProfissional.setEvento(createdEvento);
@@ -67,20 +59,20 @@ public class EventoProfissionalTest extends TestCase{
 		createdEventoProfissionalId = eventoProfissionalService.incluir(hrEventoProfissional);
 		assertNotNull(createdEventoProfissionalId);
 	}
-		
+
 	@Test
-	public void test2_AlterarEventoProfissional() throws Exception{
+	public void test2_AlterarEventoProfissional() throws Exception {
 		System.out.println("Alterar");
 		EventoProfissional hrEventoProfissional = (EventoProfissional) eventoProfissionalService.getEntity(createdEventoProfissionalId);
 		assertNotNull(hrEventoProfissional);
 		System.out.println("Nome evento:" + hrEventoProfissional.getEvento().getNome());
 		System.out.println("Nome profissional:" + hrEventoProfissional.getProfissional().getNome());
-		assertTrue(eventoProfissionalService.alterar(hrEventoProfissional));			
+		assertTrue(eventoProfissionalService.alterar(hrEventoProfissional));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
-	public void test3_ListEventoProfissional() throws Exception{
+	public void test3_ListEventoProfissional() throws Exception {
 		System.out.println("Listar");
 		List<EventoProfissional> hrsEvento = (List<EventoProfissional>) eventoProfissionalService.getList();
 		assertNotNull(hrsEvento);
@@ -92,18 +84,18 @@ public class EventoProfissionalTest extends TestCase{
 		assertNotNull(hrEvento.getEvento());
 		assertNotNull(hrEvento.getProfissional());
 	}
-	
+
 	@Test
-	//@Ignore
-	public void test4_DeleteEventoProfissional() throws Exception{
+	// @Ignore
+	public void test4_DeleteEventoProfissional() throws Exception {
 		System.out.println("Deletar");
 		EventoProfissional hrEvento = (EventoProfissional) eventoProfissionalService.getEntity(createdEventoProfissionalId);
 		assertNotNull(hrEvento);
 		assertTrue(eventoProfissionalService.excluir(createdEventoProfissionalId));
 		hrEvento = (EventoProfissional) eventoProfissionalService.getEntity(createdEventoProfissionalId);
-		assertNull(hrEvento);		
+		assertNull(hrEvento);
 	}
-	
+
 	@After
 	public void test5_tearDown() throws Exception {
 		System.out.println("Tear down");
@@ -112,13 +104,14 @@ public class EventoProfissionalTest extends TestCase{
 		assertNotNull(evento);
 		assertTrue(eventoService.excluir(createdEventoId));
 		evento = (Evento) eventoService.getEntity(createdEventoId);
-		assertNull(evento);	
-		
+		assertNull(evento);
+
 		Long createdProfissionalId = createdProfissional.getId();
 		Profissional profissional = (Profissional) profissionalService.getEntity(createdProfissionalId);
 		assertNotNull(profissional);
 		assertTrue(profissionalService.excluir(createdProfissionalId));
 		profissional = (Profissional) profissionalService.getEntity(createdProfissionalId);
-		assertNull(profissional);	
+		assertNull(profissional);
 	}
+
 }

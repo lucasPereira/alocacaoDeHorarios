@@ -1,13 +1,14 @@
 package br.ufsc.sar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.entity.*;
-import br.ufsc.sar.service.*;
+import br.ufsc.ine.leb.projetos.estoria.Fixture;
+import br.ufsc.ine.leb.projetos.estoria.FixtureSetup;
+import br.ufsc.sar.entity.Caracteristica;
+import br.ufsc.sar.service.CaracteristicaService;
 
 @FixtureSetup(BaseDeDadosZeradaTest.class)
 public class CaracateristicaTest {
