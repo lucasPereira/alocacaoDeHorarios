@@ -76,4 +76,11 @@ public interface BaseService<E extends BaseEntity> {
 	 * @return
 	 */
 	public List<?> getList(String filtro);
+	
+	/**
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	public List<?> getListPorID(List<Long> ids);
 }

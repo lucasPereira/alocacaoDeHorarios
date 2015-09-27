@@ -2,7 +2,6 @@ package br.ufsc.sar.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -58,15 +57,16 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 			//Object source = e.getSource();
 			int column = e.getColumn();
 			int row = e.getFirstRow();
-			System.out.println("row: " + row + " column: " + column);
-			System.out.println("CellProperty: " + controller.tratarColunaEspecial(e) );
-			if (controller.tratarColunaEspecial(e) == false){
-				System.out.println("Não é célula especial (célula 'botão') ");
-				controller.marcarLinhaAtualizada(row);
-				
+			System.out.println("row: " + row + " column: " + column);	
+			if(column >= 0) {
+				if (controller.tratarColunaEspecial(e) == true){
+					System.out.println("CellProperty: Célula especial");
+				}
+				else {
+					System.out.println("Não é célula especial (célula 'botão') ");
+					controller.marcarLinhaAtualizada(row);				
+				}	
 			}
-						
 		}
-
 	}
 }

@@ -32,6 +32,12 @@ public class AppListener implements ActionListener {
 			System.out.println("Espaço");
 			controller.getEspacoGUI();
 		}		
+		
+		// Iniciar cadstro de evento
+		if (e.getActionCommand().equals("Evento")){
+			System.out.println("Evento");
+			controller.getEventoGUI();
+		}	
 	}
 
 	public static AppController getController() {

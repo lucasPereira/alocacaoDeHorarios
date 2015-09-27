@@ -67,6 +67,17 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 	public List<E> getList() {
 		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<E> getListPorID(List<Long> ids) {
+		String listaIDs = "";
+		for (Long id : ids) {
+			listaIDs = listaIDs + ", " + id.toString();
+		}
+		// Eliminar primeiros caractéres ", " desnecessários
+		listaIDs = listaIDs.substring(2);
+		return getEntityManager().createQuery("SELECT u FROM " + this.getBaseentity().getSimpleName() + " u WHERE u.id in (" + listaIDs + ")").getResultList();
+	}
 
 	public void exluirTodos() {
 		getEntityManager().getTransaction().begin();

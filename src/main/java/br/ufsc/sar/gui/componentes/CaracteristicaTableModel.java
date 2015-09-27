@@ -20,12 +20,23 @@ public class CaracteristicaTableModel extends EntityRowTableModel<Caracteristica
 
 	public CaracteristicaTableModel()
 	{
+		this(true);
+	}
+	
+	public CaracteristicaTableModel(boolean editar){
 		super( Arrays.asList(COLUMN_NAMES) );
 		setRowClass( Caracteristica.class );
 
 		setColumnClass(0, Long.class);
 		setColumnClass(1, String.class);
 		setColumnClass(2, Boolean.class);
+		
+		setColumnEditable(0, false);
+		
+		if(!editar){
+			setColumnEditable(1, false);
+			setColumnEditable(2, false);
+		}
 	}
 
 	

@@ -5,6 +5,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @Entity
 @Table (schema="sardb", name="horario_profissional")
 public class HorarioProfissional extends Horario {

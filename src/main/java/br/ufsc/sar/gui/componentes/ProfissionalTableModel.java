@@ -5,6 +5,11 @@ import java.util.Date;
 
 import br.ufsc.sar.entity.Profissional;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @SuppressWarnings("unchecked")
 public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 {		
@@ -12,6 +17,11 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 	 * 
 	 */
 	private static final long serialVersionUID = 318144832582474285L;
+	
+	/**
+	 * 
+	 */
+	private boolean editavel = true;
 	
 	// id, nome, profissão, data de nascimento, telefone e cpf
 	private static String[] COLUMN_NAMES =
@@ -23,8 +33,20 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		"Telefone",
 		"CPF"
 	};
-
+	
+	/**
+	 * 
+	 */
 	public ProfissionalTableModel()
+	{
+		this(true);
+	}
+
+	/**
+	 * 
+	 * @param editavel
+	 */
+	public ProfissionalTableModel(boolean editavel)
 	{
 		super( Arrays.asList(COLUMN_NAMES) );
 		setRowClass( Profissional.class );
@@ -36,7 +58,17 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		setColumnClass(4, String.class);
 		setColumnClass(5, String.class);
 		
-		setColumnEditable(0, false);				
+		setColumnEditable(0, false);	
+		
+		this.editavel = editavel;
+		
+		if(!this.editavel) {
+			setColumnEditable(1, false);
+			setColumnEditable(2, false);
+			setColumnEditable(3, false);
+			setColumnEditable(4, false);
+			setColumnEditable(5, false);
+		}
 	}
 
 	public Object getValueAt(int row, int column)

@@ -10,6 +10,11 @@ import javax.persistence.Table;
 
 import br.ufsc.entity.BaseEntity;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @Entity
 @Table (schema="sardb", name="evento_caracteristica")
 public class EventoCaracteristica extends BaseEntity {	

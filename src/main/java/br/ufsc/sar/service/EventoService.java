@@ -8,6 +8,11 @@ import br.ufsc.sar.entity.EventoProfissional;
 import br.ufsc.sar.entity.HorarioEvento;
 import br.ufsc.service.BaseService;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public interface EventoService extends BaseService<Evento>{
 	
 	public List<HorarioEvento> getEventoHorarios(Evento evento);

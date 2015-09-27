@@ -23,6 +23,7 @@ public class AppMenuBar extends JMenuBar {
 	private JMenuItem caracteristica = null;
 	private JMenuItem profissional = null;
 	private JMenuItem espaco = null;
+	private JMenuItem evento = null;
 	
 	private static AppGUI aplicacao = null;
 	
@@ -83,6 +84,15 @@ public class AppMenuBar extends JMenuBar {
 	public void setEspaco(JMenuItem espaco) {
 		this.espaco = espaco;
 	}
+	
+	//Cadastro->Evento
+	public JMenuItem getEvento() {
+		return getEntity(this.evento,"Evento",KeyEvent.VK_N);
+	}
+	
+	public void setEvento(JMenuItem evento) {
+		this.evento = evento;
+	}
 
 	//Cadastro
 	public JMenu getCadastro() {
@@ -93,7 +103,9 @@ public class AppMenuBar extends JMenuBar {
 			//Cadastro -> Espaco
 			this.cadastro.add(this.getEspaco());
 			//Cadastro -> Profissional
-			this.cadastro.add(this.getProfissional());
+			this.cadastro.add(this.getProfissional());			
+			//Cadastro -> Eventop
+			this.cadastro.add(this.getEvento());
 		}
 		return this.cadastro;
 	}

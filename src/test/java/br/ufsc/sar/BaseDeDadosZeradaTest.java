@@ -1,6 +1,6 @@
 package br.ufsc.sar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,15 +42,15 @@ public class BaseDeDadosZeradaTest {
 		servicoHorarioEvento = new HorarioEventoServiceImpl();
 		servicoHorarioProfissional = new HorarioProfissionalServiceImpl();
 		servicoEventoProfissional = new EventoProfissionalServiceImpl();
-		servicoEventoCaracteristica = new EventoCaracteristicaServiceImpl();
-		servicoEspaco.exluirTodos();
-		servicoEvento.exluirTodos();
-		servicoProfissional.exluirTodos();
-		caracteristicaService.exluirTodos();
-		servicoHorarioEvento.exluirTodos();
-		servicoHorarioProfissional.exluirTodos();
+		servicoEventoCaracteristica = new EventoCaracteristicaServiceImpl();		
 		servicoEventoProfissional.exluirTodos();
 		servicoEventoCaracteristica.exluirTodos();
+		servicoHorarioEvento.exluirTodos();
+		servicoHorarioProfissional.exluirTodos();
+		servicoEvento.exluirTodos();
+		servicoEspaco.exluirTodos();		
+		servicoProfissional.exluirTodos();
+		caracteristicaService.exluirTodos();		
 	}
 
 	@Test

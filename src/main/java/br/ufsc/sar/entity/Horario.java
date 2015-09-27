@@ -11,6 +11,11 @@ import javax.persistence.TemporalType;
 
 import br.ufsc.entity.BaseEntity;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @MappedSuperclass
 public abstract class Horario extends BaseEntity {
 	

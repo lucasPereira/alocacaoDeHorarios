@@ -7,6 +7,11 @@ import br.ufsc.sar.gui.componentes.ProfissionalTableModel;
 import br.ufsc.sar.listener.ProfissionalListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public class ProfissionalGUI extends EntityGUI<Profissional> {
 
 	/**

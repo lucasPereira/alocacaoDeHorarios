@@ -8,6 +8,11 @@ import br.ufsc.sar.gui.componentes.HorarioProfissionalTableModel;
 import br.ufsc.sar.listener.HorarioProfissionalListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public class HorarioProfissionalGUI extends EntityGUI<HorarioProfissional> {
 
 	/**
@@ -33,8 +38,9 @@ public class HorarioProfissionalGUI extends EntityGUI<HorarioProfissional> {
 		
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public HorarioProfissionalGUI(AppGUI app, Profissional profissional) {
+	public HorarioProfissionalGUI(AppGUI app, BaseEntity profissional) {
 		super(app, profissional);		
 	}
 
@@ -74,6 +80,6 @@ public class HorarioProfissionalGUI extends EntityGUI<HorarioProfissional> {
 	
 	@Override
 	public void setEntidadeDetalhe(BaseEntity entidade) {
-		this.profissional = (Profissional)entidade;
+		this.profissional = (Profissional) entidade;			
 	}
 }

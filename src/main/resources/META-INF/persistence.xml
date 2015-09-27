@@ -4,6 +4,15 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	<class>br.ufsc.sar.entity.Aplicacao</class>
 	<class>br.ufsc.sar.entity.Caracteristica</class>
+	<class>br.ufsc.sar.entity.Espaco</class>
+	<class>br.ufsc.sar.entity.Evento</class>
+	<class>br.ufsc.sar.entity.EventoCaracteristica</class>
+	<class>br.ufsc.sar.entity.EventoProfissional</class>
+	<class>br.ufsc.sar.entity.Horario</class>
+	<class>br.ufsc.sar.entity.HorarioEvento</class>
+	<class>br.ufsc.sar.entity.HorarioProfissional</class>
+	<class>br.ufsc.sar.entity.Profissional</class>
+	
 	<properties>
 		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 		<property name="hibernate.hbm2ddl.auto" value="update" />
