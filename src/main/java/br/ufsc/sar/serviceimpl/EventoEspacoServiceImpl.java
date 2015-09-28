@@ -16,6 +16,7 @@ import br.ufsc.sar.service.EventoProfissionalService;
 import br.ufsc.sar.service.HorarioEspacoService;
 import br.ufsc.sar.service.HorarioProfissionalService;
 import br.ufsc.serviceimpl.BaseServiceImpl;
+import br.ufsc.util.type.StatusVerificacao;
 
 /**
  * 
@@ -47,19 +48,21 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean verificarAssociacaoEspacoAoEvento(Evento evento, Espaco espaco) {
+	public StatusVerificacao verificarAssociacaoEspacoAoEvento(Evento evento, Espaco espaco) {
+		StatusVerificacao statusVerificacao = new StatusVerificacao();
 		/*
 		 * Para associar espaço(s) ao evento, deve-se levar em consideração as características escolhidas
          * para o evento, e também os horários dos profissionais escolhidos para o evento. Desta forma,
          * apenas poderão ser cadastrados como espaços do evento, aqueles que possuírem características
          * que o evento precisar e horários "disponíveis" compatíveis com os horários dos profissionais do evento.
 		 */
-		boolean sucesso = false;
+		boolean sucesso = true;
 		if(espaco != null && evento != null) {
 			List<Caracteristica> caracteristicasEvento = (List<Caracteristica>) this.eventoCaracteristicaService.getCaracteristicasEvento(evento);
 			List<Caracteristica> caracteristicasEspaco = espaco.getCaracteristicas();			
 			if(caracteristicasEvento == null || caracteristicasEvento.isEmpty()) {
 				System.out.println("\nSem características do espaço e/ou de evento cadastradas\n");
+				statusVerificacao.setMensagemResultado("Sem características do espaço e/ou de evento cadastradas");
 			}
 			else {
 //				Caracteristica c = new Caracteristica();
@@ -68,12 +71,13 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 //				caracteristicasEspaco.add(c);
 				System.out.println("\nComparando características do espaço e do evento\n");
 				if(!caracteristicasEspaco.containsAll(caracteristicasEvento)){
-					System.out.println("\nCaracterísticas do espaço e do evento não compatíveis\n");
+					System.out.println("\nCaracterísticas do espaço e do evento não compatíveis\n");					
+					statusVerificacao.setMensagemResultado("Características do espaço e do evento não compatíveis");
+					sucesso = false;
 				}
 				else {
 					System.out.println("\nCaracterísticas encontradas\n");
-					// Características válidas
-					sucesso = true;					
+					// Características válidas										
 					
 					List<Profissional> profissionaisEvento = (List<Profissional>) this.eventoProfissionalService.getProfissionaisEvento(evento);
 					List<HorarioEspaco> horariosEspaco = (List<HorarioEspaco>) this.horarioEspacoService.getList("espaco.id = " + espaco.getId().longValue());
@@ -81,6 +85,7 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 					   horariosEspaco == null || horariosEspaco.isEmpty()) 
 					{
 						System.out.println("\nSem horários cadastrados para espaço e/ou profissionais\n");
+						statusVerificacao.setMensagemResultado("Sem horários cadastrados para espaço e/ou profissionais");
 					}
 					else {
 						// Verificar horários do(s) profissional(is)
@@ -88,11 +93,14 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 							List<HorarioProfissional> horariosProfissional = (List<HorarioProfissional>) this.horarioProfissionalService.getList("profissional.id = " + profissional.getId().longValue());
 							if(horariosProfissional == null) {	
 								System.out.println("\nProfissional " + profissional.getId() + "sem horários cadastrados\n");
+								statusVerificacao.setMensagemResultado("Profissional " + profissional.getId() + "sem horários cadastrados");
 							}
 							else {
 								if(!verificarListaHorarios(horariosEspaco, horariosProfissional)){
 									System.out.println("\nProfissional sem horário compatível com os horários do espaço\n");
-									return false;
+									statusVerificacao.setMensagemResultado("Profissional " + profissional.getId() + " sem horário compatível com os horários do espaço");
+									statusVerificacao.setBooleanResultado(false);
+									return statusVerificacao;
 								}
 							}
 						}						
@@ -101,7 +109,8 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 			}			
 		}
 		
-		return sucesso;
+		statusVerificacao.setBooleanResultado(sucesso);
+		return statusVerificacao;
 	}
 
 	/**

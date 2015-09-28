@@ -37,6 +37,7 @@ import br.ufsc.sar.serviceimpl.EventoProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
 import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
 import br.ufsc.service.BaseService;
+import br.ufsc.util.type.StatusVerificacao;
 
 /**
  * @author ErnaniCésar
@@ -758,29 +759,36 @@ public class FormularioEventoController {
 			List<Integer> rowsTratadas = new ArrayList<Integer>();
 			for (int row : this.formularioEventoGUI.getTabelaEspacosSelecionados()) {
 				espaco = this.formularioEventoGUI.getModeloTabelaEspacos().getRow(row);
-				if(espaco != null && getEventoEspacoService().verificarAssociacaoEspacoAoEvento(evento, espaco)) {
-					Long idEventoEspaco = null;
-					System.out.println(espaco.getIdValue());
-					try{
-						ep = new EventoEspaco();
-						ep.setEvento(this.evento);
-						ep.setEspaco(espaco);
-						idEventoEspaco = getEventoEspacoService().incluir(ep);
-						if(idEventoEspaco > 0){
-							ep.setId(idEventoEspaco);
-			    			eventoEspacos.add(ep);
-			    			rowsTratadas.add(row);
-			    		}
-			    		else {
-			    			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
-			    					"Erro", JOptionPane.ERROR_MESSAGE);
-			    		}
+				if(espaco != null) {
+					StatusVerificacao statusVerificacao = getEventoEspacoService().verificarAssociacaoEspacoAoEvento(evento, espaco);
+					if(!statusVerificacao.getBooleanResultado()){
+						JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), statusVerificacao.getMensagemResultado(),
+		    					"Associação não permitida", JOptionPane.WARNING_MESSAGE);
 					}
-					catch(NumberFormatException nfe){
-						JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
-		    					"ID inválido", JOptionPane.ERROR_MESSAGE);
-					}
-				}				
+					else {
+						Long idEventoEspaco = null;
+						System.out.println(espaco.getIdValue());
+						try{
+							ep = new EventoEspaco();
+							ep.setEvento(this.evento);
+							ep.setEspaco(espaco);
+							idEventoEspaco = getEventoEspacoService().incluir(ep);
+							if(idEventoEspaco > 0){
+								ep.setId(idEventoEspaco);
+				    			eventoEspacos.add(ep);
+				    			rowsTratadas.add(row);
+				    		}
+				    		else {
+				    			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
+				    					"Erro", JOptionPane.ERROR_MESSAGE);
+				    		}
+						}
+						catch(NumberFormatException nfe){
+							JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
+			    					"ID inválido", JOptionPane.ERROR_MESSAGE);
+						}
+					}	
+				}
 			}
 			
 			if(!eventoEspacos.isEmpty()){
