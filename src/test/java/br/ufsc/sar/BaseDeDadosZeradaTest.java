@@ -8,16 +8,20 @@ import org.junit.Test;
 import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.service.EspacoService;
 import br.ufsc.sar.service.EventoCaracteristicaService;
+import br.ufsc.sar.service.EventoEspacoService;
 import br.ufsc.sar.service.EventoProfissionalService;
 import br.ufsc.sar.service.EventoService;
+import br.ufsc.sar.service.HorarioEspacoService;
 import br.ufsc.sar.service.HorarioEventoService;
 import br.ufsc.sar.service.HorarioProfissionalService;
 import br.ufsc.sar.service.ProfissionalService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
 import br.ufsc.sar.serviceimpl.EspacoServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoCaracteristicaServiceImpl;
+import br.ufsc.sar.serviceimpl.EventoEspacoServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
+import br.ufsc.sar.serviceimpl.HorarioEspacoServiceImpl;
 import br.ufsc.sar.serviceimpl.HorarioEventoServiceImpl;
 import br.ufsc.sar.serviceimpl.HorarioProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
@@ -32,6 +36,8 @@ public class BaseDeDadosZeradaTest {
 	private HorarioEventoService servicoHorarioEvento;
 	private HorarioProfissionalService servicoHorarioProfissional;
 	private ProfissionalService servicoProfissional;
+	private HorarioEspacoService servicoHorarioEspaco;
+	private EventoEspacoService servicoEventoEspaco;
 
 	@Before
 	public void configurar() throws Exception {
@@ -42,7 +48,11 @@ public class BaseDeDadosZeradaTest {
 		servicoHorarioEvento = new HorarioEventoServiceImpl();
 		servicoHorarioProfissional = new HorarioProfissionalServiceImpl();
 		servicoEventoProfissional = new EventoProfissionalServiceImpl();
-		servicoEventoCaracteristica = new EventoCaracteristicaServiceImpl();		
+		servicoEventoCaracteristica = new EventoCaracteristicaServiceImpl();	
+		servicoEventoEspaco = new EventoEspacoServiceImpl();
+		servicoHorarioEspaco = new HorarioEspacoServiceImpl();
+		servicoHorarioEspaco.exluirTodos();
+		servicoEventoEspaco.exluirTodos();
 		servicoEventoProfissional.exluirTodos();
 		servicoEventoCaracteristica.exluirTodos();
 		servicoHorarioEvento.exluirTodos();
@@ -63,6 +73,8 @@ public class BaseDeDadosZeradaTest {
 		assertTrue(servicoHorarioProfissional.getList().isEmpty());
 		assertTrue(servicoEventoProfissional.getList().isEmpty());
 		assertTrue(servicoEventoCaracteristica.getList().isEmpty());
+		assertTrue(servicoEventoEspaco.getList().isEmpty());
+		assertTrue(servicoHorarioEspaco.getList().isEmpty());
 	}
 
 }

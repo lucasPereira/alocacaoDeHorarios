@@ -15,5 +15,7 @@ import br.ufsc.service.BaseService;
 public interface EventoProfissionalService extends BaseService<EventoProfissional>{
 	
 	public List<Profissional> getProfissinaisNaoAssociadosAoEvento(Evento e);
+	
+	public List<Profissional> getProfissionaisEvento(Evento evento);
 
 }

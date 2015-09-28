@@ -14,6 +14,8 @@ import br.ufsc.service.BaseService;
  */
 public interface EventoCaracteristicaService extends BaseService<EventoCaracteristica>{
 
-	List<Caracteristica> getCaracteristicasNaoAssociadosAoEvento(Evento evento);
+	public List<Caracteristica> getCaracteristicasNaoAssociadosAoEvento(Evento evento);
+	
+	public List<Caracteristica> getCaracteristicasEvento(Evento evento);
 
 }

@@ -14,19 +14,25 @@ import javax.swing.JOptionPane;
 
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.entity.Caracteristica;
+import br.ufsc.sar.entity.Espaco;
 import br.ufsc.sar.entity.Evento;
 import br.ufsc.sar.entity.EventoCaracteristica;
+import br.ufsc.sar.entity.EventoEspaco;
 import br.ufsc.sar.entity.EventoProfissional;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.FormularioEventoGUI;
 import br.ufsc.sar.gui.componentes.EntityRowTableModel;
 import br.ufsc.sar.service.CaracteristicaService;
+import br.ufsc.sar.service.EspacoService;
 import br.ufsc.sar.service.EventoCaracteristicaService;
+import br.ufsc.sar.service.EventoEspacoService;
 import br.ufsc.sar.service.EventoProfissionalService;
 import br.ufsc.sar.service.EventoService;
 import br.ufsc.sar.service.ProfissionalService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
+import br.ufsc.sar.serviceimpl.EspacoServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoCaracteristicaServiceImpl;
+import br.ufsc.sar.serviceimpl.EventoEspacoServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
 import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
@@ -77,7 +83,17 @@ public class FormularioEventoController {
 	 * 
 	 */
 	private Set<Integer> linhasEventoCaracteristicaAtualizadas = new HashSet<Integer>();
-
+	
+	/**
+	 * 
+	 */
+	private EspacoService espacoService;
+	
+	/**
+	 * 
+	 */
+	private EventoEspacoService eventoEspacoService;
+	
 	/**
 	 * @param entityGUI
 	 */
@@ -90,57 +106,66 @@ public class FormularioEventoController {
 	 * 
 	 * @return
 	 */
-	public EventoService getEventoService() {
-		if(this.eventoService == null) {
-			this.eventoService =  new EventoServiceImpl();
-		}		
-		return this.eventoService;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ProfissionalService getProfissionalService() {
-		if(this.profissionalService == null) {
-			this.profissionalService =  new ProfissionalServiceImpl();
-		}		
-		return this.profissionalService;
-	}
-	
-	public EventoProfissionalService getEventoProfissionalService() {
-		if(this.eventoProfissionalService == null) {
-			this.eventoProfissionalService =  new EventoProfissionalServiceImpl();
-		}		
-		return this.eventoProfissionalService;
-	}
-	
-	public EventoCaracteristicaService getEventoCaracteristicaService() {
-		if(this.eventoCaracteristicaService == null) {
-			this.eventoCaracteristicaService =  new EventoCaracteristicaServiceImpl();
-		}		
-		return this.eventoCaracteristicaService;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public CaracteristicaService getCaracteristicaService() {
-		if(this.caracteristicaService == null) {
-			this.caracteristicaService =  new CaracteristicaServiceImpl();
-		}		
-		return this.caracteristicaService;
-	}
-	
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public FormularioEventoGUI getFormularioEventoGUI(){
 		return this.formularioEventoGUI;
 	}
+		
+	/**
+	 * 
+	 * @param rows
+	 * @param entidade
+	 */
+	public void excluirLinha(BaseService<? extends BaseEntity> service, EntityRowTableModel<? extends BaseEntity> tabelaModelo, int... rows) {				
+		if(rows.length > 0) {
+			int retorno = JOptionPane.showConfirmDialog(this.formularioEventoGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			System.out.println("Excluir linha " + rows);
+			System.out.println("Retorno: " + retorno);
+			if(retorno == 0) {			
+				BaseEntity storedEntity = null;
+				boolean sucesso = true;
+				try {
+					System.out.println("Service: " + service);
+					// Garantir a ordem inversa
+					Arrays.sort(rows);
+					for (int i = rows.length - 1; i >= 0; i--) {
+						int row = rows[i];
+						storedEntity = tabelaModelo.getRow(row);
+						if(storedEntity != null) {
+							System.out.println(storedEntity.getIdValue());
+							sucesso = service.excluir(storedEntity.getIdValue().longValue());
+							if(sucesso) {
+								tabelaModelo.removeRowRange(row,row);
+								System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
+							}
+						}
+					}				    		
+				} catch (Exception e) {
+					System.out.println("Erro: " + e.getMessage());
+				}  		
+				
+				if(storedEntity == null || !sucesso){
+					System.out.println("Entidades não removidas"); 
+				}		
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean verificarAtualizacaoPendente(){
+		if(!linhasEventoCaracteristicaAtualizadas.isEmpty()) {
+			JOptionPane.showMessageDialog(this.formularioEventoGUI, "Para realizar a ação, é necessário efetivar o salvamento das alterações pendentes", "Impedimento de ação", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	// Evento
 	
 	/**
 	 * 
@@ -148,6 +173,17 @@ public class FormularioEventoController {
 	 */
 	public Evento getEvento(){
 		return this.evento;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public EventoService getEventoService() {
+		if(this.eventoService == null) {
+			this.eventoService =  new EventoServiceImpl();
+		}		
+		return this.eventoService;
 	}
 	
 	/**
@@ -177,6 +213,27 @@ public class FormularioEventoController {
 		}
 		
 		return sucesso;
+	}
+	
+	
+	// Profissionais
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ProfissionalService getProfissionalService() {
+		if(this.profissionalService == null) {
+			this.profissionalService =  new ProfissionalServiceImpl();
+		}		
+		return this.profissionalService;
+	}
+	
+	public EventoProfissionalService getEventoProfissionalService() {
+		if(this.eventoProfissionalService == null) {
+			this.eventoProfissionalService =  new EventoProfissionalServiceImpl();
+		}		
+		return this.eventoProfissionalService;
 	}
 	
 	/**
@@ -269,6 +326,7 @@ public class FormularioEventoController {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public void salvarProfissionalEvento_old() {
 		try {			
 			EventoProfissional ep = null;
@@ -371,48 +429,13 @@ public class FormularioEventoController {
 		}		
 	}
 	
-	public void recarregarTableModelCaracteristicas(){
-		try{
-			int rowCount = this.getFormularioEventoGUI().getModeloTabelaCaracteristicas().getRowCount();
-			if(rowCount > 0) {
-				this.getFormularioEventoGUI().getModeloTabelaCaracteristicas().removeRowRange(0, rowCount - 1);				
-			}
-			buscarCaracteristicas();
-		}
-		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
-					"Erro ao tentar recarregar lista de características:\n" + e.getLocalizedMessage(),
-					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
-		}		
-	}
-	
-	public void recarregarTableModelCaracteristicasEvento(){
-		try{
-			int rowCount = this.getFormularioEventoGUI().getModeloTabelaCaracteristicasEvento().getRowCount();
-			if(rowCount > 0) {
-				this.getFormularioEventoGUI().getModeloTabelaCaracteristicasEvento().removeRowRange(0, rowCount - 1);	
-				buscarCaracteristicasDoEvento();
-			}				
-		}
-		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
-					"Erro ao tentar recarregar lista de características do evento:\n" + e.getLocalizedMessage(),
-					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
-		}		
-	}
-
-
 	/**
 	 * 
 	 */
 	public void excluirProfissionalEvento() {		
 		boolean sucesso = false;
 		try {
-			excluirLinha(EventoProfissional.class, this.formularioEventoGUI.getModeloTabelaProfissionaisEvento(),
+			excluirLinha(getEventoProfissionalService(), this.formularioEventoGUI.getModeloTabelaProfissionaisEvento(),
 				this.formularioEventoGUI.getTabelaProfissionaisEvento().getSelectedRows());	
 			sucesso = true;
 		}
@@ -429,71 +452,27 @@ public class FormularioEventoController {
 		}
 	}	
 	
+	
+	// Características
+	
 	/**
 	 * 
-	 * @param rows
-	 * @param entidade
+	 * @return
 	 */
-	public void excluirLinha(Class<? extends BaseEntity> entidade, EntityRowTableModel<? extends BaseEntity> tabelaModelo, int... rows) {				
-		if(rows.length > 0) {
-			int retorno = JOptionPane.showConfirmDialog(this.formularioEventoGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			System.out.println("Excluir linha " + rows);
-			System.out.println("Retorno: " + retorno);
-			if(retorno == 0) {			
-				BaseService<? extends BaseEntity> service = getEntityService(entidade);
-				BaseEntity storedEntity = null;
-				boolean sucesso = true;
-				try {
-					System.out.println("Service: " + service);
-					// Garantir a ordem inversa
-					Arrays.sort(rows);
-					for (int i = rows.length - 1; i >= 0; i--) {
-						int row = rows[i];
-						storedEntity = tabelaModelo.getRow(row);
-						if(storedEntity != null) {
-							System.out.println(storedEntity.getIdValue());
-							sucesso = service.excluir(storedEntity.getIdValue().longValue());
-							if(sucesso) {
-								tabelaModelo.removeRowRange(row,row);
-								System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
-							}
-						}
-					}				    		
-				} catch (Exception e) {
-					System.out.println("Erro: " + e.getMessage());
-				}  		
-				
-				if(storedEntity == null || !sucesso){
-					System.out.println("Entidades não removidas"); 
-				}		
-			}
-		}
+	public CaracteristicaService getCaracteristicaService() {
+		if(this.caracteristicaService == null) {
+			this.caracteristicaService =  new CaracteristicaServiceImpl();
+		}		
+		return this.caracteristicaService;
 	}
-
-	@SuppressWarnings("rawtypes")
-	private BaseService<? extends BaseEntity> getEntityService(Class entidade) {
-		if(entidade.getSimpleName().equals("EventoProfissional")) {
-			return new EventoProfissionalServiceImpl();
-		}
-		else {
-			if(entidade.getSimpleName().equals("EventoCaracteristica")){
-				return new EventoCaracteristicaServiceImpl();
-			}
-			else {
-				if(entidade.getSimpleName().equals("Profissional")) {
-					return new ProfissionalServiceImpl();
-				}
-				else {
-					if(entidade.getSimpleName().equals("Caracteristica")) {
-						return new CaracteristicaServiceImpl();
-					}
-				}
-			}
-		}
-		return null;
+	
+	public EventoCaracteristicaService getEventoCaracteristicaService() {
+		if(this.eventoCaracteristicaService == null) {
+			this.eventoCaracteristicaService =  new EventoCaracteristicaServiceImpl();
+		}		
+		return this.eventoCaracteristicaService;
 	}
-
+	
 	public void buscarCaracteristicas() {
 		List<Caracteristica> storedEntities = null;
 		try {
@@ -508,8 +487,7 @@ public class FormularioEventoController {
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
 			System.out.println("Não há características"); 
-    	} 
-		
+    	} 		
 	}
 
 	private List<Caracteristica> getListaCaracteristicasDisponiveis() {
@@ -594,7 +572,7 @@ public class FormularioEventoController {
 		if(!verificarAtualizacaoPendente() && this.formularioEventoGUI.getModeloTabelaCaracteristicasEvento().getRowCount() > 0){
 			boolean sucesso = false;
 			try {
-				excluirLinha(EventoCaracteristica.class, this.formularioEventoGUI.getModeloTabelaCaracteristicasEvento(),
+				excluirLinha(getEventoCaracteristicaService(), this.formularioEventoGUI.getModeloTabelaCaracteristicasEvento(),
 					this.formularioEventoGUI.getTabelaCaracteristicasEvento().getSelectedRows());	
 				sucesso = true;
 			}
@@ -646,6 +624,41 @@ public class FormularioEventoController {
 		}
 	}
 	
+	public void recarregarTableModelCaracteristicas(){
+		try{
+			int rowCount = this.getFormularioEventoGUI().getModeloTabelaCaracteristicas().getRowCount();
+			if(rowCount > 0) {
+				this.getFormularioEventoGUI().getModeloTabelaCaracteristicas().removeRowRange(0, rowCount - 1);				
+			}
+			buscarCaracteristicas();
+		}
+		catch(Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar recarregar lista de características:\n" + e.getLocalizedMessage(),
+					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+	
+	public void recarregarTableModelCaracteristicasEvento(){
+		try{
+			int rowCount = this.getFormularioEventoGUI().getModeloTabelaCaracteristicasEvento().getRowCount();
+			if(rowCount > 0) {
+				this.getFormularioEventoGUI().getModeloTabelaCaracteristicasEvento().removeRowRange(0, rowCount - 1);	
+				buscarCaracteristicasDoEvento();
+			}				
+		}
+		catch(Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar recarregar lista de características do evento:\n" + e.getLocalizedMessage(),
+					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+
+	
 	/**
 	 * 
 	 * @param row
@@ -654,16 +667,178 @@ public class FormularioEventoController {
 		linhasEventoCaracteristicaAtualizadas.add(row);
 	}
 	
+	
+	// Espaços
+	
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean verificarAtualizacaoPendente(){
-		if(!linhasEventoCaracteristicaAtualizadas.isEmpty()) {
-			JOptionPane.showMessageDialog(this.formularioEventoGUI, "Para realizar a ação, é necessário efetivar o salvamento das alterações pendentes", "Impedimento de ação", JOptionPane.WARNING_MESSAGE);
-			return true;
+	public EspacoService getEspacoService() {
+		if(this.espacoService == null) {
+			this.espacoService =  new EspacoServiceImpl();
+		}		
+		return this.espacoService;
+	}
+	
+	public EventoEspacoService getEventoEspacoService() {
+		if(this.eventoEspacoService == null) {
+			this.eventoEspacoService =  new EventoEspacoServiceImpl();
+		}		
+		return this.eventoEspacoService;
+	}
+	
+	private List<Espaco> getListaEspacosDisponiveis() {
+		return getEventoEspacoService().getEspacosNaoAssociadosAoEvento(this.evento);
+	}
+
+	public void buscarEspacos() {
+		List<Espaco> storedEntities = null;
+		try {
+			storedEntities = getListaEspacosDisponiveis();
+    		if(storedEntities != null && !storedEntities.isEmpty()){
+    			this.getFormularioEventoGUI().getModeloTabelaEspacos().addRows(storedEntities);
+    			System.out.println(storedEntities.size() + " espaços encontrados");  
+    		}
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
 		}
 		
-		return false;
+		if(storedEntities == null || storedEntities.isEmpty()){   
+			System.out.println("Não há espaços cadastrados"); 
+    	} 		
 	}
+
+	@SuppressWarnings("unchecked")
+	public void buscarEspacosDoEvento() {
+		List<EventoEspaco> storedEntities = null;
+		try {
+			String filtroConsulta = "evento = " + this.evento.getId().toString();
+			storedEntities = (List<EventoEspaco>)getEventoEspacoService().getList(filtroConsulta);
+    		if(storedEntities != null && !storedEntities.isEmpty()){
+    			this.getFormularioEventoGUI().getModeloTabelaEspacosEvento().addRows(storedEntities);
+    			System.out.println(storedEntities.size() + " espaços encontrados");  
+    		}
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+		
+		if(storedEntities == null || storedEntities.isEmpty()){   
+			System.out.println("Não há espaços associadas ao evento"); 
+    	} 		
+	}
+
+	public void excluirEspacoEvento() {
+		if(this.formularioEventoGUI.getModeloTabelaEspacosEvento().getRowCount() > 0){
+			boolean sucesso = false;
+			try {
+				excluirLinha(getEventoEspacoService(), this.formularioEventoGUI.getModeloTabelaEspacosEvento(),
+					this.formularioEventoGUI.getTabelaEspacosEvento().getSelectedRows());	
+				sucesso = true;
+			}
+			catch(Exception e){
+				System.out.println("Erro: " + e.getMessage());
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+						"Erro ao tentar excluir lista de espaços:\n" + e.getLocalizedMessage(),
+						"Erro de exclusão", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			if(sucesso){
+				recarregarTableModelEspacos();
+			}
+		}		
+	}
+
+	public void incluirEspacoEvento() {				
+		try {			
+			EventoEspaco ep = null;
+			Espaco espaco = null;
+			List<EventoEspaco> eventoEspacos = new ArrayList<EventoEspaco>();	
+			List<Integer> rowsTratadas = new ArrayList<Integer>();
+			for (int row : this.formularioEventoGUI.getTabelaEspacosSelecionados()) {
+				espaco = this.formularioEventoGUI.getModeloTabelaEspacos().getRow(row);
+				if(espaco != null && getEventoEspacoService().verificarAssociacaoEspacoAoEvento(evento, espaco)) {
+					Long idEventoEspaco = null;
+					System.out.println(espaco.getIdValue());
+					try{
+						ep = new EventoEspaco();
+						ep.setEvento(this.evento);
+						ep.setEspaco(espaco);
+						idEventoEspaco = getEventoEspacoService().incluir(ep);
+						if(idEventoEspaco > 0){
+							ep.setId(idEventoEspaco);
+			    			eventoEspacos.add(ep);
+			    			rowsTratadas.add(row);
+			    		}
+			    		else {
+			    			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
+			    					"Erro", JOptionPane.ERROR_MESSAGE);
+			    		}
+					}
+					catch(NumberFormatException nfe){
+						JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), "Espaço " + espaco.getId() + " não foi associado ao evento.",
+		    					"ID inválido", JOptionPane.ERROR_MESSAGE);
+					}
+				}				
+			}
+			
+			if(!eventoEspacos.isEmpty()){
+				this.getFormularioEventoGUI().getModeloTabelaEspacosEvento().addRows(eventoEspacos);
+				this.getFormularioEventoGUI().getTabelaEspacos().clearSelection();
+				Collections.sort(rowsTratadas, Collections.reverseOrder());
+				for (int i = 0; i < rowsTratadas.size(); i++) {
+					Integer item = rowsTratadas.get(i);
+					this.getFormularioEventoGUI().getModeloTabelaEspacos().removeRowRange(item, item);
+				}
+			}
+			
+		} catch (Exception e) {
+			//
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
+					"Erro de salvamento", JOptionPane.ERROR_MESSAGE);
+		}			
+	}
+	
+
+	/**
+	 * 
+	 */
+	public void recarregarTableModelEspacos(){
+		try{
+			int rowCount = this.getFormularioEventoGUI().getModeloTabelaEspacos().getRowCount();
+			if(rowCount > 0) {
+				this.getFormularioEventoGUI().getModeloTabelaEspacos().removeRowRange(0, rowCount - 1);				
+			}
+			buscarEspacos();
+		}
+		catch(Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar recarregar lista de espaços:\n" + e.getLocalizedMessage(),
+					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+	
+	public void recarregarTableModelEspacosEvento(){
+		try{
+			int rowCount = this.getFormularioEventoGUI().getModeloTabelaEspacosEvento().getRowCount();
+			if(rowCount > 0) {
+				this.getFormularioEventoGUI().getModeloTabelaEspacosEvento().removeRowRange(0, rowCount - 1);	
+				buscarEspacosDoEvento();
+			}				
+		}
+		catch(Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar recarregar lista de espaços do evento:\n" + e.getLocalizedMessage(),
+					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+
 }

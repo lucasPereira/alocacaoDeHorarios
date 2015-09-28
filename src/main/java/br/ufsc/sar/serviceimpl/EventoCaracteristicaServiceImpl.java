@@ -25,5 +25,14 @@ public class EventoCaracteristicaServiceImpl extends BaseServiceImpl<EventoCarac
 										  	   "  AND (c.forauso is null or c.forauso = 0)", Caracteristica.class).getResultList();
 		
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Caracteristica> getCaracteristicasEvento(Evento evento) {
+		return getEntityManager().createNativeQuery("SELECT c.* FROM caracteristica c " +
+				  " WHERE exists (select 1 from evento_caracteristica x " +
+				  					  "where x.idevento = " + evento.getId().longValue() +
+			  					      "  and x.idcaracteristica = c.id)", Caracteristica.class).getResultList();
+	}
 	
 }

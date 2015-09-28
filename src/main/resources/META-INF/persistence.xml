@@ -8,10 +8,12 @@
 	<class>br.ufsc.sar.entity.Evento</class>
 	<class>br.ufsc.sar.entity.EventoCaracteristica</class>
 	<class>br.ufsc.sar.entity.EventoProfissional</class>
+	<class>br.ufsc.sar.entity.EventoEspaco</class>
 	<class>br.ufsc.sar.entity.Horario</class>
 	<class>br.ufsc.sar.entity.HorarioEvento</class>
 	<class>br.ufsc.sar.entity.HorarioProfissional</class>
 	<class>br.ufsc.sar.entity.Profissional</class>
+	<class>br.ufsc.sar.entity.HorarioEspaco</class>
 	
 	<properties>
 		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

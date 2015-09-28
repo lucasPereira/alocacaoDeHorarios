@@ -28,7 +28,9 @@ import br.ufsc.sar.controller.FormularioEventoController;
 import br.ufsc.sar.entity.Evento;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.componentes.CaracteristicaTableModel;
+import br.ufsc.sar.gui.componentes.EspacoTableModel;
 import br.ufsc.sar.gui.componentes.EventoCaracteristicaTableModel;
+import br.ufsc.sar.gui.componentes.EventoEspacoTableModel;
 import br.ufsc.sar.gui.componentes.EventoProfissionalTableModel;
 import br.ufsc.sar.gui.componentes.ProfissionalTableModel;
 import br.ufsc.sar.listener.FormularioEventoListener;
@@ -50,6 +52,10 @@ public class FormularioEventoGUI extends JPanel {
 
 	public static final String PREFIXO_ID_PROFISSIONAL = "(|*";
 	
+	public static final String LABEL_BOTAO_ADICIONAR_AO_EVENTO = "Adicionar ao Evento";
+	
+	public static final String LABEL_BOTAO_EXCLUIR_DO_EVENTO = "Excluir do Evento";
+	
 	private JTextField nome;
 	
 	private JTextPane descricao;	
@@ -60,15 +66,21 @@ public class FormularioEventoGUI extends JPanel {
 	
 	private JTable tabelaCaracteristicas;
 	
+	private JTable tabelaEspacos;
+	
 	private JTable tabelaProfissionaisEvento;
 	
 	private JTable tabelaCaracteristicasEvento;
+	
+	private JTable tabelaEspacosEvento;
 	
 	private static AppGUI aplicacaoGUI;
 	
 	private JList<String> profissionais;
 	
 	private JList<String> caracteristicas;
+	
+	private JList<String> espacos;
 	
 	private FormularioEventoController formularioEventoController;
 	
@@ -80,9 +92,15 @@ public class FormularioEventoGUI extends JPanel {
 	
 	private CaracteristicaTableModel modeloTabelaCaracteristicas;
 	
+	private EventoEspacoTableModel modeloTabelaEspacosEvento;
+	
+	private EspacoTableModel modeloTabelaEspacos;
+	
 	private java.util.List<String> listaProfissionaisSelecionados;
 	
 	private java.util.List<String> listaCaracteristicasSelecionadas;
+	
+	private java.util.List<String> listaEspacosSelecionados;
 	
 	private DefaultListModel<String> listModel;
 	
@@ -166,6 +184,17 @@ public class FormularioEventoGUI extends JPanel {
 		//createAbaProfissionais(panelProfissionais);
 		createAbaProfissionaisTabela(panelProfissionais);
 		
+		JPanel panelEspacosEvento = new JPanel();
+		panelEvento.addTab("Espaços do Evento", null, panelEspacosEvento, "Espaços do Evento");	
+		panelEspacosEvento.setBounds(10, 50, 545, 252);
+		createAbaEspacosEvento(panelEspacosEvento);
+		
+		JPanel panelEspacos = new JPanel();
+		panelEvento.addTab("Espaços", null, panelEspacos, "Espaços");		
+		panelEspacos.setBounds(10, 50, 545, 252);
+		//createAbaProfissionais(panelProfissionais);
+		createAbaEspacos(panelEspacos);
+		
 		JPanel panelAgenda = new JPanel();
 		panelEvento.addTab("Agenda", null, panelAgenda, "Agenda");
 		
@@ -190,27 +219,92 @@ public class FormularioEventoGUI extends JPanel {
 		preencherValores();
 	}
 
-	@SuppressWarnings("unused")
-	@Deprecated
-	private void createCaracteristica(JTabbedPane panelEspaco) {
-		JPanel panelCaracteristicas = new JPanel();
-		panelEspaco.addTab("Características", null, panelCaracteristicas, "Características");
-		
-		JPanel panelCaracteristicasConteudo = new JPanel();
-		panelCaracteristicas.add(panelCaracteristicasConteudo);
-		panelCaracteristicasConteudo.setLayout(null);
-		panelCaracteristicas.setBounds(10, 11, 200, 200);
-		panelCaracteristicas.setLayout(new GridLayout(0, 1, 0, 0));
-		panelCaracteristicas.add(panelCaracteristicasConteudo);
-		
-		List caracteristicas = new List();
-		caracteristicas.setBounds(10, 50, 545, 252);
-		panelCaracteristicasConteudo.add(caracteristicas);
-		
-		JLabel lblSelecioneAsCaractersticas = new JLabel("Selecione as características do espaço");
-		lblSelecioneAsCaractersticas.setBounds(10, 31, 545, 14);
-		panelCaracteristicasConteudo.add(lblSelecioneAsCaractersticas);
+	private void preencherValores(){
+		this.nome.setText(this.formularioEventoController.getEvento().getNome());
+		this.descricao.setText(this.formularioEventoController.getEvento().getDescricao());
 	}
+	
+	public FormularioEventoController getController() {
+		return this.formularioEventoController;
+	}	
+	
+	public JTextField getCampoNome() {
+		return nome;
+	}
+
+	public JTextPane getCampoDescricao() {
+		return descricao;
+	}
+
+	public JTextField getCampoCapacidade() {
+		return capacidade;
+	}
+	
+	
+	// Profissionais	
+	
+	public void setProfissionaisDisponiveis(java.util.List<String> lista){		
+		profissionais.setListData((String[])lista.toArray());
+	}
+	
+	public void setProfissionaisEvento(java.util.List<String> lista){		
+		profissionais.setListData((String[])lista.toArray());
+	}
+	
+	public JList<String> getJListProfissionais() {
+		return profissionais;
+	}
+	
+	public java.util.List<String> getListaProfissionaisSelecionados() {
+		return listaProfissionaisSelecionados;
+	}
+	
+	public int[] getTabelaProfissionaisSelecionados() {
+		return this.tabelaProfissionais.getSelectedRows();
+	}
+	
+	public JTable getTabelaProfissionais() {
+		return this.tabelaProfissionais;
+	}
+
+	public JList<String> getProfissionais() {
+		return profissionais;
+	}
+
+	public DefaultListModel<String> getListModel() {
+		return listModel;
+	}
+
+	public JTable getTabelaProfissionaisEvento() {
+		return tabelaProfissionaisEvento;
+	}
+	
+	public EventoProfissionalTableModel getModeloTabelaProfissionaisEvento() {
+		if(this.modeloTabelaProfissionaisEvento == null){
+			this.modeloTabelaProfissionaisEvento = (EventoProfissionalTableModel)new EventoProfissionalTableModel(null);
+			//this.modeloTabelaHorarios.addTableModelListener(modeloTabelaHorarios().getEntityTableListener());
+			this.getController().buscarProfissionaisDoEvento();
+		}
+		
+		if(this.modeloTabelaProfissionaisEvento.hasEmptyRow()){
+			modeloTabelaProfissionaisEvento.addEmptyRow();
+		}
+		
+		return this.modeloTabelaProfissionaisEvento;
+	}
+	
+	public ProfissionalTableModel getModeloTabelaProfissionais() {
+		if(this.modeloTabelaProfissionais == null){
+			this.modeloTabelaProfissionais = (ProfissionalTableModel)new ProfissionalTableModel(false);
+			this.getController().buscarProfissionais();
+		}
+		
+		if(this.modeloTabelaProfissionais.hasEmptyRow()){
+			modeloTabelaProfissionais.addEmptyRow();
+		}
+		
+		return this.modeloTabelaProfissionais;
+	}	
 	
 	private void createAbaProfissionaisEvento(JPanel panelProfissionaisEvento) {	
 		
@@ -239,7 +333,7 @@ public class FormularioEventoGUI extends JPanel {
 		scrollerTabela.setVisible(true);
 		panelProfissionaisEvento.add(scrollerTabela);
 		
-		JButton excluir = new JButton("Excluir");
+		JButton excluir = new JButton(LABEL_BOTAO_EXCLUIR_DO_EVENTO);
 		excluir.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -308,7 +402,7 @@ public class FormularioEventoGUI extends JPanel {
 		scrollerTabela.setVisible(true);
 		panelProfissionais.add(scrollerTabela); 
 		
-		JButton adicionar = new JButton("Adicionar");
+		JButton adicionar = new JButton(LABEL_BOTAO_ADICIONAR_AO_EVENTO);
         adicionar.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -318,89 +412,7 @@ public class FormularioEventoGUI extends JPanel {
 		});
         panelProfissionais.add(adicionar);
 	}
-	
-	private void createAbaCaracteristicasEvento(JPanel panelCaracteristicasEvento) {	
 		
-		JLabel lblCaracteristicasEvento = new JLabel("Características do Evento");
-		panelCaracteristicasEvento.add(lblCaracteristicasEvento);		
-				
-		tabelaCaracteristicasEvento = new JTable();
-		tabelaCaracteristicasEvento.setModel(getModeloTabelaCaracteristicasEvento());
-		tabelaCaracteristicasEvento.setSurrendersFocusOnKeystroke(true);
-		tabelaCaracteristicasEvento.addMouseListener(new MouseAdapter() {
-			//   @SuppressWarnings("unused")
-			public void mouseClicked(MouseEvent e) {
-//			      if (e.getClickCount() == 2) {
-//			         JTable target = (JTable)e.getSource();
-//			         int row = target.getSelectedRow();
-//			         int column = target.getSelectedColumn();
-//			         JFrame newFrame = new JFrame();
-//			         newFrame.setTitle("Detail Screen");
-//			         newFrame.setVisible(true);
-//			      }
-			   }
-			});
-		
-		JScrollPane scrollerTabela = new JScrollPane(tabelaCaracteristicasEvento);
-		scrollerTabela.setPreferredSize(new Dimension(450, 200));
-		scrollerTabela.setVisible(true);
-		panelCaracteristicasEvento.add(scrollerTabela);
-		
-		JButton alterar = new JButton("Alterar");
-		alterar.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getController().alterarCaracteristicaEvento();				
-			}
-		});
-		panelCaracteristicasEvento.add(alterar);
-		
-		JButton excluir = new JButton("Excluir");
-		excluir.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getController().excluirCaracteristicaEvento();				
-			}
-		});
-		panelCaracteristicasEvento.add(excluir);
-	}
-	
-	private void createAbaCaracteristicas(JPanel panelCaracteristicas) {			
-		JLabel lblCaracteristicasEvento = new JLabel("Caracteristicas");
-		panelCaracteristicas.add(lblCaracteristicasEvento);		
-				
-		tabelaCaracteristicas = new JTable();
-		tabelaCaracteristicas.setModel(getModeloTabelaCaracteristicas());
-		tabelaCaracteristicas.setSurrendersFocusOnKeystroke(true);
-		tabelaCaracteristicas.addMouseListener(new MouseAdapter() {
-			//   @SuppressWarnings("unused")
-			public void mouseClicked(MouseEvent e) {
-//			      if (e.getClickCount() == 2) {
-//			         JTable target = (JTable)e.getSource();
-//			         int row = target.getSelectedRow();
-//			         int column = target.getSelectedColumn();
-//			         JFrame newFrame = new JFrame();
-//			         newFrame.setTitle("Detail Screen");
-//			         newFrame.setVisible(true);
-//			      }
-			   }
-			});
-		
-		JScrollPane scrollerTabela = new JScrollPane(tabelaCaracteristicas);
-		scrollerTabela.setPreferredSize(new Dimension(450, 200));
-		scrollerTabela.setVisible(true);
-		panelCaracteristicas.add(scrollerTabela); 
-		
-		JButton adicionar = new JButton("Adicionar");
-        adicionar.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getController().incluirCaracteristicaEvento();				
-			}
-		});
-        panelCaracteristicas.add(adicionar);
-	}
-	
 	/**
 	 * 
 	 * @param panelProfissionais
@@ -435,7 +447,7 @@ public class FormularioEventoGUI extends JPanel {
 		scrollerTabela.setVisible(true);
         panelProfissionais.add(scrollerTabela);
         
-        JButton adicionar = new JButton("Adicionar");
+        JButton adicionar = new JButton(LABEL_BOTAO_ADICIONAR_AO_EVENTO);
         adicionar.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -445,19 +457,31 @@ public class FormularioEventoGUI extends JPanel {
 		});
         panelProfissionais.add(adicionar);
 	}
+		
 	
-	public EventoProfissionalTableModel getModeloTabelaProfissionaisEvento() {
-		if(this.modeloTabelaProfissionaisEvento == null){
-			this.modeloTabelaProfissionaisEvento = (EventoProfissionalTableModel)new EventoProfissionalTableModel(null);
-			//this.modeloTabelaHorarios.addTableModelListener(modeloTabelaHorarios().getEntityTableListener());
-			this.getController().buscarProfissionaisDoEvento();
-		}
-		
-		if(this.modeloTabelaProfissionaisEvento.hasEmptyRow()){
-			modeloTabelaProfissionaisEvento.addEmptyRow();
-		}
-		
-		return this.modeloTabelaProfissionaisEvento;
+	// Caractarísticas
+	public JTable getTabelaCaracteristicasEvento() {
+		return tabelaCaracteristicasEvento;
+	}
+	
+	public JList<String> getJListCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public java.util.List<String> getListaCaracteristicasSelecionados() {
+		return listaCaracteristicasSelecionadas;
+	}
+	
+	public int[] getTabelaCaracteristicasSelecionados() {
+		return this.tabelaCaracteristicas.getSelectedRows();
+	}
+	
+	public JTable getTabelaCaracteristicas() {
+		return this.tabelaCaracteristicas;
+	}
+
+	public JList<String> getCaracteristicas() {
+		return caracteristicas;
 	}
 	
 	public CaracteristicaTableModel getModeloTabelaCaracteristicas() {
@@ -498,97 +522,237 @@ public class FormularioEventoGUI extends JPanel {
 		return this.modeloTabelaCaracteristicasEvento;
 	}
 	
-	public ProfissionalTableModel getModeloTabelaProfissionais() {
-		if(this.modeloTabelaProfissionais == null){
-			this.modeloTabelaProfissionais = (ProfissionalTableModel)new ProfissionalTableModel(false);
-			this.getController().buscarProfissionais();
+	private void createAbaCaracteristicasEvento(JPanel panelCaracteristicasEvento) {	
+		
+		JLabel lblCaracteristicasEvento = new JLabel("Características do Evento");
+		panelCaracteristicasEvento.add(lblCaracteristicasEvento);		
+				
+		tabelaCaracteristicasEvento = new JTable();
+		tabelaCaracteristicasEvento.setModel(getModeloTabelaCaracteristicasEvento());
+		tabelaCaracteristicasEvento.setSurrendersFocusOnKeystroke(true);
+		tabelaCaracteristicasEvento.addMouseListener(new MouseAdapter() {
+			//   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
+//			      if (e.getClickCount() == 2) {
+//			         JTable target = (JTable)e.getSource();
+//			         int row = target.getSelectedRow();
+//			         int column = target.getSelectedColumn();
+//			         JFrame newFrame = new JFrame();
+//			         newFrame.setTitle("Detail Screen");
+//			         newFrame.setVisible(true);
+//			      }
+			   }
+			});
+		
+		JScrollPane scrollerTabela = new JScrollPane(tabelaCaracteristicasEvento);
+		scrollerTabela.setPreferredSize(new Dimension(450, 200));
+		scrollerTabela.setVisible(true);
+		panelCaracteristicasEvento.add(scrollerTabela);
+		
+		JButton alterar = new JButton("Alterar");
+		alterar.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getController().alterarCaracteristicaEvento();				
+			}
+		});
+		panelCaracteristicasEvento.add(alterar);
+		
+		JButton excluir = new JButton(LABEL_BOTAO_EXCLUIR_DO_EVENTO);
+		excluir.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getController().excluirCaracteristicaEvento();				
+			}
+		});
+		panelCaracteristicasEvento.add(excluir);
+	}
+	
+	private void createAbaCaracteristicas(JPanel panelCaracteristicas) {			
+		JLabel lblCaracteristicasEvento = new JLabel("Caracteristicas");
+		panelCaracteristicas.add(lblCaracteristicasEvento);		
+				
+		tabelaCaracteristicas = new JTable();
+		tabelaCaracteristicas.setModel(getModeloTabelaCaracteristicas());
+		tabelaCaracteristicas.setSurrendersFocusOnKeystroke(true);
+		tabelaCaracteristicas.addMouseListener(new MouseAdapter() {
+			//   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
+//			      if (e.getClickCount() == 2) {
+//			         JTable target = (JTable)e.getSource();
+//			         int row = target.getSelectedRow();
+//			         int column = target.getSelectedColumn();
+//			         JFrame newFrame = new JFrame();
+//			         newFrame.setTitle("Detail Screen");
+//			         newFrame.setVisible(true);
+//			      }
+			   }
+			});
+		
+		JScrollPane scrollerTabela = new JScrollPane(tabelaCaracteristicas);
+		scrollerTabela.setPreferredSize(new Dimension(450, 200));
+		scrollerTabela.setVisible(true);
+		panelCaracteristicas.add(scrollerTabela); 
+		
+		JButton adicionar = new JButton(LABEL_BOTAO_ADICIONAR_AO_EVENTO);
+        adicionar.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getController().incluirCaracteristicaEvento();				
+			}
+		});
+        panelCaracteristicas.add(adicionar);
+	}
+	
+	@SuppressWarnings("unused")
+	@Deprecated
+	private void createCaracteristica(JTabbedPane panelEspaco) {
+		JPanel panelCaracteristicas = new JPanel();
+		panelEspaco.addTab("Características", null, panelCaracteristicas, "Características");
+		
+		JPanel panelCaracteristicasConteudo = new JPanel();
+		panelCaracteristicas.add(panelCaracteristicasConteudo);
+		panelCaracteristicasConteudo.setLayout(null);
+		panelCaracteristicas.setBounds(10, 11, 200, 200);
+		panelCaracteristicas.setLayout(new GridLayout(0, 1, 0, 0));
+		panelCaracteristicas.add(panelCaracteristicasConteudo);
+		
+		List caracteristicas = new List();
+		caracteristicas.setBounds(10, 50, 545, 252);
+		panelCaracteristicasConteudo.add(caracteristicas);
+		
+		JLabel lblSelecioneAsCaractersticas = new JLabel("Selecione as características do espaço");
+		lblSelecioneAsCaractersticas.setBounds(10, 31, 545, 14);
+		panelCaracteristicasConteudo.add(lblSelecioneAsCaractersticas);
+	}
+	
+	
+	// Espaços
+	
+	public JTable getTabelaEspacosEvento() {
+		return tabelaEspacosEvento;
+	}
+	
+	public JList<String> getJListEspacos() {
+		return espacos;
+	}
+
+	public java.util.List<String> getListaEspacosSelecionados() {
+		return listaEspacosSelecionados;
+	}
+	
+	public int[] getTabelaEspacosSelecionados() {
+		return this.tabelaEspacos.getSelectedRows();
+	}
+	
+	public JTable getTabelaEspacos() {
+		return this.tabelaEspacos;
+	}
+
+	public JList<String> getEspacos() {
+		return espacos;
+	}
+	
+	public EspacoTableModel getModeloTabelaEspacos() {
+		if(this.modeloTabelaEspacos == null){
+			this.modeloTabelaEspacos = (EspacoTableModel)new EspacoTableModel(false);
+			this.getController().buscarEspacos();		
 		}
 		
-		if(this.modeloTabelaProfissionais.hasEmptyRow()){
-			modeloTabelaProfissionais.addEmptyRow();
+		if(this.modeloTabelaEspacos.hasEmptyRow()){
+			modeloTabelaEspacos.addEmptyRow();
 		}
 		
-		return this.modeloTabelaProfissionais;
+		return this.modeloTabelaEspacos;
 	}
 	
-	private void preencherValores(){
-		this.nome.setText(this.formularioEventoController.getEvento().getNome());
-		this.descricao.setText(this.formularioEventoController.getEvento().getDescricao());
+	public EventoEspacoTableModel getModeloTabelaEspacosEvento() {
+		if(this.modeloTabelaEspacosEvento == null){
+			this.modeloTabelaEspacosEvento = (EventoEspacoTableModel)new EventoEspacoTableModel(null);			
+			this.getController().buscarEspacosDoEvento();
+		}
+		
+		if(this.modeloTabelaEspacosEvento.hasEmptyRow()){
+			modeloTabelaEspacosEvento.addEmptyRow();
+		}
+		
+		return this.modeloTabelaEspacosEvento;
 	}
 	
-	public FormularioEventoController getController() {
-		return this.formularioEventoController;
-	}	
-	
-	public void setProfissionaisDisponiveis(java.util.List<String> lista){		
-		profissionais.setListData((String[])lista.toArray());
+	/**
+	 * 
+	 * @param panelEspacosEvento
+	 */
+	private void createAbaEspacosEvento(JPanel panelEspacosEvento) {	
+		
+		JLabel lblEspacosEvento = new JLabel("Espaços do Evento");
+		panelEspacosEvento.add(lblEspacosEvento);		
+				
+		tabelaEspacosEvento = new JTable();
+		tabelaEspacosEvento.setModel(getModeloTabelaEspacosEvento());
+		tabelaEspacosEvento.setSurrendersFocusOnKeystroke(true);
+		tabelaEspacosEvento.addMouseListener(new MouseAdapter() {
+			//   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
+//			      if (e.getClickCount() == 2) {
+//			         JTable target = (JTable)e.getSource();
+//			         int row = target.getSelectedRow();
+//			         int column = target.getSelectedColumn();
+//			         JFrame newFrame = new JFrame();
+//			         newFrame.setTitle("Detail Screen");
+//			         newFrame.setVisible(true);
+//			      }
+			   }
+			});
+		
+		JScrollPane scrollerTabela = new JScrollPane(tabelaEspacosEvento);
+		scrollerTabela.setPreferredSize(new Dimension(450, 200));
+		scrollerTabela.setVisible(true);
+		panelEspacosEvento.add(scrollerTabela);
+		
+		JButton excluir = new JButton(LABEL_BOTAO_EXCLUIR_DO_EVENTO);
+		excluir.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getController().excluirEspacoEvento();				
+			}
+		});
+		panelEspacosEvento.add(excluir);
 	}
 	
-	public void setProfissionaisEvento(java.util.List<String> lista){		
-		profissionais.setListData((String[])lista.toArray());
-	}
-	
-	public JTextField getCampoNome() {
-		return nome;
-	}
-
-	public JTextPane getCampoDescricao() {
-		return descricao;
-	}
-
-	public JTextField getCampoCapacidade() {
-		return capacidade;
-	}
-
-	public JList<String> getJListProfissionais() {
-		return profissionais;
-	}
-
-	public java.util.List<String> getListaProfissionaisSelecionados() {
-		return listaProfissionaisSelecionados;
-	}
-	
-	public int[] getTabelaProfissionaisSelecionados() {
-		return this.tabelaProfissionais.getSelectedRows();
-	}
-	
-	public JTable getTabelaProfissionais() {
-		return this.tabelaProfissionais;
-	}
-
-	public JList<String> getProfissionais() {
-		return profissionais;
-	}
-
-	public DefaultListModel<String> getListModel() {
-		return listModel;
-	}
-
-	public JTable getTabelaProfissionaisEvento() {
-		return tabelaProfissionaisEvento;
-	}
-	
-	public JTable getTabelaCaracteristicasEvento() {
-		return tabelaCaracteristicasEvento;
-	}
-	
-	public JList<String> getJListCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public java.util.List<String> getListaCaracteristicasSelecionados() {
-		return listaCaracteristicasSelecionadas;
-	}
-	
-	public int[] getTabelaCaracteristicasSelecionados() {
-		return this.tabelaCaracteristicas.getSelectedRows();
-	}
-	
-	public JTable getTabelaCaracteristicas() {
-		return this.tabelaCaracteristicas;
-	}
-
-	public JList<String> getCaracteristicas() {
-		return caracteristicas;
+	private void createAbaEspacos(JPanel panelEspacos) {			
+		JLabel lblEspacosEvento = new JLabel("Espaços");
+		panelEspacos.add(lblEspacosEvento);		
+				
+		tabelaEspacos = new JTable();
+		tabelaEspacos.setModel(getModeloTabelaEspacos());
+		tabelaEspacos.setSurrendersFocusOnKeystroke(true);
+		tabelaEspacos.addMouseListener(new MouseAdapter() {
+			//   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
+//			      if (e.getClickCount() == 2) {
+//			         JTable target = (JTable)e.getSource();
+//			         int row = target.getSelectedRow();
+//			         int column = target.getSelectedColumn();
+//			         JFrame newFrame = new JFrame();
+//			         newFrame.setTitle("Detail Screen");
+//			         newFrame.setVisible(true);
+//			      }
+			   }
+			});
+		
+		JScrollPane scrollerTabela = new JScrollPane(tabelaEspacos);
+		scrollerTabela.setPreferredSize(new Dimension(450, 200));
+		scrollerTabela.setVisible(true);
+		panelEspacos.add(scrollerTabela); 
+		
+		JButton adicionar = new JButton(LABEL_BOTAO_ADICIONAR_AO_EVENTO);
+        adicionar.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getController().incluirEspacoEvento();				
+			}
+		});
+        panelEspacos.add(adicionar);
 	}
 }

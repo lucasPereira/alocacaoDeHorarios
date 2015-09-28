@@ -24,8 +24,15 @@ public class EventoProfissionalServiceImpl extends BaseServiceImpl<EventoProfiss
 		return getEntityManager().createNativeQuery("SELECT p.* FROM profissional p " +
 											  " WHERE not exists (select 1 from evento_profissional x " +
 											  					  "where x.idevento = " + e.getId().longValue() +
-										  					      "  and x.idprofissional = p.id)", Profissional.class).getResultList();
-		
+										  					      "  and x.idprofissional = p.id)", Profissional.class).getResultList();		
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Profissional> getProfissionaisEvento(Evento evento) {
+		return getEntityManager().createNativeQuery("SELECT p.* FROM profissional p " +
+				  " WHERE exists (select 1 from evento_profissional x " +
+				  					  "where x.idevento = " + evento.getId().longValue() +
+			  					      "  and x.idprofissional = p.id)", Profissional.class).getResultList();
+	}	
 }

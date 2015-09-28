@@ -85,5 +85,5 @@ public abstract class Horario extends BaseEntity {
 	}
 	public void setDatatermino(Date datatermino) {
 		this.datatermino = datatermino;
-	} 
+	}	
 }
