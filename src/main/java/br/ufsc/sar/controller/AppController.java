@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import br.ufsc.sar.gui.AppGUI;
 import br.ufsc.sar.gui.CaracteristicaGUI;
 import br.ufsc.sar.gui.EspacoGUI;
+import br.ufsc.sar.gui.EventoGUI;
 import br.ufsc.sar.gui.ProfissionalGUI;
 import br.ufsc.sar.service.AppService;
 import br.ufsc.sar.serviceimpl.AppServiceImpl;
@@ -47,5 +48,9 @@ public class AppController {
 
 	public void getEspacoGUI() {
 		getEntityGUI(new EspacoGUI(aplicacaoGUI));		
+	}	
+	
+	public void getEventoGUI() {
+		getEntityGUI(new EventoGUI(aplicacaoGUI));		
 	}	
 }

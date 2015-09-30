@@ -11,8 +11,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table (schema="sardb", name="horario_evento")
-public class HorarioEvento extends Horario {
+@Table (schema="sardb", name="horario_espaco")
+public class HorarioEspaco extends Horario {
 	
 	/**
 	 * 
@@ -20,14 +20,13 @@ public class HorarioEvento extends Horario {
 	private static final long serialVersionUID = -3023520337975006814L;	
 	
 	@ManyToOne
-	@JoinColumn(name = "idevento", referencedColumnName = "id", nullable = false)
-	private Evento evento;
+	@JoinColumn(name = "idespaco", referencedColumnName = "id", nullable = false)
+	private Espaco espaco;
 	
-	public Evento getEvento() {
-		return evento;
+	public Espaco getEspaco() {
+		return espaco;
 	}
-	
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setEspaco(Espaco espaco) {
+		this.espaco = espaco;
 	}
 }

@@ -47,5 +47,5 @@ public class CaracteristicaGUI extends EntityGUI<Caracteristica> {
 	}
 
 	@Override
-	public void setEntidadeDetalhe(BaseEntity entidade) {}		
+	public void setEntidadeDetalhe(BaseEntity entidade) {}			
 }

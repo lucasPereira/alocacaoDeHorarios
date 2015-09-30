@@ -2,7 +2,6 @@ package br.ufsc.sar.gui;
 
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.EspacoController;
-import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
 import br.ufsc.sar.gui.componentes.EspacoTableModel;
 import br.ufsc.sar.listener.EspacoListener;
@@ -14,6 +13,11 @@ import br.ufsc.util.type.EntidadeDetalheInfo;
  *
  */
 public class EspacoGUI extends EntityGUI<Espaco> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1707395774474684153L;
 
 	/**
 	 * Create the panel.

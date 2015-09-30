@@ -11,6 +11,11 @@ import br.ufsc.sar.service.ProfissionalService;
 import br.ufsc.serviceimpl.BaseServiceImpl;
 import br.ufsc.util.exception.ParametroInvalidoException;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public class ProfissionalServiceImpl extends BaseServiceImpl<Profissional> implements ProfissionalService{
 	
 	public Long incluir(Profissional objeto) throws Exception{

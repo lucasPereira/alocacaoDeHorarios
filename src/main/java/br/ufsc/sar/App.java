@@ -1,7 +1,5 @@
 package br.ufsc.sar;
 
-import javax.swing.UnsupportedLookAndFeelException;
-
 import br.ufsc.sar.gui.AppGUI;
 
 /**

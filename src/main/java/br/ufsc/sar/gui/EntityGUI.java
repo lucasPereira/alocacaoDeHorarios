@@ -1,11 +1,8 @@
 package br.ufsc.sar.gui;
 
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,7 +11,6 @@ import javax.swing.SwingConstants;
 
 import br.ufsc.entity.BaseEntity;
 import br.ufsc.sar.controller.EntityController;
-import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.componentes.EntityRowTableModel;
 import br.ufsc.sar.listener.EntityListener;
 import br.ufsc.util.type.EntidadeDetalheInfo;
@@ -70,42 +66,43 @@ public abstract class EntityGUI<T extends BaseEntity> extends JPanel {
 		if(this.tabelaEntity == null){
 			this.tabelaEntity = new JTable();
 			this.tabelaEntity.setModel(this.getModeloTabelaEntity());
-			this.tabelaEntity.setSurrendersFocusOnKeystroke(true);			
-			this.tabelaEntity.addMouseListener(new MouseAdapter() {
-				@SuppressWarnings("unused")
-				public void mouseClicked(MouseEvent e) {
-				      if (e.getClickCount() == 2) {
-				         JTable target = (JTable)e.getSource();
-				         int row = target.getSelectedRow();
-				         int column = target.getSelectedColumn();
-				         //JFrame newFrame = new JFrame();
-				         //newFrame.setTitle("Detail Screen");
-				         //newFrame.setVisible(true);
-				         JPanel panelDetalhe = null;
-				         String textoLabelEntity = null;
-				         switch (getTextoLabelEntity()) {
-				         	case ProfissionalGUI.GUI_LABEL:
-				         		Profissional profissional = (Profissional) getEntityController().buscarEntity(row);
-				         		if(profissional != null) {
-				         			panelDetalhe = new HorarioProfissionalGUI(aplicacaoGUI, profissional);
-				         			textoLabelEntity = HorarioProfissionalGUI.GUI_LABEL;
-				         		}
-								break;
-							default:
-								break;
-						 }
-				         
-				         if(panelDetalhe != null) {
-					         final JDialog frame = new JDialog(aplicacaoGUI, textoLabelEntity, true);
-					         panelDetalhe.setOpaque(true);
-					         frame.getContentPane().add(panelDetalhe);
-					         frame.setSize(800, 600);
-					         //frame.pack();
-					         frame.setVisible(true);
-				         }
-				      }
-				   }
-				});
+			this.tabelaEntity.setSurrendersFocusOnKeystroke(true);		
+			// TODO: Avaliar...
+//			this.tabelaEntity.addMouseListener(new MouseAdapter() {
+//				@SuppressWarnings("unused")
+//				public void mouseClicked(MouseEvent e) {
+//				      if (e.getClickCount() == 2) {
+//				         JTable target = (JTable)e.getSource();
+//				         int row = target.getSelectedRow();
+//				         int column = target.getSelectedColumn();
+//				         //JFrame newFrame = new JFrame();
+//				         //newFrame.setTitle("Detail Screen");
+//				         //newFrame.setVisible(true);
+//				         JPanel panelDetalhe = null;
+//				         String textoLabelEntity = null;
+//				         switch (getTextoLabelEntity()) {
+//				         	case ProfissionalGUI.GUI_LABEL:
+//				         		Profissional profissional = (Profissional) getEntityController().buscarEntity(row);
+//				         		if(profissional != null) {
+//				         			panelDetalhe = new HorarioProfissionalGUI(aplicacaoGUI, profissional);
+//				         			textoLabelEntity = HorarioProfissionalGUI.GUI_LABEL;
+//				         		}
+//								break;
+//							default:
+//								break;
+//						 }
+//				         
+//				         if(panelDetalhe != null) {
+//					         final JDialog frame = new JDialog(aplicacaoGUI, textoLabelEntity, true);
+//					         panelDetalhe.setOpaque(true);
+//					         frame.getContentPane().add(panelDetalhe);
+//					         frame.setSize(800, 600);
+//					         //frame.pack();
+//					         frame.setVisible(true);
+//				         }
+//				      }
+//				   }
+//				});
 			if(this.modeloTabelaEntity.hasEmptyRow()){
 				modeloTabelaEntity.addEmptyRow();
 			}
@@ -144,6 +141,7 @@ public abstract class EntityGUI<T extends BaseEntity> extends JPanel {
 	/**
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	public abstract void setEntidadeDetalhe(BaseEntity entidade);
 

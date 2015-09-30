@@ -1,6 +1,7 @@
 package br.ufsc.sar.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -251,10 +252,7 @@ public abstract class EntityController<T extends BaseEntity> {
 	 * @param rows
 	 */
 	public void excluirLinha(int... rows) {
-		if(!linhasAtualizadas.isEmpty()) {
-			JOptionPane.showMessageDialog(this.entityGUI, "Para excluir registros, é necessário efetivar o salvamento das alterações pendentes", "Impedimento de exclusão", JOptionPane.WARNING_MESSAGE);
-		}
-		else {
+		if(!verificarAtualizacaoPendente()){			
 			if(rows.length > 0) {
 				int retorno = JOptionPane.showConfirmDialog(this.entityGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -266,13 +264,16 @@ public abstract class EntityController<T extends BaseEntity> {
 					boolean sucesso = true;
 					try {
 						System.out.println("Service: " + service);
-						for (int i : rows) {
-							storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(i);
+						// Garantir a ordem inversa
+						Arrays.sort(rows);
+						for (int i = rows.length - 1; i >= 0; i--) {
+							int row = rows[i];
+							storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);
 							if(storedEntity != null) {
 								System.out.println(storedEntity.getIdValue());
 								sucesso = service.excluir(storedEntity.getIdValue().longValue());
 								if(sucesso) {
-									this.getEntityGUI().getModeloTabelaEntity().removeRowRange(i,i);
+									this.getEntityGUI().getModeloTabelaEntity().removeRowRange(row,row);
 									System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
 								}
 							}
@@ -295,6 +296,19 @@ public abstract class EntityController<T extends BaseEntity> {
 	}
 
 	public abstract boolean tratarColunaEspecial(TableModelEvent e);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean verificarAtualizacaoPendente(){
+		if(!linhasAtualizadas.isEmpty()) {
+			JOptionPane.showMessageDialog(this.entityGUI, "Para realizar a ação, é necessário efetivar o salvamento das alterações pendentes", "Impedimento de ação", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+		
+		return false;
+	}
 
 	
 }

@@ -16,8 +16,8 @@ import br.ufsc.entity.BaseEntity;
  *
  */
 @Entity
-@Table (schema="sardb", name="evento_profissional")
-public class EventoProfissional extends BaseEntity {	
+@Table (schema="sardb", name="evento_espaco")
+public class EventoEspaco extends BaseEntity {	
 	
 	/**
 	 * 
@@ -34,8 +34,8 @@ public class EventoProfissional extends BaseEntity {
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name = "idprofissional", referencedColumnName = "id", nullable = false)
-	private Profissional profissional;
+	@JoinColumn(name = "idespaco", referencedColumnName = "id", nullable = false)
+	private Espaco espaco;
 		
 	public Long getId() {
 		return id;
@@ -51,10 +51,10 @@ public class EventoProfissional extends BaseEntity {
 		this.evento = evento;
 	}
 	
-	public Profissional getProfissional() {
-		return profissional;
+	public Espaco getEspaco() {
+		return espaco;
 	}
-	public void setProfissional(Profissional profissional) {
-		this.profissional = profissional;
+	public void setEspaco(Espaco espaco) {
+		this.espaco = espaco;
 	}
 }

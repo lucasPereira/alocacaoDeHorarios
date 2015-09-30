@@ -8,6 +8,11 @@ import javax.persistence.Table;
 
 import br.ufsc.entity.BaseEntity;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @Entity
 @Table(schema="sardb", name="evento")
 public class Evento extends BaseEntity{
@@ -24,6 +29,9 @@ public class Evento extends BaseEntity{
 	
 	@Column(name="nome", nullable = false)
 	private String nome;
+	
+	@Column(name="descricao")
+	private String descricao;
 	
 //	@OneToMany
 //    @JoinTable(name = "evento_caracteristica", joinColumns = @JoinColumn(name="idevento", referencedColumnName = "id"),
@@ -59,16 +67,22 @@ public class Evento extends BaseEntity{
 //    }
 	
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getDescricao() {
+		return this.descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 //	public List<EventoCaracteristica> getEventoCaracteristicas() {

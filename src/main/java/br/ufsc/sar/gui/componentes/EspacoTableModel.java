@@ -2,12 +2,7 @@ package br.ufsc.sar.gui.componentes;
 
 import java.util.Arrays;
 
-import javax.swing.JButton;
-import javax.swing.JTable;
-
 import br.ufsc.sar.entity.Espaco;
-import br.ufsc.sar.gui.EspacoGUI;
-import br.ufsc.sar.listener.EspacoListener;
 
 public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 
@@ -29,6 +24,10 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 
 	public EspacoTableModel()
 	{
+		this(true);
+	}
+	
+	public EspacoTableModel(boolean editar){
 		super( Arrays.asList(COLUMN_NAMES) );
 		setRowClass( Espaco.class );
 
@@ -40,11 +39,21 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 		setColumnClass(5, String.class);
 		
 		setColumnEditable(0, false);
-		setColumnEditable(1, true);
-		setColumnEditable(2, true);
-		setColumnEditable(3, true);
-		setColumnEditable(4, true);
-		setColumnEditable(5, true);
+		
+		if(editar){
+			setColumnEditable(1, true);
+			setColumnEditable(2, true);
+			setColumnEditable(3, true);
+			setColumnEditable(4, true);
+			setColumnEditable(5, true);
+		}
+		else {
+			setColumnEditable(1, false);
+			setColumnEditable(2, false);
+			setColumnEditable(3, false);
+			setColumnEditable(4, false);
+			setColumnEditable(5, false);
+		}
 	
 	}
 

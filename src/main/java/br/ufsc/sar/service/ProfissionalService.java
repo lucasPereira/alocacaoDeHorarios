@@ -5,6 +5,11 @@ import java.util.List;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.service.BaseService;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public interface ProfissionalService extends BaseService<Profissional> {
 
 	public Long incluir(Profissional objeto) throws Exception;

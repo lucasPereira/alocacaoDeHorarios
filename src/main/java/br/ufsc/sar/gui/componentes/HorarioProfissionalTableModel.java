@@ -6,6 +6,11 @@ import java.util.Date;
 import br.ufsc.sar.entity.HorarioProfissional;
 import br.ufsc.sar.entity.Profissional;
 
+/**
+ * 
+ * @author João
+ *
+ */
 @SuppressWarnings("unchecked")
 public class HorarioProfissionalTableModel extends EntityRowTableModel<HorarioProfissional>
 {		

@@ -13,6 +13,11 @@ import br.ufsc.sar.entity.HorarioEvento;
 import br.ufsc.sar.service.EventoService;
 import br.ufsc.serviceimpl.BaseServiceImpl;
 
+/**
+ * 
+ * @author João
+ *
+ */
 public class EventoServiceImpl extends BaseServiceImpl<Evento> implements EventoService{
 
 	@SuppressWarnings("unchecked")
