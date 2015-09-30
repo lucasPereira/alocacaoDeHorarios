@@ -21,5 +21,7 @@ public interface CaracteristicaService extends BaseService<Caracteristica>{
 	
 	public List<Caracteristica> getListPorNome(String nome);
 	
+	public List<Caracteristica> getListPorListNome(String[] nome);
+	
 	public boolean isNomeCaracteristica(String nome);
 }

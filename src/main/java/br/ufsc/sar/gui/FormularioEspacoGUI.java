@@ -8,7 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
+import javax.swing.text.JTextComponent;
 
+import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.listener.FormularioEspacoListener;
 
 import javax.swing.JButton;
@@ -22,9 +24,52 @@ import java.awt.List;
  */
 public class FormularioEspacoGUI extends JPanel {
 	private JTextField nome;
+	private JTextField id;
+	public JTextField getNome() {
+		return nome;
+	}
+
+	public void setNome(JTextField nome) {
+		this.nome = nome;
+	}
+
+	public JTextPane getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(JTextPane descricao) {
+		this.descricao = descricao;
+	}
+
+	public JTextField getCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(JTextField capacidade) {
+		this.capacidade = capacidade;
+	}
+
+	public JCheckBox getForauso() {
+		return forauso;
+	}
+
+	public void setForauso(JCheckBox forauso) {
+		this.forauso = forauso;
+	}
+
+	public List getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List list) {
+		this.caracteristicas = list;
+	}
+
 	private JTextPane descricao;
 	private JTextField capacidade;
+	private JCheckBox forauso;
 	private static AppGUI aplicacaoGUI;
+	private List caracteristicas;
 	
 	public static AppGUI getAplicacaoGUI() {
 		return aplicacaoGUI;
@@ -61,39 +106,48 @@ public class FormularioEspacoGUI extends JPanel {
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNome.setBounds(10, 25, 80, 20);
+		lblNome.setBounds(10, 63, 80, 20);
 		lblNome.setToolTipText("Nome do espaço. Deve ser um nome único.");
 		panelDadosBasicosConteudo.add(lblNome);
 		
 		nome = new JTextField();
-		nome.setBounds(95, 25, 460, 20);
+		nome.setBounds(95, 63, 460, 20);
 		panelDadosBasicosConteudo.add(nome);
 		nome.setColumns(10);
 		
 		JLabel lblDescricao = new JLabel("Descrição: ");
 		lblDescricao.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDescricao.setBounds(10, 50, 80, 20);
+		lblDescricao.setBounds(10, 94, 80, 20);
 		lblDescricao.setToolTipText("Descrição do espaço.");
 		panelDadosBasicosConteudo.add(lblDescricao);
 		
 		descricao = new JTextPane();
-		descricao.setBounds(95, 50, 460, 100);
+		descricao.setBounds(95, 94, 460, 100);
 		panelDadosBasicosConteudo.add(descricao);
 		
 		JLabel lblCapacidade = new JLabel("Capacidade: ");
 		lblCapacidade.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCapacidade.setBounds(10, 155, 80, 20);
+		lblCapacidade.setBounds(10, 205, 80, 20);
 		lblCapacidade.setToolTipText("Lotação máxima do espaço.");
 		panelDadosBasicosConteudo.add(lblCapacidade);
 		
 		capacidade = new JTextField();
-		capacidade.setBounds(95, 155, 150, 20);
+		capacidade.setBounds(95, 205, 150, 20);
 		panelDadosBasicosConteudo.add(capacidade);
 		capacidade.setColumns(10);
 		
-		JCheckBox forauso = new JCheckBox("Fora uso?");
-		forauso.setBounds(95, 182, 150, 23);
+		forauso = new JCheckBox("Fora uso?");
+		forauso.setBounds(95, 232, 150, 23);
 		panelDadosBasicosConteudo.add(forauso);
+		
+		JLabel lblId = new JLabel("Id:");
+		lblId.setBounds(44, 40, 46, 14);
+		panelDadosBasicosConteudo.add(lblId);
+		
+		id = new JTextField();
+		id.setBounds(93, 37, 86, 20);
+		id.setEditable(false);
+		panelDadosBasicosConteudo.add(id);
 		
 		JPanel panelCaracteristicas = new JPanel();
 		panelEspaco.addTab("Características", null, panelCaracteristicas, "Características");
@@ -105,8 +159,9 @@ public class FormularioEspacoGUI extends JPanel {
 		panelCaracteristicas.setLayout(new GridLayout(0, 1, 0, 0));
 		panelCaracteristicas.add(panelCaracteristicasConteudo);
 		
-		List caracteristicas = new List();
+		caracteristicas = new List();
 		caracteristicas.setBounds(10, 50, 545, 252);
+		caracteristicas.setMultipleMode(true);
 		panelCaracteristicasConteudo.add(caracteristicas);
 		
 		JLabel lblSelecioneAsCaractersticas = new JLabel("Selecione as características do espaço");
@@ -134,5 +189,10 @@ public class FormularioEspacoGUI extends JPanel {
 		btnCancelar.addActionListener(new FormularioEspacoListener(this));
 		add(btnCancelar);
 
+	}
+
+	public JTextField getId() {
+		// TODO Auto-generated method stub
+		return this.id;
 	}
 }
