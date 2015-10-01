@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,8 +48,12 @@ public class Espaco extends BaseEntity {
 		this.forauso = forauso;
 	}
 
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Caracteristica> caracteristicas;
+	@ManyToMany
+    @JoinTable(name="local_caracteristica", 
+               joinColumns = @JoinColumn(name = "local_id"), 
+               inverseJoinColumns= @JoinColumn(name = "caracteristica_id") )
+ 	private List<Caracteristica> caracteristicas;
+	
 	public Long getId() {
 		return id;
 	}

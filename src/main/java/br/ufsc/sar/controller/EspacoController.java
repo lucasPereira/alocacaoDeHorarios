@@ -46,6 +46,7 @@ public class EspacoController extends EntityController<Espaco> {
 		if(e.getColumn() == 5){
 			this.getEntityGUI().removeAll();
 			this.getEntityGUI().setVisible(false);
+			
 			FormularioEspacoGUI formulario = new FormularioEspacoGUI(this.getEntityGUI().getAplicacaoGUI());
 			Long id = (Long)((EspacoTableModel)e.getSource()).getValueAt(e.getFirstRow(), 0);
 			Espaco espaco = (Espaco) this.getEntityService().getEntity(id);
@@ -54,11 +55,16 @@ public class EspacoController extends EntityController<Espaco> {
 			formulario.getDescricao().setText(espaco.getDescricao());
 			formulario.getCapacidade().setText(espaco.getCapacidade().toString());
 			formulario.getForauso().setSelected(espaco.isForauso());
+			
+			int index = 0;
+			
 			for(Caracteristica caracteristica : this.getCaracteristicaService().getList()){
 				formulario.getCaracteristicas().add(caracteristica.getNome());
 				if(espaco.getCaracteristicas().contains(caracteristica)){
-					formulario.getCaracteristicas().select(formulario.getCaracteristicas().getItemCount() - 1);
+					formulario.getCaracteristicas().select(index);
 				}
+				index ++;
+				
 			}
 			
 			this.getEntityGUI().add(formulario);

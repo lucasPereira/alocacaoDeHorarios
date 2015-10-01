@@ -3,6 +3,10 @@
  */
 package br.ufsc.sar.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
 import br.ufsc.sar.gui.FormularioEspacoGUI;
 import br.ufsc.sar.service.CaracteristicaService;
@@ -21,6 +25,7 @@ public class FormularioEspacoController {
 	 */
 	private static FormularioEspacoGUI formularioEspacoGUI = null;
 	private static final CaracteristicaService caracteristicaService = new CaracteristicaServiceImpl();
+	private static final EspacoService espacoService = new EspacoServiceImpl();
 	
 	public static CaracteristicaService getCaracteristicaservice() {
 		return caracteristicaService;
@@ -34,24 +39,30 @@ public class FormularioEspacoController {
 		this.formularioEspacoGUI = formularioEspacoGUI;
 	}
 	
-	public EspacoService getEntityService() {
-		return new EspacoServiceImpl();
+	public static EspacoService getEntityService() {
+		return espacoService;
 	}
 	
 	public boolean alterar() throws Exception{
 		Espaco espaco = new Espaco();
-		espaco.setId(Long.getLong(this.getFormularioEspacoGUI().getId().getText()));
+		espaco.setId(Long.decode(this.getFormularioEspacoGUI().getId().getText().trim()));
 		espaco.setNome(this.getFormularioEspacoGUI().getNome().getText());
-		espaco.setCapacidade(Long.getLong(this.getFormularioEspacoGUI().getCapacidade().getText()));
+		espaco.setCapacidade(Long.decode(this.getFormularioEspacoGUI().getCapacidade().getText()));
 		espaco.setDescricao(this.getFormularioEspacoGUI().getDescricao().getText());
 		espaco.setForauso(this.getFormularioEspacoGUI().getForauso().isSelected());
 		if (this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems().length > 0) {
-			espaco.setCaracteristicas(this.getCaracteristicaservice().getListPorListNome(this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()));
+			List<Caracteristica> listCaracteristicas = new ArrayList<Caracteristica>();
+			for (String nome : this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()){
+				Caracteristica caracteristica = this.getCaracteristicaservice().getPorNome(nome);
+				if(!listCaracteristicas.contains(caracteristica))
+					listCaracteristicas.add(caracteristica);
+			}
+			espaco.setCaracteristicas(listCaracteristicas);
 		} else {
 			espaco.setCaracteristicas(null);
 		}
 		
-		
+	
 		return this.getEntityService().alterar(espaco);
 	}
 }
