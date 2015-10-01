@@ -1,23 +1,23 @@
 package br.ufsc.sar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import br.ufsc.sar.entity.Profissional;
-import br.ufsc.sar.service.ProfissionalService;
-import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
+import br.ufsc.ine.leb.projetos.estoria.*;
+import br.ufsc.sar.entity.*;
+import br.ufsc.sar.service.*;
 
+@FixtureSetup(BaseDeDadosZeradaTest.class)
 public class ProfissionalEntidadeJoseTransienteTest {
 
+	@Fixture private ProfissionalService profissionalService;
+
 	private Profissional profissionalTransiente;
-	private ProfissionalService profissionalService;
 
 	@Before
 	public void configurar() {
-		profissionalService = new ProfissionalServiceImpl();
-		profissionalService.exluirTodos();
 		profissionalTransiente = new Profissional();
 		profissionalTransiente.setNome("José");
 		profissionalTransiente.setProfissao("Analista de Sistemas");

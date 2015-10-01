@@ -59,14 +59,14 @@ public interface BaseService<E extends BaseEntity> {
 	 * @param id
 	 * @return objeto
 	 */
-	public Object getEntity(Long id);
+	public E getEntity(Long id);
 
 	/**
 	 * Retorna uma lista de objetos que estão na base
 	 * 
 	 * @return List<?>
 	 */
-	public List<?> getList();
+	public List<E> getList();
 
 	/**
 	 * Retorna uma lista de objetos que estão na base, segundo o filtro
@@ -75,12 +75,13 @@ public interface BaseService<E extends BaseEntity> {
 	 * @param filtro
 	 * @return
 	 */
-	public List<?> getList(String filtro);
-	
+	public List<E> getList(String filtro);
+
 	/**
 	 * 
 	 * @param ids
 	 * @return
 	 */
-	public List<?> getListPorID(List<Long> ids);
+	public List<E> getListPorID(List<Long> ids);
+
 }
