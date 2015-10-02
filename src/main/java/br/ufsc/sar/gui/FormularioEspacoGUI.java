@@ -3,18 +3,29 @@ package br.ufsc.sar.gui;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
 import java.awt.GridLayout;
+
 import javax.swing.SwingConstants;
 import javax.swing.text.JTextComponent;
 
+import br.ufsc.sar.controller.EventoController;
 import br.ufsc.sar.entity.Caracteristica;
+import br.ufsc.sar.gui.componentes.EventoTableModel;
+import br.ufsc.sar.listener.EventoListener;
 import br.ufsc.sar.listener.FormularioEspacoListener;
+import br.ufsc.sar.service.EventoEspacoService;
+import br.ufsc.sar.serviceimpl.EventoEspacoServiceImpl;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+
 import java.awt.List;
 
 /**
@@ -25,6 +36,8 @@ import java.awt.List;
 public class FormularioEspacoGUI extends JPanel {
 
 	private static AppGUI aplicacaoGUI = null;
+	
+	private static EventoEspacoService eventoEspacoService = new EventoEspacoServiceImpl();
 
 	public static AppGUI getAplicacaoGUI() {
 		return aplicacaoGUI;
@@ -33,6 +46,10 @@ public class FormularioEspacoGUI extends JPanel {
 	public static void setAplicacaoGUI(AppGUI aplicacaoGUI) {
 		FormularioEspacoGUI.aplicacaoGUI = aplicacaoGUI;
 	}
+
+	private JTable agendaEventos = null;
+
+	private EventoTableModel agendaEventoTableModel = null;
 
 	private JButton btnCancelar = null;
 
@@ -64,21 +81,18 @@ public class FormularioEspacoGUI extends JPanel {
 
 	private JPanel panelAgenda = null;
 
+	private JPanel panelAgendaConteudo = null;
+
 	private JPanel panelCaracteristicas = null;
 
 	private JPanel panelCaracteristicasConteudo = null;
-
+	
 	private JPanel panelDadosBasicos = null;
-
+	
 	private JPanel panelDadosBasicosConteudo = null;
-
-	private JPanel panelDisponibilidade = null;
-
+	
 	private JTabbedPane panelEspaco = null;
-
-	/**
-	 * Create the panel.
-	 */
+	
 	public FormularioEspacoGUI(AppGUI app) {
 		this.aplicacaoGUI = app;
 		this.setLayout(null);
@@ -87,6 +101,22 @@ public class FormularioEspacoGUI extends JPanel {
 		this.add(this.getBtnExcluir());
 		this.add(this.getBtnSalvar());
 		this.add(this.getBtnCancelar());
+	}
+
+	public JTable getAgendaEventos(){
+		if(this.agendaEventos == null){
+			this.agendaEventos = new JTable(this.getAgendaEventoTableModel());
+			this.agendaEventos.doLayout();
+		}
+		return this.agendaEventos;
+	}
+
+	public EventoTableModel getAgendaEventoTableModel() {
+		if(this.agendaEventoTableModel == null){
+			this.agendaEventoTableModel = new EventoTableModel();
+			this.agendaEventoTableModel.addTableModelListener(new EventoListener(new EventoGUI(this.aplicacaoGUI)).getEntityTableListener());
+		}
+		return agendaEventoTableModel;
 	}
 
 	public JButton getBtnCancelar() {
@@ -220,8 +250,22 @@ public class FormularioEspacoGUI extends JPanel {
 	public JPanel getPanelAgenda() {
 		if (this.panelAgenda == null) {
 			this.panelAgenda = new JPanel();
+			this.panelAgenda.setToolTipText("Agenda");
+			this.panelAgenda.setSize(570, 340);
+			this.panelAgenda.setBounds(10, 11, 200, 200);
+			this.panelAgenda.setLayout(new GridLayout(0, 1, 0, 0));
+			this.panelAgenda.add(this.getPanelAgendaConteudo());
 		}
 		return this.panelAgenda;
+	}
+
+	public JPanel getPanelAgendaConteudo(){
+		if (this.panelAgendaConteudo == null) {
+			this.panelAgendaConteudo = new JPanel();
+			this.panelAgendaConteudo.setLayout(null);
+			this.panelAgenda.add(this.getAgendaEventos());
+		}
+		return this.panelAgendaConteudo;
 	}
 
 	public JPanel getPanelCaracteristicas() {
@@ -245,7 +289,7 @@ public class FormularioEspacoGUI extends JPanel {
 		}
 		return this.panelCaracteristicasConteudo;
 	}
-
+	
 	public JPanel getPanelDadosBasicos() {
 		if (this.panelDadosBasicos == null) {
 			this.panelDadosBasicos = new JPanel();
@@ -257,7 +301,7 @@ public class FormularioEspacoGUI extends JPanel {
 		}
 		return this.panelDadosBasicos;
 	}
-
+	
 	public JPanel getPanelDadosBasicosConteudo() {
 		if (this.panelDadosBasicosConteudo == null) {
 			this.panelDadosBasicosConteudo = new JPanel();
@@ -281,13 +325,6 @@ public class FormularioEspacoGUI extends JPanel {
 		return this.panelDadosBasicosConteudo;
 	}
 
-	public JPanel getPanelDisponibilidade() {
-		if(this.panelDisponibilidade == null){
-			this.panelDisponibilidade = new JPanel();
-		}
-		return this.panelDisponibilidade;
-	}
-
 	public JTabbedPane getPanelEspaco() {
 		if (this.panelEspaco == null) {
 			this.panelEspaco = new JTabbedPane(JTabbedPane.TOP);
@@ -296,9 +333,16 @@ public class FormularioEspacoGUI extends JPanel {
 			this.panelEspaco.addTab("Dados Básicos", null,	this.getPanelDadosBasicos(), "Dados Básicos");
 			this.panelEspaco.addTab("Características", null, this.getPanelCaracteristicas(), "Características");
 			this.panelEspaco.addTab("Agenda", null, this.getPanelAgenda(),"Agenda");
-			this.panelEspaco.addTab("Disponibiliade", null, this.getPanelDisponibilidade(), "Disponibilidade");
 		}
 		return this.panelEspaco;
+	}
+
+	public void setAgendaEventos(JTable agendaEventos) {
+		this.agendaEventos = agendaEventos;
+	}
+
+	public void setAgendaEventoTableModel(EventoTableModel agendaEventoTableModel) {
+		this.agendaEventoTableModel = agendaEventoTableModel;
 	}
 
 	public void setBtnCancelar(JButton btnCancelar) {
@@ -362,6 +406,10 @@ public class FormularioEspacoGUI extends JPanel {
 		this.panelAgenda = panelAgenda;
 	}
 
+	public void setPanelAgendaConteudo(JPanel panelAgendaConteudo) {
+		this.panelAgendaConteudo = panelAgendaConteudo;
+	}
+
 	public void setPanelCaracteristicas(JPanel panelCaracteristicas) {
 		this.panelCaracteristicas = panelCaracteristicas;
 	}
@@ -377,10 +425,6 @@ public class FormularioEspacoGUI extends JPanel {
 
 	public void setPanelDadosBasicosConteudo(JPanel panelDadosBasicosConteudo) {
 		this.panelDadosBasicosConteudo = panelDadosBasicosConteudo;
-	}
-
-	public void setPanelDisponibilidade(JPanel panelDisponibilidade) {
-		this.panelDisponibilidade = panelDisponibilidade;
 	}
 
 	public void setPanelEspaco(JTabbedPane panelEspaco) {

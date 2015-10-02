@@ -18,4 +18,6 @@ public interface EventoEspacoService extends BaseService<EventoEspaco>{
 	public List<Espaco> getEspacosNaoAssociadosAoEvento(Evento e);
 	
 	public StatusVerificacao verificarAssociacaoEspacoAoEvento(Evento evento, Espaco espaco);
+	
+	public List<Evento> getAgendaEventosPorEspaco(Espaco espaco);
 }

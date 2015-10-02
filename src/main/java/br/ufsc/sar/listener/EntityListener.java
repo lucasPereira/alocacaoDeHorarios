@@ -60,6 +60,7 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 			System.out.println("row: " + row + " column: " + column);	
 			if(column >= 0) {
 				if (controller.tratarColunaEspecial(e) == true){
+					System.out.println(controller.getClass().getCanonicalName());
 					System.out.println("CellProperty: Célula especial");
 				}
 				else {

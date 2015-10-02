@@ -33,10 +33,11 @@ public class EventoController extends EntityController<Evento> {
 	public EventoService getEntityService() {
 		return new EventoServiceImpl();
 	}
-
+	
+	
 	@SuppressWarnings("static-access")
 	@Override
-	public boolean tratarColunaEspecial(TableModelEvent e) {		
+	public boolean tratarColunaEspecial(TableModelEvent e) {
 		Evento evento = null;
 		boolean retorno = false;
 		int column = e.getColumn();

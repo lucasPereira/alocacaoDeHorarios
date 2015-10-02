@@ -9,13 +9,16 @@ import javax.swing.event.TableModelEvent;
 
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
+import br.ufsc.sar.entity.Evento;
 import br.ufsc.sar.gui.EspacoGUI;
 import br.ufsc.sar.gui.FormularioEspacoGUI;
 import br.ufsc.sar.gui.componentes.EspacoTableModel;
 import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.service.EspacoService;
+import br.ufsc.sar.service.EventoEspacoService;
 import br.ufsc.sar.serviceimpl.CaracteristicaServiceImpl;
 import br.ufsc.sar.serviceimpl.EspacoServiceImpl;
+import br.ufsc.sar.serviceimpl.EventoEspacoServiceImpl;
 
 /**
  * @author ErnaniCésar
@@ -27,6 +30,7 @@ public class EspacoController extends EntityController<Espaco> {
 	 * @param entityGUI
 	 */
 	private final static CaracteristicaService caracteristicaService = new CaracteristicaServiceImpl();
+	private final static EventoEspacoService eventoEspacoService = new EventoEspacoServiceImpl();
 			
 	public static CaracteristicaService getCaracteristicaService() {
 		return caracteristicaService;
@@ -65,6 +69,10 @@ public class EspacoController extends EntityController<Espaco> {
 				}
 				index ++;
 				
+			}
+			
+			for(Evento evento : eventoEspacoService.getAgendaEventosPorEspaco(espaco)){
+				formulario.getAgendaEventoTableModel().addRow(evento);
 			}
 			
 			this.getEntityGUI().add(formulario);
