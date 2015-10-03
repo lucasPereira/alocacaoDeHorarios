@@ -47,9 +47,23 @@ public class FormularioEspacoController {
 		Espaco espaco = new Espaco();
 		espaco.setId(Long.decode(this.getFormularioEspacoGUI().getId().getText().trim()));
 		espaco.setNome(this.getFormularioEspacoGUI().getNome().getText());
-		espaco.setCapacidade(Long.decode(this.getFormularioEspacoGUI().getCapacidade().getText()));
-		espaco.setDescricao(this.getFormularioEspacoGUI().getDescricao().getText());
-		espaco.setForauso(this.getFormularioEspacoGUI().getForauso().isSelected());
+		
+		if(this.getFormularioEspacoGUI().getCapacidade().getText() != null &&
+			!this.getFormularioEspacoGUI().getCapacidade().getText().equals("null") &&
+			!this.getFormularioEspacoGUI().getCapacidade().getText().trim().equals("")){
+			espaco.setCapacidade(Long.decode(this.getFormularioEspacoGUI().getCapacidade().getText()));
+		}
+		
+		if(this.getFormularioEspacoGUI().getDescricao().getText() != null &&
+				!this.getFormularioEspacoGUI().getDescricao().getText().equals("null") &&
+				!this.getFormularioEspacoGUI().getDescricao().getText().trim().equals("")){
+			espaco.setDescricao(this.getFormularioEspacoGUI().getDescricao().getText());
+		}
+		
+		if(this.getFormularioEspacoGUI().getForauso() != null){
+			espaco.setForauso(this.getFormularioEspacoGUI().getForauso().isSelected());
+		}
+		
 		if (this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems().length > 0) {
 			List<Caracteristica> listCaracteristicas = new ArrayList<Caracteristica>();
 			for (String nome : this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()){
@@ -64,5 +78,35 @@ public class FormularioEspacoController {
 		
 	
 		return this.getEntityService().alterar(espaco);
+	}
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("static-access")
+	public boolean excluir() throws Exception{
+		Espaco espaco = new Espaco();
+		espaco.setId(Long.decode(this.getFormularioEspacoGUI().getId().getText().trim()));
+		if (this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems().length > 0) {
+			List<Caracteristica> listCaracteristicas = new ArrayList<Caracteristica>();
+			for (String nome : this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()){
+				Caracteristica caracteristica = this.getCaracteristicaservice().getPorNome(nome);
+				if(!listCaracteristicas.contains(caracteristica))
+					listCaracteristicas.add(caracteristica);
+			}
+			espaco.setCaracteristicas(listCaracteristicas);
+		} else {
+			espaco.setCaracteristicas(null);
+		}
+		boolean exclusao = this.getEntityService().excluirCaracteristicaEspaco(espaco);
+		if(exclusao){
+			int [] selectedIndexes = this.getFormularioEspacoGUI().getCaracteristicas().getSelectedIndexes();
+			for (int i : selectedIndexes) {
+				this.getFormularioEspacoGUI().getCaracteristicas().deselect(i);
+			}
+		}
+		return exclusao;
 	}
 }

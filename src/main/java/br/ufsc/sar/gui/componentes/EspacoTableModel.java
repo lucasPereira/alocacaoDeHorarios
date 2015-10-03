@@ -19,7 +19,8 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 		"Descrição",
 		"Capacidade",
 		"Fora uso?",
-		"Características"
+		"Características",
+		"Horários"
 	};
 
 	public EspacoTableModel()
@@ -37,6 +38,7 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 		setColumnClass(3, Long.class);
 		setColumnClass(4, Boolean.class);
 		setColumnClass(5, String.class);
+		setColumnClass(6, String.class);
 		
 		setColumnEditable(0, false);
 		
@@ -46,6 +48,7 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 			setColumnEditable(3, true);
 			setColumnEditable(4, true);
 			setColumnEditable(5, true);
+			setColumnEditable(6, true);
 		}
 		else {
 			setColumnEditable(1, false);
@@ -53,6 +56,7 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
 			setColumnEditable(3, false);
 			setColumnEditable(4, false);
 			setColumnEditable(5, false);
+			setColumnEditable(6, false);
 		}
 	
 	}
@@ -74,6 +78,8 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
             case 4: 
             	return espaco.isForauso();
             case 5: 
+            	return "...";            	
+            case 6: 
             	return "...";
             default: return null;
         }
@@ -92,6 +98,7 @@ public class EspacoTableModel extends EntityRowTableModel<Espaco>{
             case 3: espaco.setCapacidade((Long)value); break;
             case 4: espaco.setForauso((Boolean)value); break;
             case 5: break;
+            case 6: break;
         }
 
 		fireTableCellUpdated(row, column);

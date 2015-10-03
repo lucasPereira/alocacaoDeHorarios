@@ -19,6 +19,7 @@ import br.ufsc.sar.entity.Evento;
 import br.ufsc.sar.entity.EventoCaracteristica;
 import br.ufsc.sar.entity.EventoEspaco;
 import br.ufsc.sar.entity.EventoProfissional;
+import br.ufsc.sar.entity.HorarioEvento;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.gui.FormularioEventoGUI;
 import br.ufsc.sar.gui.componentes.EntityRowTableModel;
@@ -311,6 +312,8 @@ public class FormularioEventoController {
 					Integer item = rowsTratadas.get(i);
 					this.getFormularioEventoGUI().getModeloTabelaProfissionais().removeRowRange(item, item);
 				}
+				//
+				recarregarTableModelHorariosEvento();
 			}
 			
 		} catch (Exception e) {
@@ -450,6 +453,7 @@ public class FormularioEventoController {
 		
 		if(sucesso){
 			recarregarTableModelProfissionais();
+			recarregarTableModelHorariosEvento();	
 		}
 	}	
 	
@@ -747,6 +751,7 @@ public class FormularioEventoController {
 			
 			if(sucesso){
 				recarregarTableModelEspacos();
+				recarregarTableModelHorariosEvento();				
 			}
 		}		
 	}
@@ -799,6 +804,8 @@ public class FormularioEventoController {
 					Integer item = rowsTratadas.get(i);
 					this.getFormularioEventoGUI().getModeloTabelaEspacos().removeRowRange(item, item);
 				}
+				//
+				recarregarTableModelHorariosEvento();
 			}
 			
 		} catch (Exception e) {
@@ -849,4 +856,46 @@ public class FormularioEventoController {
 		}		
 	}
 
+	
+	// Horários do Evento
+	
+	/**
+	 * 
+	 */
+	public void buscarHorariosDoEvento() {
+		List<HorarioEvento> storedEntities = null;
+		try {
+			storedEntities = (List<HorarioEvento>)getEventoService().getEventoHorarios(this.evento);
+    		if(storedEntities != null && !storedEntities.isEmpty()){
+    			this.getFormularioEventoGUI().getModeloTabelaHorariosEvento().addRows(storedEntities);
+    			System.out.println(storedEntities.size() + " horários do evento encontrados");  
+    		}
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+		
+		if(storedEntities == null || storedEntities.isEmpty()){   
+			System.out.println("Não há horários definidos para o evento"); 
+    	}
+	}
+	
+	/**
+	 * 
+	 */
+	public void recarregarTableModelHorariosEvento(){
+		try{
+			int rowCount = this.getFormularioEventoGUI().getModeloTabelaHorariosEvento().getRowCount();
+			if(rowCount > 0) {
+				this.getFormularioEventoGUI().getModeloTabelaHorariosEvento().removeRowRange(0, rowCount - 1);	
+				buscarHorariosDoEvento();
+			}				
+		}
+		catch(Exception e) {
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
+					"Erro ao tentar recarregar lista de horários do evento:\n" + e.getLocalizedMessage(),
+					"Erro de recarregamento", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
 }

@@ -3,15 +3,17 @@
  */
 package br.ufsc.sar.controller;
 
-import java.awt.List;
-
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.event.TableModelEvent;
 
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
 import br.ufsc.sar.entity.Evento;
+import br.ufsc.sar.gui.EntityGUI;
 import br.ufsc.sar.gui.EspacoGUI;
 import br.ufsc.sar.gui.FormularioEspacoGUI;
+import br.ufsc.sar.gui.HorarioEspacoGUI;
 import br.ufsc.sar.gui.componentes.EspacoTableModel;
 import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.service.EspacoService;
@@ -55,10 +57,23 @@ public class EspacoController extends EntityController<Espaco> {
 			Long id = (Long)((EspacoTableModel)e.getSource()).getValueAt(e.getFirstRow(), 0);
 			Espaco espaco = (Espaco) this.getEntityService().getEntity(id);
 			formulario.getId().setText(espaco.getId().toString());
+						
 			formulario.getNome().setText(espaco.getNome());
-			formulario.getDescricao().setText(espaco.getDescricao());
-			formulario.getCapacidade().setText(espaco.getCapacidade().toString());
-			formulario.getForauso().setSelected(espaco.isForauso());
+			
+			if(formulario.getDescricao() != null) {
+				formulario.getDescricao().setText(espaco.getDescricao());
+			}
+			
+			if(formulario.getCapacidade() != null && espaco.getCapacidade() != null
+					&& espaco.getCapacidade().toString() != null 
+					&& !espaco.getCapacidade().toString().equals("null")					
+					&& !espaco.getCapacidade().toString().trim().equals("")) {
+				formulario.getCapacidade().setText(espaco.getCapacidade().toString());
+			}
+			
+			if(formulario.getForauso() != null){
+				formulario.getForauso().setSelected(espaco.isForauso());
+			}
 			
 			int index = 0;
 			
@@ -78,6 +93,36 @@ public class EspacoController extends EntityController<Espaco> {
 			this.getEntityGUI().add(formulario);
 			this.getEntityGUI().setVisible(true);
 			return true;
+		}
+		else {
+			if(e.getColumn() == 6){
+				System.out.println("Abrir horários do espaço");
+				//JTable target = (JTable)e.getSource();
+				//JFrame newFrame = new JFrame();
+		        //newFrame.setTitle("Detail Screen");
+		        //newFrame.setVisible(true);
+		        JPanel panelDetalhe = null;
+		        String textoLabelEntity = null;
+		        int row = e.getFirstRow();	
+				EspacoTableModel source = (EspacoTableModel)e.getSource();
+		        if(source.getRow(row) != null) {		               
+			    	Espaco espaco = (Espaco) getEntityService().getEntity(((Espaco) source.getRow(row)).getId());
+					if(espaco != null) {
+						panelDetalhe = new HorarioEspacoGUI(EntityGUI.getAplicacaoGUI(), espaco);					
+						textoLabelEntity = HorarioEspacoGUI.GUI_LABEL;
+					}			
+			         
+			        if(panelDetalhe != null) {
+				        final JDialog frame = new JDialog(EntityGUI.getAplicacaoGUI(), textoLabelEntity, true);
+				        panelDetalhe.setOpaque(true);
+				        frame.getContentPane().add(panelDetalhe);
+				        frame.setSize(800, 600);
+				        //frame.pack();
+				        frame.setVisible(true);
+			        }
+					return true;
+		        }
+			}
 		}
 		return false;
 	}

@@ -31,7 +31,8 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		"Profissão", 
 		"Data de Nascimento",
 		"Telefone",
-		"CPF"
+		"CPF",
+		"Horários"
 	};
 	
 	/**
@@ -57,8 +58,10 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 		setColumnClass(3, Date.class);
 		setColumnClass(4, String.class);
 		setColumnClass(5, String.class);
+		setColumnClass(6, String.class);
 		
 		setColumnEditable(0, false);	
+		setColumnEditable(6, true);
 		
 		this.editavel = editavel;
 		
@@ -68,6 +71,7 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
 			setColumnEditable(3, false);
 			setColumnEditable(4, false);
 			setColumnEditable(5, false);
+			setColumnEditable(6, false);
 		}
 	}
 
@@ -83,6 +87,7 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
             case 3: return profissional.getDtnascimento();
             case 4: return profissional.getTelefone();
             case 5: return profissional.getCpf();
+            case 6: return "...";
             default: return null;
         }
 	}
@@ -100,6 +105,7 @@ public class ProfissionalTableModel extends EntityRowTableModel<Profissional>
             case 3: profissional.setDtnascimento((Date)value); break;
             case 4: profissional.setTelefone((String)value); break;
             case 5: profissional.setCpf((String)value); break;
+            case 6: break;
         }
 
 		fireTableCellUpdated(row, column);

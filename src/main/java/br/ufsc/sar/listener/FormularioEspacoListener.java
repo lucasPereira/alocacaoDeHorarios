@@ -49,7 +49,12 @@ public class FormularioEspacoListener extends AppListener {
 		}
 		
 		if(e.getActionCommand().equals("Excluir")){
-			System.out.println("Excluir o registro");
+			try {
+				formularioEspacoController.excluir();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		if(e.getActionCommand().equals("Cancelar")){

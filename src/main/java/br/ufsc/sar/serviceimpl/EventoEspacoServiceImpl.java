@@ -50,6 +50,7 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Evento> getAgendaEventosPorEspaco(Espaco espaco){
 		List<Evento> listEventos = new ArrayList<Evento>();
 		
