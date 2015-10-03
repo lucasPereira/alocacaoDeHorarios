@@ -140,14 +140,14 @@ public class EventoTest {
 		assertNotNull(heId);
 		createdHorarioEvento = (HorarioEvento) horarioEventoService.getEntity(heId);
 		assertNotNull(createdHorarioEvento);
-		List<HorarioEvento> horarioEventos = eventoService.getEventoHorarios(evento);
-		assertNotNull(horarioEventos);
-		assertFalse(horarioEventos.isEmpty());
-		for (HorarioEvento horarioEvento : horarioEventos) {
-			assertNotNull(horarioEvento.getDiadasemana());
-			assertNotNull(horarioEvento.getEvento());
-			assertTrue(horarioEvento.getEvento().equals(evento));
-		}
+//		List<HorarioEvento> horarioEventos = eventoService.getEventoHorarios(evento);
+//		assertNotNull(horarioEventos);
+//		assertFalse(horarioEventos.isEmpty());
+//		for (HorarioEvento horarioEvento : horarioEventos) {
+//			assertNotNull(horarioEvento.getDiadasemana());
+//			assertNotNull(horarioEvento.getEvento());
+//			assertTrue(horarioEvento.getEvento().equals(evento));
+//		}
 
 		Long createdHorarioEventoId = createdHorarioEvento.getId();
 		HorarioEvento horarioEvento = (HorarioEvento) horarioEventoService.getEntity(createdHorarioEventoId);
