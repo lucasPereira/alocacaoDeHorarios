@@ -31,7 +31,7 @@ public class BaseDeDadosZeradaTest {
 	private CaracteristicaService caracteristicaService;
 	private EspacoService servicoEspaco;
 	private EventoCaracteristicaService servicoEventoCaracteristica;
-	private EventoProfissionalService servicoEventoProfissional;
+	private EventoProfissionalService eventoProfissionalService;
 	private EventoService eventoService;
 	private HorarioEventoService servicoHorarioEvento;
 	private HorarioProfissionalService servicoHorarioProfissional;
@@ -47,13 +47,13 @@ public class BaseDeDadosZeradaTest {
 		caracteristicaService = new CaracteristicaServiceImpl();
 		servicoHorarioEvento = new HorarioEventoServiceImpl();
 		servicoHorarioProfissional = new HorarioProfissionalServiceImpl();
-		servicoEventoProfissional = new EventoProfissionalServiceImpl();
+		eventoProfissionalService = new EventoProfissionalServiceImpl();
 		servicoEventoCaracteristica = new EventoCaracteristicaServiceImpl();	
 		servicoEventoEspaco = new EventoEspacoServiceImpl();
 		servicoHorarioEspaco = new HorarioEspacoServiceImpl();
 		servicoHorarioEspaco.exluirTodos();
 		servicoEventoEspaco.exluirTodos();
-		servicoEventoProfissional.exluirTodos();
+		eventoProfissionalService.exluirTodos();
 		servicoEventoCaracteristica.exluirTodos();
 		servicoHorarioEvento.exluirTodos();
 		servicoHorarioProfissional.exluirTodos();
@@ -71,7 +71,7 @@ public class BaseDeDadosZeradaTest {
 		assertTrue(caracteristicaService.getList().isEmpty());
 		assertTrue(servicoHorarioEvento.getList().isEmpty());
 		assertTrue(servicoHorarioProfissional.getList().isEmpty());
-		assertTrue(servicoEventoProfissional.getList().isEmpty());
+		assertTrue(eventoProfissionalService.getList().isEmpty());
 		assertTrue(servicoEventoCaracteristica.getList().isEmpty());
 		assertTrue(servicoEventoEspaco.getList().isEmpty());
 		assertTrue(servicoHorarioEspaco.getList().isEmpty());

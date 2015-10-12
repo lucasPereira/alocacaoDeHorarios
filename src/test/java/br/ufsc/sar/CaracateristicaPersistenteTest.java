@@ -1,6 +1,7 @@
 package br.ufsc.sar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.*;
 
@@ -21,6 +22,7 @@ public class CaracateristicaPersistenteTest {
 	@Before
 	public void configurar() throws Exception {
 		identificador = caracteristicaService.incluir(caracteristicaTransiente);
+		assertNotNull(identificador);
 	}
 
 	@Test

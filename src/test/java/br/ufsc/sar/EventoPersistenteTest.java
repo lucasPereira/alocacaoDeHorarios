@@ -1,6 +1,7 @@
 package br.ufsc.sar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.*;
 
@@ -21,6 +22,7 @@ public class EventoPersistenteTest {
 	@Before
 	public void configurar() throws Exception {
 		identificador = eventoService.incluir(eventoTransiente);
+		assertNotNull(identificador);
 	}
 
 	@Test

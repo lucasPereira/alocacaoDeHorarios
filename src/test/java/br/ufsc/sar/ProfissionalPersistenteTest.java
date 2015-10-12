@@ -23,6 +23,7 @@ public class ProfissionalPersistenteTest {
 	@Before
 	public void configurar() throws Exception {
 		identificador = profissionalService.incluir(profissionalTransiente);
+		assertNotNull(identificador);
 	}
 
 	@Test
