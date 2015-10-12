@@ -12,8 +12,8 @@ import br.ufsc.ine.leb.projetos.estoria.FixtureSetup;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.service.ProfissionalService;
 
-@FixtureSetup(ProfissionalEntidadeJoseTransienteTest.class)
-public class ProfissionalIdentificadorDaEntidadeJosePersistidoTest {
+@FixtureSetup(ProfissionalTransienteTest.class)
+public class ProfissionalPersistenteTest {
 
 	@Fixture private Profissional profissionalTransiente;
 	@Fixture private ProfissionalService profissionalService;
@@ -26,23 +26,16 @@ public class ProfissionalIdentificadorDaEntidadeJosePersistidoTest {
 	}
 
 	@Test
-	public void identificadorDaEntidade() throws Exception {
-		assertNotNull(identificador);
+	public void obter() throws Exception {
+		Profissional profissional = profissionalService.getEntity(identificador);
+		assertEquals(identificador, profissional.getId());
 	}
 
 	@Test
-	public void listarEntidades() throws Exception {
+	public void listar() throws Exception {
 		List<Profissional> profissionais = profissionalService.getList();
-		assertNotNull(profissionais);
 		assertEquals(1, profissionais.size());
 		assertEquals(identificador, profissionais.get(0).getId());
-	}
-
-	@Test
-	public void removerEntidade() throws Exception {
-		profissionalService.excluir(identificador);
-		Profissional profissionalRemovido = profissionalService.getEntity(identificador);
-		assertNull(profissionalRemovido);
 	}
 
 }

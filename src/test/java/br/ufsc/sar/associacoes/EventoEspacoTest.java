@@ -1,4 +1,4 @@
-package br.ufsc.sar;
+package br.ufsc.sar.associacoes;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

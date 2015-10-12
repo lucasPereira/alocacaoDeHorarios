@@ -32,18 +32,18 @@ public class BaseDeDadosZeradaTest {
 	private EspacoService servicoEspaco;
 	private EventoCaracteristicaService servicoEventoCaracteristica;
 	private EventoProfissionalService servicoEventoProfissional;
-	private EventoService servicoEvento;
+	private EventoService eventoService;
 	private HorarioEventoService servicoHorarioEvento;
 	private HorarioProfissionalService servicoHorarioProfissional;
-	private ProfissionalService servicoProfissional;
+	private ProfissionalService profissionalService;
 	private HorarioEspacoService servicoHorarioEspaco;
 	private EventoEspacoService servicoEventoEspaco;
 
 	@Before
 	public void configurar() throws Exception {
 		servicoEspaco = new EspacoServiceImpl();
-		servicoEvento = new EventoServiceImpl();
-		servicoProfissional = new ProfissionalServiceImpl();
+		eventoService = new EventoServiceImpl();
+		profissionalService = new ProfissionalServiceImpl();
 		caracteristicaService = new CaracteristicaServiceImpl();
 		servicoHorarioEvento = new HorarioEventoServiceImpl();
 		servicoHorarioProfissional = new HorarioProfissionalServiceImpl();
@@ -57,17 +57,17 @@ public class BaseDeDadosZeradaTest {
 		servicoEventoCaracteristica.exluirTodos();
 		servicoHorarioEvento.exluirTodos();
 		servicoHorarioProfissional.exluirTodos();
-		servicoEvento.exluirTodos();
+		eventoService.exluirTodos();
 		servicoEspaco.exluirTodos();		
-		servicoProfissional.exluirTodos();
+		profissionalService.exluirTodos();
 		caracteristicaService.exluirTodos();		
 	}
 
 	@Test
 	public void testar() throws Exception {
 		assertTrue(servicoEspaco.getList().isEmpty());
-		assertTrue(servicoEvento.getList().isEmpty());
-		assertTrue(servicoProfissional.getList().isEmpty());
+		assertTrue(eventoService.getList().isEmpty());
+		assertTrue(profissionalService.getList().isEmpty());
 		assertTrue(caracteristicaService.getList().isEmpty());
 		assertTrue(servicoHorarioEvento.getList().isEmpty());
 		assertTrue(servicoHorarioProfissional.getList().isEmpty());
