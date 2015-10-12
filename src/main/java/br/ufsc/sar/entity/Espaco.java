@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.ufsc.entity.BaseEntity;
@@ -45,8 +46,12 @@ public class Espaco extends BaseEntity {
 		this.forauso = forauso;
 	}
 
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Caracteristica> caracteristicas;
+	@ManyToMany
+    @JoinTable(name="local_caracteristica", 
+               joinColumns = @JoinColumn(name = "local_id", table = "local", referencedColumnName = "id"), 
+               inverseJoinColumns= @JoinColumn(name = "caracteristica_id", table = "caracteristica", referencedColumnName = "id") )
+ 	private List<Caracteristica> caracteristicas;
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,6 +1,10 @@
 package br.ufsc.sar.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.sar.entity.Espaco;
@@ -45,7 +49,31 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 										  					      "  and x.idespaco = p.id)", Espaco.class).getResultList();
 		
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Evento> getAgendaEventosPorEspaco(Espaco espaco){
+		List<Evento> listEventos = new ArrayList<Evento>();
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ev ");
+		sql.append(" FROM EventoEspaco ee");
+		sql.append(" INNER JOIN ee.evento ev");
+		sql.append(" INNER JOIN ee.espaco e");
+		sql.append(" Where e.id = :idEspaco");
+		
+		Query query = super.getEntityManager().createQuery(sql.toString());
+		query.setParameter("idEspaco", espaco.getId());
+		
+		try {
+			listEventos = (List<Evento>) query.getResultList();
+		} catch (NoResultException e) {
+			System.out.println("CaracteristicaServiceImpl.getListAtivas()");
+			System.out.println(":: Nenhum resultado encontrado ::");
+		}
+		
+		return listEventos;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public StatusVerificacao verificarAssociacaoEspacoAoEvento(Evento evento, Espaco espaco) {

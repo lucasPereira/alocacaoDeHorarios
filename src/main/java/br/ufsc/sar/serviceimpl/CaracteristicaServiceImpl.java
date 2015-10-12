@@ -87,48 +87,17 @@ public class CaracteristicaServiceImpl extends BaseServiceImpl<Caracteristica> i
 		return listCaracteristica;
 	}
 	
-public List<Caracteristica> getListPorListNome(String[] nome){
-		
-		List<Caracteristica> listCaracteristica = null;
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("select c ");
-		sql.append("from Caracteristica c ");
-		sql.append("where c.nome in (:nome)");
-		
-		Query query = super.getEntityManager().createQuery(sql.toString());
-		query.setParameter("nome", nome);
-		
-		try {
-			listCaracteristica = (List<Caracteristica>) query.getResultList();
-		} catch (NoResultException e) {
-			System.out.println("CaracteristicaServiceImpl.getListPorNome()");
-			System.out.println(":: Nenhum resultado encontrado ::");
-			listCaracteristica = new ArrayList<Caracteristica>();
-		}
-		return listCaracteristica;
-	}
 	
-	public Caracteristica getPorNome(String nome){
-		
-		Caracteristica caracteristica = null;
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("select c ");
-		sql.append("from Caracteristica c ");
-		sql.append("where Upper(c.nome) = :nome");
-		
-		Query query = super.getEntityManager().createQuery(sql.toString());
-		query.setParameter("nome", nome.toUpperCase());
-		
+	public Caracteristica getPorNome(String nome) throws ParametroInvalidoException{
+		List<Caracteristica> listCaracteristica= this.getListPorNome(nome);
 		try {
-			caracteristica = (Caracteristica) query.getSingleResult();
-		} catch (NoResultException e) {
-			System.out.println("CaracteristicaServiceImpl.getPorNome()");
-			System.out.println(":: Nenhum resultado encontrado ::");
-			caracteristica = null;
+			if (listCaracteristica.size() != 1){
+				throw new ParametroInvalidoException("Existe mais de uma característica com o mesmo nome, isto não pode acontecer!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return caracteristica;
+		return listCaracteristica.get(0);
 	}
 	
 	public boolean isNomeCaracteristica(String nome){

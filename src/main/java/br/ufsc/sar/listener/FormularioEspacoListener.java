@@ -17,34 +17,23 @@ import br.ufsc.sar.gui.FormularioEspacoGUI;
  */
 public class FormularioEspacoListener extends AppListener {
 
-	private FormularioEspacoGUI formularioEspacoGUI = null;
+	private static FormularioEspacoGUI formularioEspacoGUI = null;
 	
-	private FormularioEspacoController formularioEspacoController = null;
+	private static FormularioEspacoController formularioEspacoController = null;
 	
 	public FormularioEspacoController getFormularioEspacoController() {
 		return formularioEspacoController;
 	}
 
-
-	public void setFormularioEspacoController(FormularioEspacoController formularioEspacoController) {
-		this.formularioEspacoController = formularioEspacoController;
-	}
-
-
 	public FormularioEspacoGUI getFormularioEspacoGUI() {
-		return this.formularioEspacoGUI;
+		return formularioEspacoGUI;
 	}
 
 
-	public void setFormularioEspacoGUI(FormularioEspacoGUI formularioEspacoGUI) {
-		this.formularioEspacoGUI = formularioEspacoGUI;
-	}
-
-
-	public FormularioEspacoListener(FormularioEspacoGUI formularioEspacoGUI) {
+	public FormularioEspacoListener(FormularioEspacoGUI form) {
 		super(formularioEspacoGUI.getAplicacaoGUI());
-		this.setFormularioEspacoGUI(formularioEspacoGUI);
-		this.setFormularioEspacoController(new FormularioEspacoController(this.getFormularioEspacoGUI()));
+		formularioEspacoGUI = form;
+		formularioEspacoController = new FormularioEspacoController(formularioEspacoGUI);
 	}
 
 	
@@ -52,7 +41,7 @@ public class FormularioEspacoListener extends AppListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Salvar")){
 			try {
-				this.getFormularioEspacoController().alterar();
+				formularioEspacoController.alterar();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -60,7 +49,12 @@ public class FormularioEspacoListener extends AppListener {
 		}
 		
 		if(e.getActionCommand().equals("Excluir")){
-			System.out.println("Excluir o registro");
+			try {
+				formularioEspacoController.excluir();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		if(e.getActionCommand().equals("Cancelar")){

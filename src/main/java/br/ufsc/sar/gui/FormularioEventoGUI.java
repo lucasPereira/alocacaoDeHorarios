@@ -32,6 +32,7 @@ import br.ufsc.sar.gui.componentes.EspacoTableModel;
 import br.ufsc.sar.gui.componentes.EventoCaracteristicaTableModel;
 import br.ufsc.sar.gui.componentes.EventoEspacoTableModel;
 import br.ufsc.sar.gui.componentes.EventoProfissionalTableModel;
+import br.ufsc.sar.gui.componentes.HorarioEventoTableModel;
 import br.ufsc.sar.gui.componentes.ProfissionalTableModel;
 import br.ufsc.sar.listener.FormularioEventoListener;
 
@@ -74,6 +75,8 @@ public class FormularioEventoGUI extends JPanel {
 	
 	private JTable tabelaEspacosEvento;
 	
+	private JTable tabelaHorariosEvento;
+	
 	private static AppGUI aplicacaoGUI;
 	
 	private JList<String> profissionais;
@@ -95,6 +98,8 @@ public class FormularioEventoGUI extends JPanel {
 	private EventoEspacoTableModel modeloTabelaEspacosEvento;
 	
 	private EspacoTableModel modeloTabelaEspacos;
+	
+	private HorarioEventoTableModel modeloTabelaHorariosEvento;
 	
 	private java.util.List<String> listaProfissionaisSelecionados;
 	
@@ -192,11 +197,12 @@ public class FormularioEventoGUI extends JPanel {
 		JPanel panelEspacos = new JPanel();
 		panelEvento.addTab("Espaços", null, panelEspacos, "Espaços");		
 		panelEspacos.setBounds(10, 50, 545, 252);
-		//createAbaProfissionais(panelProfissionais);
 		createAbaEspacos(panelEspacos);
 		
 		JPanel panelAgenda = new JPanel();
 		panelEvento.addTab("Agenda", null, panelAgenda, "Agenda");
+		panelAgenda.setBounds(10, 50, 545, 252);
+		createAbaAgenda(panelAgenda);
 		
 		JPanel panelDisponibilidade = new JPanel();
 		panelEvento.addTab("Disponibiliade", null, panelDisponibilidade, "Disponibilidade");
@@ -754,5 +760,48 @@ public class FormularioEventoGUI extends JPanel {
 			}
 		});
         panelEspacos.add(adicionar);
+	}
+	
+	
+	// Agenda de Horários do Evento
+	
+	public HorarioEventoTableModel getModeloTabelaHorariosEvento() {
+		if(this.modeloTabelaHorariosEvento == null){
+			this.modeloTabelaHorariosEvento = (HorarioEventoTableModel)new HorarioEventoTableModel(null);			
+			this.getController().buscarHorariosDoEvento();
+		}
+		
+		if(this.modeloTabelaHorariosEvento.hasEmptyRow()){
+			modeloTabelaHorariosEvento.addEmptyRow();
+		}
+		
+		return this.modeloTabelaHorariosEvento;
+	}
+	
+	private void createAbaAgenda(JPanel panelAgenda) {			
+		JLabel lblAgendaEvento = new JLabel("Agenda de Horários do Evento");
+		panelAgenda.add(lblAgendaEvento);		
+								
+		tabelaHorariosEvento = new JTable();
+		tabelaHorariosEvento.setModel(getModeloTabelaHorariosEvento());
+		tabelaHorariosEvento.setSurrendersFocusOnKeystroke(true);
+		tabelaHorariosEvento.addMouseListener(new MouseAdapter() {
+			//   @SuppressWarnings("unused")
+			public void mouseClicked(MouseEvent e) {
+//			      if (e.getClickCount() == 2) {
+//			         JTable target = (JTable)e.getSource();
+//			         int row = target.getSelectedRow();
+//			         int column = target.getSelectedColumn();
+//			         JFrame newFrame = new JFrame();
+//			         newFrame.setTitle("Detail Screen");
+//			         newFrame.setVisible(true);
+//			      }
+			   }
+			});
+		
+		JScrollPane scrollerTabela = new JScrollPane(tabelaHorariosEvento);
+		scrollerTabela.setPreferredSize(new Dimension(450, 200));
+		scrollerTabela.setVisible(true);
+		panelAgenda.add(scrollerTabela);		
 	}
 }
