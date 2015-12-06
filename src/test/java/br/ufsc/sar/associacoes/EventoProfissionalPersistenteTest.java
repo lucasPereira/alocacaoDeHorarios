@@ -12,19 +12,21 @@ import br.ufsc.sar.*;
 import br.ufsc.sar.entity.*;
 import br.ufsc.sar.service.*;
 
-@FixtureSetup({ EventoProfissionalTransienteTest.class, EventoPersistenteTest.class, ProfissionalPersistenteTest.class})
+@FixtureSetup({ EventoPersistenteTest.class, ProfissionalPersistenteTest.class, BaseDeDadosZeradaTest.class })
 public class EventoProfissionalPersistenteTest {
 
 	@Fixture private Evento eventoTransiente;
 	@Fixture private Profissional profissionalTransiente;
-	@Fixture private EventoProfissional eventoProfissionalTransiente;
 	@Fixture private EventoProfissionalService eventoProfissionalService;
 
 	private Long identificador;
 
 	@Before
 	public void configurar() throws Exception {
-		identificador = eventoProfissionalService.incluir(eventoProfissionalTransiente);
+		EventoProfissional eventoProfissional = new EventoProfissional();
+		eventoProfissional.setEvento(eventoTransiente);
+		eventoProfissional.setProfissional(profissionalTransiente);
+		identificador = eventoProfissionalService.incluir(eventoProfissional);
 		assertNotNull(identificador);
 	}
 
