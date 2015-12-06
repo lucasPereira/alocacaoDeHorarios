@@ -12,7 +12,7 @@ import br.ufsc.sar.*;
 import br.ufsc.sar.entity.*;
 import br.ufsc.sar.service.*;
 
-@FixtureSetup({ EventoPersistenteTest.class, ProfissionalPersistenteTest.class })
+@FixtureSetup({ EventoProfissionalTransienteTest.class, EventoPersistenteTest.class, ProfissionalPersistenteTest.class})
 public class EventoProfissionalPersistenteTest {
 
 	@Fixture private Evento eventoTransiente;
