@@ -92,7 +92,7 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 			            MaskFormatter dateMask = new MaskFormatter("##/##/####");
 			            dateMask.install((JFormattedTextField)elementGUI);
 			        } catch (ParseException ex) {
-			            System.out.println("Erro: " + ex.getMessage());
+			            //System.out.println("Erro: " + ex.getMessage());
 			        }
 			        ((JFormattedTextField)elementGUI).setEditable(editables[i]);
 			    }
@@ -191,19 +191,19 @@ public class EntityDetailsGUI<T extends BaseEntity> extends JFrame {
 		BaseService<T> service = (BaseService<T>)new HorarioProfissionalServiceImpl();
 		List<T> storedEntities = null;
 		try {
-			System.out.println("Service: " + service);
+			//System.out.println("Service: " + service);
 			storedEntities = (List<T>)service.getList();
     		if(storedEntities != null){
     			this.getModeloTabelaEntity().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " entidades encontradas");  
+    			//System.out.println(storedEntities.size() + " entidades encontradas");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null){   
 			adicionarLinha();
-			System.out.println("Não há entidades armazenadas"); 
+			//System.out.println("Não há entidades armazenadas"); 
     	}   	  		
 	}	
 	

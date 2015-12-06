@@ -58,7 +58,7 @@ public class FormularioEspacoListener extends AppListener {
 		}
 		
 		if(e.getActionCommand().equals("Cancelar")){
-			System.out.println("Cancelar e voltar para a tela de consulta!");
+			//System.out.println("Cancelar e voltar para a tela de consulta!");
 			this.getController().getEspacoGUI();
 			
 		}

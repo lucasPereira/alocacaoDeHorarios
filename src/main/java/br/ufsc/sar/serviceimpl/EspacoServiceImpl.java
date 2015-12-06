@@ -27,7 +27,7 @@ public class EspacoServiceImpl extends BaseServiceImpl<Espaco> implements Espaco
 					"      WHERE local_id = " + espaco.getId() +
 					"        AND caracteristica_id in (" + idsCaracteristicas + ")";
 			
-			System.out.println("Deletar: " + sqlDelete);
+			//System.out.println("Deletar: " + sqlDelete);
 			
 			Query query = getEntityManager().createNativeQuery(sqlDelete);
 			

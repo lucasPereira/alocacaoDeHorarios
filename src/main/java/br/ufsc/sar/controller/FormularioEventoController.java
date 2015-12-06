@@ -121,33 +121,33 @@ public class FormularioEventoController {
 		if(rows.length > 0) {
 			int retorno = JOptionPane.showConfirmDialog(this.formularioEventoGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			System.out.println("Excluir linha " + rows);
-			System.out.println("Retorno: " + retorno);
+//			//System.out.println("Excluir linha " + rows);
+//			//System.out.println("Retorno: " + retorno);
 			if(retorno == 0) {			
 				BaseEntity storedEntity = null;
 				boolean sucesso = true;
 				try {
-					System.out.println("Service: " + service);
+//					//System.out.println("Service: " + service);
 					// Garantir a ordem inversa
 					Arrays.sort(rows);
 					for (int i = rows.length - 1; i >= 0; i--) {
 						int row = rows[i];
 						storedEntity = tabelaModelo.getRow(row);
 						if(storedEntity != null) {
-							System.out.println(storedEntity.getIdValue());
+//							//System.out.println(storedEntity.getIdValue());
 							sucesso = service.excluir(storedEntity.getIdValue().longValue());
 							if(sucesso) {
 								tabelaModelo.removeRowRange(row,row);
-								System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
+//								//System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
 							}
 						}
 					}				    		
 				} catch (Exception e) {
-					System.out.println("Erro: " + e.getMessage());
+					//System.out.println("Erro: " + e.getMessage());
 				}  		
 				
 				if(storedEntity == null || !sucesso){
-					System.out.println("Entidades não removidas"); 
+					//System.out.println("Entidades não removidas"); 
 				}		
 			}
 		}
@@ -208,7 +208,7 @@ public class FormularioEventoController {
     		}
 		} catch (Exception e) {
 			//
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
 					"Erro de salvamento", JOptionPane.ERROR_MESSAGE);
@@ -257,14 +257,14 @@ public class FormularioEventoController {
 //    				}
 //    			}
 //    			this.getFormularioEventoGUI().setProfissionaisEvento(nomeProfissionais);
-    			System.out.println(storedEntities.size() + " profissionais encontrados");  
+//    			//System.out.println(storedEntities.size() + " profissionais encontrados");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há profissionais associados ao evento"); 
+//			//System.out.println("Não há profissionais associados ao evento"); 
     	} 
 	}
 
@@ -281,7 +281,7 @@ public class FormularioEventoController {
 				p = this.formularioEventoGUI.getModeloTabelaProfissionais().getRow(row);
 				if(p != null) {
 					Long idEventoProfissional = null;
-					System.out.println(p.getIdValue());
+//					//System.out.println(p.getIdValue());
 					try{
 						ep = new EventoProfissional();
 						ep.setEvento(this.evento);
@@ -318,7 +318,7 @@ public class FormularioEventoController {
 			
 		} catch (Exception e) {
 			//
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
@@ -377,7 +377,7 @@ public class FormularioEventoController {
 			
 		} catch (Exception e) {
 			//
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
@@ -402,14 +402,14 @@ public class FormularioEventoController {
 			storedEntities = getListaProfissionaisDisponiveis();
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaProfissionais().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " profissionais encontrados");  
+//    			//System.out.println(storedEntities.size() + " profissionais encontrados");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há profissionais"); 
+//			//System.out.println("Não há profissionais"); 
     	} 
 	}
 	
@@ -425,7 +425,7 @@ public class FormularioEventoController {
 			buscarProfissionais();
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de profissionais:\n" + e.getLocalizedMessage(),
@@ -444,7 +444,7 @@ public class FormularioEventoController {
 			sucesso = true;
 		}
 		catch(Exception e){
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar excluir lista de profissionais:\n" + e.getLocalizedMessage(),
@@ -484,14 +484,14 @@ public class FormularioEventoController {
 			storedEntities = getListaCaracteristicasDisponiveis();
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaCaracteristicas().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " características encontradas");  
+//    			//System.out.println(storedEntities.size() + " características encontradas");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há características"); 
+//			//System.out.println("Não há características"); 
     	} 		
 	}
 
@@ -507,14 +507,14 @@ public class FormularioEventoController {
 			storedEntities = (List<EventoCaracteristica>)getEventoCaracteristicaService().getList(filtroConsulta);
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaCaracteristicasEvento().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " características encontradas");  
+//    			//System.out.println(storedEntities.size() + " características encontradas");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há características associadas ao evento"); 
+//			//System.out.println("Não há características associadas ao evento"); 
     	} 		
 	}
 
@@ -529,7 +529,7 @@ public class FormularioEventoController {
 					p = this.formularioEventoGUI.getModeloTabelaCaracteristicas().getRow(row);
 					if(p != null) {
 						Long idEventoCaracteristica = null;
-						System.out.println(p.getIdValue());
+						//System.out.println(p.getIdValue());
 						try{
 							ep = new EventoCaracteristica();
 							ep.setEvento(this.evento);
@@ -564,7 +564,7 @@ public class FormularioEventoController {
 				
 			} catch (Exception e) {
 				//
-				System.out.println("Erro: " + e.getMessage());
+				//System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 						"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
@@ -582,7 +582,7 @@ public class FormularioEventoController {
 				sucesso = true;
 			}
 			catch(Exception e){
-				System.out.println("Erro: " + e.getMessage());
+				//System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 						"Erro ao tentar excluir lista de características:\n" + e.getLocalizedMessage(),
@@ -596,11 +596,11 @@ public class FormularioEventoController {
 	}
 
 	public void alterarCaracteristicaEvento() {
-		System.out.println(linhasEventoCaracteristicaAtualizadas.size());
+		//System.out.println(linhasEventoCaracteristicaAtualizadas.size());
 		if(linhasEventoCaracteristicaAtualizadas != null && !linhasEventoCaracteristicaAtualizadas.isEmpty()){
 			List<Integer> indexLinhaAtualizadaSucesso = new ArrayList<Integer>();
 			for (Integer row : linhasEventoCaracteristicaAtualizadas) {
-				System.out.println("Tentando persistir entidade da linha " + row + "...");				
+				//System.out.println("Tentando persistir entidade da linha " + row + "...");				
 				EventoCaracteristica entity = this.formularioEventoGUI.getModeloTabelaCaracteristicasEvento().getRow(row);				
 				try {
 					if(getEventoCaracteristicaService().alterar(entity)){
@@ -614,7 +614,7 @@ public class FormularioEventoController {
 					}
 				} catch (Exception e) {
 					//
-					System.out.println("Erro: " + e.getMessage());
+					//System.out.println("Erro: " + e.getMessage());
 					JOptionPane.showMessageDialog(this.formularioEventoGUI, 
 							"Erro ao tentar excluir a linha " + row + ":\n" + e.getLocalizedMessage(),
 							"Erro de exclusão", JOptionPane.ERROR_MESSAGE);
@@ -638,7 +638,7 @@ public class FormularioEventoController {
 			buscarCaracteristicas();
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de características:\n" + e.getLocalizedMessage(),
@@ -655,7 +655,7 @@ public class FormularioEventoController {
 			}				
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de características do evento:\n" + e.getLocalizedMessage(),
@@ -703,14 +703,14 @@ public class FormularioEventoController {
 			storedEntities = getListaEspacosDisponiveis();
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaEspacos().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " espaços encontrados");  
+    			//System.out.println(storedEntities.size() + " espaços encontrados");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há espaços cadastrados"); 
+			//System.out.println("Não há espaços cadastrados"); 
     	} 		
 	}
 
@@ -722,14 +722,14 @@ public class FormularioEventoController {
 			storedEntities = (List<EventoEspaco>)getEventoEspacoService().getList(filtroConsulta);
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaEspacosEvento().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " espaços encontrados");  
+    			//System.out.println(storedEntities.size() + " espaços encontrados");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há espaços associadas ao evento"); 
+			//System.out.println("Não há espaços associadas ao evento"); 
     	} 		
 	}
 
@@ -742,7 +742,7 @@ public class FormularioEventoController {
 				sucesso = true;
 			}
 			catch(Exception e){
-				System.out.println("Erro: " + e.getMessage());
+				//System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 						"Erro ao tentar excluir lista de espaços:\n" + e.getLocalizedMessage(),
@@ -772,7 +772,7 @@ public class FormularioEventoController {
 					}
 					else {
 						Long idEventoEspaco = null;
-						System.out.println(espaco.getIdValue());
+						//System.out.println(espaco.getIdValue());
 						try{
 							ep = new EventoEspaco();
 							ep.setEvento(this.evento);
@@ -810,7 +810,7 @@ public class FormularioEventoController {
 			
 		} catch (Exception e) {
 			//
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar salvar:\n" + e.getLocalizedMessage(),
@@ -831,7 +831,7 @@ public class FormularioEventoController {
 			buscarEspacos();
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de espaços:\n" + e.getLocalizedMessage(),
@@ -848,7 +848,7 @@ public class FormularioEventoController {
 			}				
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de espaços do evento:\n" + e.getLocalizedMessage(),
@@ -868,14 +868,14 @@ public class FormularioEventoController {
 			storedEntities = (List<HorarioEvento>)getEventoService().getEventoHorarios(this.evento);
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getFormularioEventoGUI().getModeloTabelaHorariosEvento().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " horários do evento encontrados");  
+    			//System.out.println(storedEntities.size() + " horários do evento encontrados");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
-			System.out.println("Não há horários definidos para o evento"); 
+			//System.out.println("Não há horários definidos para o evento"); 
     	}
 	}
 	
@@ -891,7 +891,7 @@ public class FormularioEventoController {
 			}				
 		}
 		catch(Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this.getFormularioEventoGUI(), 
 					"Erro ao tentar recarregar lista de horários do evento:\n" + e.getLocalizedMessage(),

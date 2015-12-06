@@ -56,7 +56,7 @@ public class EventoServiceImpl extends BaseServiceImpl<Evento> implements Evento
 			HorarioEvento he = null;
 			for (Object object : resultados) {
 				Object [] objectHorarioEvento = (Object []) object;
-				System.out.println("T: " + objectHorarioEvento);
+				//System.out.println("T: " + objectHorarioEvento);
 				he = new HorarioEvento();
 				he.setId(id);
 				he.setEvento(evento);
@@ -66,12 +66,12 @@ public class EventoServiceImpl extends BaseServiceImpl<Evento> implements Evento
 				he.setDiadasemana((String)objectHorarioEvento[2]);
 				he.setHorainicio((String)objectHorarioEvento[3]);
 				he.setHoratermino((String)objectHorarioEvento[4]);
-				System.out.println("HorarioEvento : " + he );
+				//System.out.println("HorarioEvento : " + he );
 				listaHorarios.add(he);				
 			}			
 		} catch (NoResultException e) {
-			System.out.println("EventoServiceImpl.getEventoHorarios(evento)");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("EventoServiceImpl.getEventoHorarios(evento)");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listaHorarios = new ArrayList<HorarioEvento>();
 		}
 		
@@ -94,8 +94,8 @@ public class EventoServiceImpl extends BaseServiceImpl<Evento> implements Evento
 		try {
 			listaCaracteristicas = (List<EventoCaracteristica>) query.getResultList();
 		} catch (NoResultException e) {
-			System.out.println("EventoServiceImpl.getEventoCaracteristicas(evento)");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("EventoServiceImpl.getEventoCaracteristicas(evento)");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listaCaracteristicas = new ArrayList<EventoCaracteristica>();
 		}
 		return listaCaracteristicas;
@@ -117,8 +117,8 @@ public class EventoServiceImpl extends BaseServiceImpl<Evento> implements Evento
 		try {
 			listaProfissionais = (List<EventoProfissional>) query.getResultList();
 		} catch (NoResultException e) {
-			System.out.println("EventoServiceImpl.getEventoProfissionais(evento)");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("EventoServiceImpl.getEventoProfissionais(evento)");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listaProfissionais = new ArrayList<EventoProfissional>();
 		}
 		return listaProfissionais;

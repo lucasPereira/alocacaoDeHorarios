@@ -49,7 +49,7 @@ public class EventoController extends EntityController<Evento> {
 				retorno = false;
 			}
 			else {
-				System.out.println("Abrir detalhes do evento");
+//				//System.out.println("Abrir detalhes do evento");
 				evento = etm.getRow(row);
 		    	if(evento != null) {
 		    		this.getEntityGUI().removeAll();
@@ -62,7 +62,7 @@ public class EventoController extends EntityController<Evento> {
 			break;
 		case 3:
 			// FIXME: Remover
-			System.out.println("Abrir profissionais do evento");
+//			//System.out.println("Abrir profissionais do evento");
 			//JTable target = (JTable)e.getSource();
 			 //JFrame newFrame = new JFrame();
 	         //newFrame.setTitle("Detail Screen");
@@ -87,11 +87,11 @@ public class EventoController extends EntityController<Evento> {
 			retorno = true;
 			break;
 		case 4:
-			System.out.println("Abrir horários do evento");
+//			//System.out.println("Abrir horários do evento");
 			retorno = true;
 			break;	
 		case 5:
-			System.out.println("Abrir espaços do evento");
+//			//System.out.println("Abrir espaços do evento");
 			retorno = true;
 			break;
 		default:

@@ -26,17 +26,17 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Novo")){
-			System.out.println("Acessando Cadastro -> " + getEntityName() + " -> Novo");
+			//System.out.println("Acessando Cadastro -> " + getEntityName() + " -> Novo");
 			controller.adicionarLinha();
 		}
 		else{
 			if(e.getActionCommand().equals("Excluir")){
-				System.out.println("Excluindo Cadastro -> " + getEntityName());
+				//System.out.println("Excluindo Cadastro -> " + getEntityName());
 				controller.excluirLinha(this.entityGUI.getTabelaEntity().getSelectedRows());
 			}
 			else{
 				if(e.getActionCommand().equals("Salvar")){
-					System.out.println("Salvando Cadastro -> " + getEntityName());
+					//System.out.println("Salvando Cadastro -> " + getEntityName());
 					controller.salvar();
 				} else {
 					if (e.getActionCommand().contains("Editar@")) {
@@ -57,14 +57,14 @@ public abstract class EntityListener<T extends BaseEntity> implements ActionList
 			//Object source = e.getSource();
 			int column = e.getColumn();
 			int row = e.getFirstRow();
-			System.out.println("row: " + row + " column: " + column);	
+			//System.out.println("row: " + row + " column: " + column);	
 			if(column >= 0) {
 				if (controller.tratarColunaEspecial(e) == true){
-					System.out.println(controller.getClass().getCanonicalName());
-					System.out.println("CellProperty: Célula especial");
+//					//System.out.println(controller.getClass().getCanonicalName());
+					//System.out.println("CellProperty: Célula especial");
 				}
 				else {
-					System.out.println("Não é célula especial (célula 'botão') ");
+					//System.out.println("Não é célula especial (célula 'botão') ");
 					controller.marcarLinhaAtualizada(row);				
 				}	
 			}

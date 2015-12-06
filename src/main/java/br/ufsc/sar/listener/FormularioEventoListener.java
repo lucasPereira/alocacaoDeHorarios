@@ -36,16 +36,16 @@ public class FormularioEventoListener extends AppListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Salvar")){
-			System.out.println("Salvar os dados");
+			//System.out.println("Salvar os dados");
 			this.getFormularioEventoGUI().getController().salvarEvento();
 		}
 		
 		if(e.getActionCommand().equals("Excluir")){
-			System.out.println("Excluir o registro");
+			//System.out.println("Excluir o registro");
 		}
 		
 		if(e.getActionCommand().equals("Cancelar")){
-			System.out.println("Cancelar e voltar para a tela de consulta!");
+			//System.out.println("Cancelar e voltar para a tela de consulta!");
 			this.getController().getEventoGUI();			
 		}		
 	}

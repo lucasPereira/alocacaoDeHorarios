@@ -96,7 +96,7 @@ public class EspacoController extends EntityController<Espaco> {
 		}
 		else {
 			if(e.getColumn() == 6){
-				System.out.println("Abrir horários do espaço");
+//				//System.out.println("Abrir horários do espaço");
 				//JTable target = (JTable)e.getSource();
 				//JFrame newFrame = new JFrame();
 		        //newFrame.setTitle("Detail Screen");

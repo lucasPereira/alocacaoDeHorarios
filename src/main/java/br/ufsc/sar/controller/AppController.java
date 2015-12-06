@@ -29,9 +29,9 @@ public class AppController {
 	 * @param gui
 	 */
 	private void getEntityGUI(JPanel entityGUI){
-		System.out.println("Remover todos os atributos do painel");
+//		//System.out.println("Remover todos os atributos do painel");
 		aplicacaoGUI.getContentPane().removeAll();
-		System.out.println("Adicionar novos componentes painel");
+//		//System.out.println("Adicionar novos componentes painel");
 		aplicacaoGUI.getContentPane().setVisible(false);
 		aplicacaoGUI.getContentPane().add(entityGUI);
 		entityGUI.setOpaque(true);

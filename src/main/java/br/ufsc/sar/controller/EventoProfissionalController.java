@@ -43,11 +43,11 @@ public class EventoProfissionalController extends EntityController<EventoProfiss
 		EventoProfissionalTableModel etm = (EventoProfissionalTableModel)e.getSource();
 		switch (column) {
 		case 2:
-			System.out.println("Abrir detalhes de características");
+//			//System.out.println("Abrir detalhes de características");
 			retorno = true;
 			break;
 		case 3:
-			System.out.println("Abrir detalhes de profissionais");
+//			//System.out.println("Abrir detalhes de profissionais");
 			//JTable target = (JTable)e.getSource();
 			//JFrame newFrame = new JFrame();
 	        //newFrame.setTitle("Detail Screen");
@@ -72,11 +72,11 @@ public class EventoProfissionalController extends EntityController<EventoProfiss
 			retorno = true;
 			break;
 		case 4:
-			System.out.println("Abrir detalhes de horarios");
+//			//System.out.println("Abrir detalhes de horarios");
 			retorno = true;
 			break;	
 		case 5:
-			System.out.println("Abrir detalhes de espaco");
+//			//System.out.println("Abrir detalhes de espaco");
 			retorno = true;
 			break;
 		default:

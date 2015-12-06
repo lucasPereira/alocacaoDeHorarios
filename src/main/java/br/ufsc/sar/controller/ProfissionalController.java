@@ -42,7 +42,7 @@ public class ProfissionalController extends EntityController<Profissional> {
 		if(source != null && row >= 0) {
 			switch (column) {
 			case 6:
-				System.out.println("Abrir horários do profissional");
+				//System.out.println("Abrir horários do profissional");
 				//JTable target = (JTable)e.getSource();
 				//JFrame newFrame = new JFrame();
 		        //newFrame.setTitle("Detail Screen");

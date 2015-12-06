@@ -58,8 +58,8 @@ public class CaracteristicaServiceImpl extends BaseServiceImpl<Caracteristica> i
 		try {
 			listCaracteristica = (List<Caracteristica>) query.getResultList();
 		} catch (NoResultException e) {
-			System.out.println("CaracteristicaServiceImpl.getListAtivas()");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("CaracteristicaServiceImpl.getListAtivas()");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listCaracteristica = new ArrayList<Caracteristica>();
 		}
 		return listCaracteristica;
@@ -80,8 +80,8 @@ public class CaracteristicaServiceImpl extends BaseServiceImpl<Caracteristica> i
 		try {
 			listCaracteristica = (List<Caracteristica>) query.getResultList();
 		} catch (NoResultException e) {
-			System.out.println("CaracteristicaServiceImpl.getListPorNome()");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("CaracteristicaServiceImpl.getListPorNome()");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listCaracteristica = new ArrayList<Caracteristica>();
 		}
 		return listCaracteristica;

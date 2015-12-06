@@ -66,8 +66,8 @@ public class ProfissionalServiceImpl extends BaseServiceImpl<Profissional> imple
 		try {
 			listProfissional = (List<Profissional>) query.getResultList();
 		} catch (NoResultException e) {
-			System.out.println("ProfissionalServiceImpl.getListPorNome()");
-			System.out.println(":: Nenhum resultado encontrado ::");
+			//System.out.println("ProfissionalServiceImpl.getListPorNome()");
+			//System.out.println(":: Nenhum resultado encontrado ::");
 			listProfissional = new ArrayList<Profissional>();
 		}
 		return listProfissional;

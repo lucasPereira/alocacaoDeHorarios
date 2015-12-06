@@ -442,7 +442,7 @@ public class FormularioEventoGUI extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                 	listaProfissionaisSelecionados = profissionais.getSelectedValuesList();
-                    System.out.println(profissionais.getSelectedValuesList());
+//                    //System.out.println(profissionais.getSelectedValuesList());
                 }
             }
         });
@@ -512,7 +512,7 @@ public class FormularioEventoGUI extends JPanel {
 					//Object source = e.getSource();
 					int column = e.getColumn();
 					int row = e.getFirstRow();
-					System.out.println("row: " + row + " column: " + column);	
+					//System.out.println("row: " + row + " column: " + column);	
 					if(column >= 0) {
 						getController().marcarLinhaEventoCaracteristicaAtualizada(row);							
 					}

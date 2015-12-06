@@ -17,25 +17,25 @@ public class AppListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Iniciar cadastro de características
 		if (e.getActionCommand().equals("Característica")){
-			System.out.println("Acessando Cadastro -> Caracterísitca");
+			//System.out.println("Acessando Cadastro -> Caracterísitca");
 			controller.getCaracteristicaGUI();
 		}
 		
 		// Iniciar cadstro de profissional
 		if (e.getActionCommand().equals("Profissional")){
-			System.out.println("Profissional");
+			//System.out.println("Profissional");
 			controller.getProfissionalGUI();
 		}
 		
 		// Iniciar cadstro de espaço
 		if (e.getActionCommand().equals("Espaço")){
-			System.out.println("Espaço");
+			//System.out.println("Espaço");
 			controller.getEspacoGUI();
 		}		
 		
 		// Iniciar cadstro de evento
 		if (e.getActionCommand().equals("Evento")){
-			System.out.println("Evento");
+			//System.out.println("Evento");
 			controller.getEventoGUI();
 		}	
 	}

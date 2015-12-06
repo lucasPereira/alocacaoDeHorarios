@@ -74,11 +74,11 @@ public abstract class EntityController<T extends BaseEntity> {
 	 */
 	@SuppressWarnings("unchecked")
 	public void salvar() {
-		System.out.println(linhasAtualizadas.size());
+//		//System.out.println(linhasAtualizadas.size());
 		if(linhasAtualizadas != null && !linhasAtualizadas.isEmpty()){
 			List<Integer> indexLinhaAtualizadaSucesso = new ArrayList<Integer>();
 			for (Integer row : linhasAtualizadas) {
-				System.out.println("Tentando persistir entidade da linha " + row + "...");				
+//				//System.out.println("Tentando persistir entidade da linha " + row + "...");				
 				T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);				
 				BaseService<T> service = getEntityService();	
 				boolean sucesso = true;
@@ -103,7 +103,7 @@ public abstract class EntityController<T extends BaseEntity> {
 		    		}
 				} catch (Exception e) {
 					//
-					System.out.println("Erro: " + e.getMessage());
+//					//System.out.println("Erro: " + e.getMessage());
 					JOptionPane.showMessageDialog(this.entityGUI, 
 							"Erro ao tentar excluir a linha " + row + ":\n" + (e.getLocalizedMessage() == null ? "Obrigatório informar o nome" : e.getLocalizedMessage()),
 							"Erro de exclusão", JOptionPane.ERROR_MESSAGE);
@@ -126,19 +126,19 @@ public abstract class EntityController<T extends BaseEntity> {
 		BaseService<T> service = getEntityService();
 		List<T> storedEntities = null;
 		try {
-			System.out.println("Service: " + service);
+//			//System.out.println("Service: " + service);
 			storedEntities = (List<T>)service.getList();
     		if(storedEntities != null && !storedEntities.isEmpty()){
     			this.getEntityGUI().getModeloTabelaEntity().addRows(storedEntities);
-    			System.out.println(storedEntities.size() + " entidades encontradas");  
+//    			//System.out.println(storedEntities.size() + " entidades encontradas");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}
 		
 		if(storedEntities == null || storedEntities.isEmpty()){   
 			adicionarLinha();
-			System.out.println("Não há entidades armazenadas"); 
+//			//System.out.println("Não há entidades armazenadas"); 
     	}   	  		
 	}		
 	
@@ -151,20 +151,20 @@ public abstract class EntityController<T extends BaseEntity> {
 			BaseService<T> service = getEntityService();
 			List<T> storedEntities = null;
 			try {
-				System.out.println("Service: " + service);
+//				//System.out.println("Service: " + service);
 				String filtroConsulta = edinfo.getColunaDetalhe() + " = " + edinfo.getEntidadeRaiz().getIdValue().longValue();
 				storedEntities = (List<T>)service.getList(filtroConsulta);
 	    		if(storedEntities != null && !storedEntities.isEmpty()){
 	    			this.getEntityGUI().getModeloTabelaEntity().addRows(storedEntities);
-	    			System.out.println(storedEntities.size() + " entidades encontradas");  
+//	    			//System.out.println(storedEntities.size() + " entidades encontradas");  
 	    		}
 			} catch (Exception e) {
-				System.out.println("Erro: " + e.getMessage());
+//				//System.out.println("Erro: " + e.getMessage());
 			}
 			
 			if(storedEntities == null || storedEntities.isEmpty()){   
 				adicionarLinha();
-				System.out.println("Não há entidades armazenadas"); 
+//				//System.out.println("Não há entidades armazenadas"); 
 	    	}   
 		}
 	}		
@@ -178,18 +178,18 @@ public abstract class EntityController<T extends BaseEntity> {
 		BaseService<T> service = getEntityService();
 		T storedEntity = null;
 		try {
-			System.out.println("Service: " + service);
+//			//System.out.println("Service: " + service);
 			storedEntity = (T)service.getEntity(id);
     		if(storedEntity != null){
     			this.getEntityGUI().getModeloTabelaEntity().addRow(storedEntity);
-    			System.out.println("Entidade " + storedEntity + " encontrada");  
+//    			//System.out.println("Entidade " + storedEntity + " encontrada");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}  		
 		
 		if(storedEntity == null){
-			System.out.println("Entidade não encontrada"); 
+//			//System.out.println("Entidade não encontrada"); 
 		}
 	}		
 	
@@ -203,18 +203,18 @@ public abstract class EntityController<T extends BaseEntity> {
 		BaseService<T> service = getEntityService();
 		T storedEntity = null;
 		try {
-			System.out.println("Service: " + service);
+//			//System.out.println("Service: " + service);
 			storedEntity = (T)service.getEntity(id);
     		if(storedEntity != null){
     			this.getEntityGUI().getModeloTabelaEntity().replaceRow(row, storedEntity);
-    			System.out.println("Entidade " + storedEntity + " encontrada");  
+//    			//System.out.println("Entidade " + storedEntity + " encontrada");  
     		}
 		} catch (Exception e) {
-			System.out.println("Erro: " + e.getMessage());
+//			//System.out.println("Erro: " + e.getMessage());
 		}  		
 		
 		if(storedEntity == null){
-			System.out.println("Entidade não encontrada"); 
+//			//System.out.println("Entidade não encontrada"); 
 		}
 	}
 	
@@ -229,18 +229,18 @@ public abstract class EntityController<T extends BaseEntity> {
 			BaseService<T> service = getEntityService();
 			T storedEntity = null;
 			try {
-				System.out.println("Service: " + service);
+//				//System.out.println("Service: " + service);
 				storedEntity = (T)service.getEntity(entity.getIdValue().longValue());
 	    		if(storedEntity != null){
-	    			System.out.println("Entidade " + storedEntity + " encontrada");  
+//	    			//System.out.println("Entidade " + storedEntity + " encontrada");  
 	    			return storedEntity;
 	    		}
 			} catch (Exception e) {
-				System.out.println("Erro: " + e.getMessage());
+//				//System.out.println("Erro: " + e.getMessage());
 			}  		
 			
 			if(storedEntity == null){
-				System.out.println("Entidade não encontrada"); 
+//				//System.out.println("Entidade não encontrada"); 
 			}
 		}
 		
@@ -256,34 +256,34 @@ public abstract class EntityController<T extends BaseEntity> {
 			if(rows.length > 0) {
 				int retorno = JOptionPane.showConfirmDialog(this.entityGUI, "Você tem certeza que deseja excluir as linhas selecionadas?", "Confirmação de exclusão",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				System.out.println("Excluir linha " + rows);
-				System.out.println("Retorno: " + retorno);
+//				//System.out.println("Excluir linha " + rows);
+//				//System.out.println("Retorno: " + retorno);
 				if(retorno == 0) {			
 					BaseService<T> service = getEntityService();
 					T storedEntity = null;
 					boolean sucesso = true;
 					try {
-						System.out.println("Service: " + service);
+//						//System.out.println("Service: " + service);
 						// Garantir a ordem inversa
 						Arrays.sort(rows);
 						for (int i = rows.length - 1; i >= 0; i--) {
 							int row = rows[i];
 							storedEntity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);
 							if(storedEntity != null) {
-								System.out.println(storedEntity.getIdValue());
+//								//System.out.println(storedEntity.getIdValue());
 								sucesso = service.excluir(storedEntity.getIdValue().longValue());
 								if(sucesso) {
 									this.getEntityGUI().getModeloTabelaEntity().removeRowRange(row,row);
-									System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
+//									//System.out.println("Entidade " + storedEntity.getIdValue() + " removida com sucesso");
 								}
 							}
 						}				    		
 					} catch (Exception e) {
-						System.out.println("Erro: " + e.getMessage());
+//						//System.out.println("Erro: " + e.getMessage());
 					}  		
 					
 					if(storedEntity == null || !sucesso){
-						System.out.println("Entidades não removidas"); 
+//						//System.out.println("Entidades não removidas"); 
 					}		
 				}
 			}
@@ -291,7 +291,7 @@ public abstract class EntityController<T extends BaseEntity> {
 	}
 
 	public void editarRegistroDependente(String actionCommand) {
-		System.out.println("editarRegistroDependente");
+//		//System.out.println("editarRegistroDependente");
 		
 	}
 

@@ -40,22 +40,22 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 	}
 
 	public E getEntity(Long id) {
-		System.out.println("BASE ENTITY: " + this.getBaseentity().getClass().getName());
+		//System.out.println("BASE ENTITY: " + this.getBaseentity().getClass().getName());
 		return getEntityManager().find(this.getBaseentity(), id);
 	}
 
 	public Long incluir(E objeto) throws Exception {
-		System.out.println("Nome da Classe: " + objeto.getClass().getName());
-		if (objeto.getClass().getName().equals(Caracteristica.class.getName()))
-			System.out.println("Nome: " + ((Caracteristica) objeto).getNome());
-		else
-			System.out.println("Ops!");
+		//System.out.println("Nome da Classe: " + objeto.getClass().getName());
+//		if (objeto.getClass().getName().equals(Caracteristica.class.getName()))
+//			System.out.println("Nome: " + ((Caracteristica) objeto).getNome());
+//		else
+//			System.out.println("Ops!");
 
 		this.getEntityManager().getTransaction().begin();
 		this.getEntityManager().persist(objeto);
 		this.getEntityManager().getTransaction().commit();
 
-		System.out.println(objeto.getIdValue());
+//		//System.out.println(objeto.getIdValue());
 		Number result = ((BaseEntity) objeto).getIdValue();
 		if (result == null) {
 			throw new Exception("Não foi possível ((BaseEntity) objeto).getIdValue(); ");
@@ -93,7 +93,7 @@ public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseServi
 	protected EntityManager getEntityManager() {
 		if (this.em == null) {
 			this.em = Persistence.createEntityManagerFactory("sardb").createEntityManager();
-			System.out.println("Propriedades:" + this.em.getProperties().toString());
+			//System.out.println("Propriedades:" + this.em.getProperties().toString());
 		}
 		return this.em;
 	}
