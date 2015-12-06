@@ -1,4 +1,4 @@
-package br.ufsc.sar;
+package br.ufsc.sar.experimental;
 
 import static org.junit.Assert.assertTrue;
 

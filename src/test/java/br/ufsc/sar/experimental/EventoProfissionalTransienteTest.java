@@ -1,12 +1,16 @@
-package br.ufsc.sar.associacoes;
+package br.ufsc.sar.experimental;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.*;
-import br.ufsc.sar.entity.*;
+import br.ufsc.ine.leb.projetos.estoria.Fixture;
+import br.ufsc.ine.leb.projetos.estoria.FixtureSetup;
+import br.ufsc.sar.entity.Evento;
+import br.ufsc.sar.entity.EventoProfissional;
+import br.ufsc.sar.entity.Profissional;
 
 @FixtureSetup({ EventoTransienteTest.class, ProfissionalTransienteTest.class })
 public class EventoProfissionalTransienteTest {

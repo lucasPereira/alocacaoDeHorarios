@@ -1,6 +1,7 @@
-package br.ufsc.sar;
+package br.ufsc.sar.experimental;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.*;
 
@@ -10,24 +11,24 @@ import br.ufsc.ine.leb.projetos.estoria.*;
 import br.ufsc.sar.entity.*;
 import br.ufsc.sar.service.*;
 
-@FixtureSetup(EventoPersistenteTest.class)
-public class EventoPersistenteAlteradoTest {
+@FixtureSetup(EventoTransienteTest.class)
+public class EventoPersistenteTest {
 
-	@Fixture private Long identificador;
 	@Fixture private EventoService eventoService;
 	@Fixture private Evento eventoTransiente;
 
+	private Long identificador;
+
 	@Before
 	public void configurar() throws Exception {
-		eventoTransiente.setNome("Evento alterado");
-		eventoService.alterar(eventoTransiente);
+		identificador = eventoService.incluir(eventoTransiente);
+		assertNotNull(identificador);
 	}
 
 	@Test
 	public void obter() throws Exception {
 		Evento evento = eventoService.getEntity(identificador);
 		assertEquals(identificador, evento.getId());
-		assertEquals("Evento alterado", evento.getNome());
 	}
 
 	@Test
@@ -35,7 +36,6 @@ public class EventoPersistenteAlteradoTest {
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
 		assertEquals(identificador, eventos.get(0).getId());
-		assertEquals("Evento alterado", eventos.get(0).getNome());
 	}
 
 }

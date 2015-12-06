@@ -1,16 +1,19 @@
-package br.ufsc.sar.associacoes;
+package br.ufsc.sar.experimental;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.*;
+import java.util.List;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.*;
-import br.ufsc.sar.entity.*;
-import br.ufsc.sar.service.*;
+import br.ufsc.ine.leb.projetos.estoria.Fixture;
+import br.ufsc.ine.leb.projetos.estoria.FixtureSetup;
+import br.ufsc.sar.entity.Evento;
+import br.ufsc.sar.entity.EventoProfissional;
+import br.ufsc.sar.entity.Profissional;
+import br.ufsc.sar.service.EventoProfissionalService;
 
 @FixtureSetup({ EventoPersistenteTest.class, ProfissionalPersistenteTest.class, BaseDeDadosZeradaTest.class })
 public class EventoProfissionalPersistenteTest {
