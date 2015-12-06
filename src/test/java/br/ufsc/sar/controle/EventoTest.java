@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +18,7 @@ public class EventoTest {
 	private EventoService eventoService;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEvento() throws Exception {
 		eventoService = new EventoServiceImpl();
 		eventoService.exluirTodos();
 		eventoTransiente = new Evento();
@@ -84,11 +83,6 @@ public class EventoTest {
 		eventoService.excluir(identificador);
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(0, eventos.size());
-	}
-
-	@After
-	public void limpar() throws Exception {
-		eventoService.exluirTodos();
 	}
 
 }
