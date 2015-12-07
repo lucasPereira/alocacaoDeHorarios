@@ -11,10 +11,10 @@ import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
 
 public class BaseDeDadosZerada {
 
-	private static EventoService eventoService;
-	private static ProfissionalService profissionalService;
-	private static CaracteristicaService caracteristicaService;
-	private static EventoProfissionalService eventoProfissionalService;
+	static private EventoService eventoService;
+	static private ProfissionalService profissionalService;
+	static private CaracteristicaService caracteristicaService;
+	static private EventoProfissionalService eventoProfissionalService;
 
 	public static void criarBase() {
 		eventoService = new EventoServiceImpl();
