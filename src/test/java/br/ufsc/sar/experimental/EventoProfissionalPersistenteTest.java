@@ -26,10 +26,10 @@ public class EventoProfissionalPersistenteTest {
 
 	@Before
 	public void configurarEventoProfissional() throws Exception {
-		EventoProfissional eventoProfissional = new EventoProfissional();
-		eventoProfissional.setEvento(eventoTransiente);
-		eventoProfissional.setProfissional(profissionalTransiente);
-		identificadorEventoProfissional = eventoProfissionalService.incluir(eventoProfissional);
+		EventoProfissional eventoProfissionalTransiente = new EventoProfissional();
+		eventoProfissionalTransiente.setEvento(eventoTransiente);
+		eventoProfissionalTransiente.setProfissional(profissionalTransiente);
+		identificadorEventoProfissional = eventoProfissionalService.incluir(eventoProfissionalTransiente);
 		assertNotNull(identificadorEventoProfissional);
 	}
 
