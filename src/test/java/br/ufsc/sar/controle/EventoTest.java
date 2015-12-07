@@ -31,8 +31,8 @@ public class EventoTest {
 
 	@Test
 	public void obterEventoPersistente() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		Evento evento = eventoService.getEntity(identificador);
 		assertEquals(identificador, evento.getId());
@@ -40,8 +40,8 @@ public class EventoTest {
 
 	@Test
 	public void listarEventoPersistente() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
@@ -50,8 +50,8 @@ public class EventoTest {
 
 	@Test
 	public void obterEventoPersistenteAlterado() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		eventoTransiente.setNome("Evento alterado");
 		eventoService.alterar(eventoTransiente);
@@ -62,8 +62,8 @@ public class EventoTest {
 
 	@Test
 	public void listarEventoPersistenteAlterado() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		eventoTransiente.setNome("Evento alterado");
 		eventoService.alterar(eventoTransiente);
@@ -75,8 +75,8 @@ public class EventoTest {
 
 	@Test
 	public void obterEventoPersistenteRemovido() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		eventoService.excluir(identificador);
 		Evento evento = eventoService.getEntity(identificador);
@@ -85,8 +85,8 @@ public class EventoTest {
 
 	@Test
 	public void listarEventoPersistenteRemovido() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
 		Long identificador = eventoService.incluir(eventoTransiente);
 		eventoService.excluir(identificador);
 		List<Evento> eventos = eventoService.getList();

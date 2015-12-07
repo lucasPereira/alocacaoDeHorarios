@@ -19,18 +19,18 @@ public class ProfissionalPersistenteRemovidoTest {
 	@Fixture private ProfissionalService profissionalService;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarProfissional() throws Exception {
 		profissionalService.excluir(identificador);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterProfissionalPersistenteRemovido() throws Exception {
 		Profissional profissional = profissionalService.getEntity(identificador);
 		assertNull(profissional);
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarProfissionalPersistenteRemovido() throws Exception {
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(0, profissionais.size());
 	}

@@ -15,7 +15,7 @@ import br.ufsc.sar.entity.EventoProfissional;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.service.EventoProfissionalService;
 
-@FixtureSetup({ EventoPersistenteTest.class, ProfissionalPersistenteTest.class, BaseDeDadosZeradaTest.class })
+@FixtureSetup({ EventoPersistenteTest.class, ProfissionalPersistenteTest.class, BaseDeDadosZerada.class })
 public class EventoProfissionalPersistenteTest {
 
 	@Fixture private Evento eventoTransiente;
@@ -25,7 +25,7 @@ public class EventoProfissionalPersistenteTest {
 	private Long identificador;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEventoProfissional() throws Exception {
 		EventoProfissional eventoProfissional = new EventoProfissional();
 		eventoProfissional.setEvento(eventoTransiente);
 		eventoProfissional.setProfissional(profissionalTransiente);
@@ -34,7 +34,7 @@ public class EventoProfissionalPersistenteTest {
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterEventoProfissionalPersistente() throws Exception {
 		EventoProfissional eventoProssifional = eventoProfissionalService.getEntity(identificador);
 		assertEquals(identificador, eventoProssifional.getId());
 		assertEquals(eventoTransiente.getId(), eventoProssifional.getEvento().getId());
@@ -42,7 +42,7 @@ public class EventoProfissionalPersistenteTest {
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarEventoProfissionalPersistente() throws Exception {
 		List<EventoProfissional> eventosProfissionais = eventoProfissionalService.getList();
 		assertEquals(1, eventosProfissionais.size());
 		assertEquals(identificador, eventosProfissionais.get(0).getId());

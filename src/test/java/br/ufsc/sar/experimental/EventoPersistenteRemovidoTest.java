@@ -18,18 +18,18 @@ public class EventoPersistenteRemovidoTest {
 	@Fixture private EventoService eventoService;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEvento() throws Exception {
 		eventoService.excluir(identificador);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterEventoPersistenteRemovido() throws Exception {
 		Evento evento = eventoService.getEntity(identificador);
 		assertNull(evento);
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarEventoPersistenteRemovido() throws Exception {
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(0, eventos.size());
 	}

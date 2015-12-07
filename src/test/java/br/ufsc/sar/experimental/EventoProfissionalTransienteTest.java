@@ -21,14 +21,14 @@ public class EventoProfissionalTransienteTest {
 	private EventoProfissional eventoProfissionalTransiente;
 
 	@Before
-	public void configurar() {
+	public void configurarEventoProfissional() {
 		eventoProfissionalTransiente = new EventoProfissional();
 		eventoProfissionalTransiente.setEvento(eventoTransiente);
 		eventoProfissionalTransiente.setProfissional(profissionalTransiente);
 	}
 
 	@Test
-	public void testar() throws Exception {
+	public void eventoProfissional() throws Exception {
 		assertNull(eventoProfissionalTransiente.getId());
 		assertSame(eventoTransiente, eventoProfissionalTransiente.getEvento());
 		assertSame(profissionalTransiente, eventoProfissionalTransiente.getProfissional());

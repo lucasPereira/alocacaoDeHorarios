@@ -15,7 +15,7 @@ public class ProfissionalTransienteTest {
 	private Profissional profissionalTransiente;
 
 	@Before
-	public void configurar() {
+	public void configurarProfissional() {
 		profissionalTransiente = new Profissional();
 		profissionalTransiente.setNome("José");
 		profissionalTransiente.setProfissao("Analista de Sistemas");
@@ -25,7 +25,7 @@ public class ProfissionalTransienteTest {
 	}
 
 	@Test
-	public void testar() throws Exception {
+	public void profissional() throws Exception {
 		assertNull(profissionalTransiente.getId());
 		assertEquals("José", profissionalTransiente.getNome());
 		assertEquals("Analista de Sistemas", profissionalTransiente.getProfissao());

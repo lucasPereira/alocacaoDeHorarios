@@ -1,5 +1,8 @@
-package br.ufsc.sar.controle;
+package br.ufsc.sar.experimental;
 
+import org.junit.Before;
+
+import br.ufsc.ine.leb.projetos.estoria.Singular;
 import br.ufsc.sar.service.CaracteristicaService;
 import br.ufsc.sar.service.EventoProfissionalService;
 import br.ufsc.sar.service.EventoService;
@@ -9,14 +12,16 @@ import br.ufsc.sar.serviceimpl.EventoProfissionalServiceImpl;
 import br.ufsc.sar.serviceimpl.EventoServiceImpl;
 import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
 
-public class AjudaDeTeste {
+@Singular
+public class BaseDeDadosZerada {
 
-	private static EventoService eventoService;
-	private static ProfissionalService profissionalService;
-	private static CaracteristicaService caracteristicaService;
-	private static EventoProfissionalService eventoProfissionalService;
+	private EventoService eventoService;
+	private ProfissionalService profissionalService;
+	private CaracteristicaService caracteristicaService;
+	private EventoProfissionalService eventoProfissionalService;
 
-	public static void criarBase() {
+	@Before
+	public void criarBase() throws Exception {
 		eventoService = new EventoServiceImpl();
 		profissionalService = new ProfissionalServiceImpl();
 		caracteristicaService = new CaracteristicaServiceImpl();
@@ -25,22 +30,6 @@ public class AjudaDeTeste {
 		caracteristicaService.exluirTodos();
 		profissionalService.exluirTodos();
 		eventoService.exluirTodos();
-	}
-
-	public static EventoService obterEventoService() {
-		return eventoService;
-	}
-
-	public static ProfissionalService obterProfissionalService() {
-		return profissionalService;
-	}
-
-	public static CaracteristicaService obterCaracteristicaService() {
-		return caracteristicaService;
-	}
-
-	public static EventoProfissionalService obterEventoProfissionalService() {
-		return eventoProfissionalService;
 	}
 
 }

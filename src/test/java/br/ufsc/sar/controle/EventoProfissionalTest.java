@@ -24,7 +24,7 @@ public class EventoProfissionalTest {
 	private EventoProfissional eventoProfissionalTransiente;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEventoProfissional() throws Exception {
 		eventoTransiente = new Evento();
 		eventoTransiente.setNome("Evento");
 		eventoTransiente.setDescricao("Descrição do evento");
@@ -48,10 +48,10 @@ public class EventoProfissionalTest {
 
 	@Test
 	public void obterEventoProfissionalPersistente() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
-		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
-		EventoProfissionalService eventoProfissionalService = AjudaDeTeste.obterEventoProfissionalService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
+		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
+		EventoProfissionalService eventoProfissionalService = BaseDeDadosZerada.obterEventoProfissionalService();
 		eventoService.incluir(eventoTransiente);
 		profissionalService.incluir(profissionalTransiente);
 		Long identificador = eventoProfissionalService.incluir(eventoProfissionalTransiente);
@@ -63,10 +63,10 @@ public class EventoProfissionalTest {
 
 	@Test
 	public void listarEventoProfissionalPersistente() throws Exception {
-		AjudaDeTeste.criarBase();
-		EventoService eventoService = AjudaDeTeste.obterEventoService();
-		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
-		EventoProfissionalService eventoProfissionalService = AjudaDeTeste.obterEventoProfissionalService();
+		BaseDeDadosZerada.criarBase();
+		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
+		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
+		EventoProfissionalService eventoProfissionalService = BaseDeDadosZerada.obterEventoProfissionalService();
 		eventoService.incluir(eventoTransiente);
 		profissionalService.incluir(profissionalTransiente);
 		Long identificador = eventoProfissionalService.incluir(eventoProfissionalTransiente);

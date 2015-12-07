@@ -14,14 +14,14 @@ public class CaracateristicaTransienteTest {
 	private Caracteristica caracteristicaTransiente;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarCaracteristica() throws Exception {
 		caracteristicaTransiente = new Caracteristica();
 		caracteristicaTransiente.setNome("Característica");
 		caracteristicaTransiente.setForauso(false);
 	}
 
 	@Test
-	public void testar() throws Exception {
+	public void caracteristica() throws Exception {
 		assertNull(caracteristicaTransiente.getId());
 		assertEquals("Característica", caracteristicaTransiente.getNome());
 		assertFalse(caracteristicaTransiente.getForauso());

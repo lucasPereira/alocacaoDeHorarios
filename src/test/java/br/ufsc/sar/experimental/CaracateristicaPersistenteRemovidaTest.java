@@ -17,18 +17,18 @@ public class CaracateristicaPersistenteRemovidaTest {
 	@Fixture private Long identificador;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarCaracteristica() throws Exception {
 		caracteristicaService.excluir(identificador);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterCaracteristicaPersistenteRemovida() throws Exception {
 		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
 		assertNull(caracteristica);
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarCaracteristicaPersistenteRemovida() throws Exception {
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(0, caracteristicas.size());
 	}

@@ -20,20 +20,20 @@ public class ProfissionalPersistenteAlteradoTest {
 	@Fixture private ProfissionalService profissionalService;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarProfissional() throws Exception {
 		profissionalTransiente.setNome("José Maria");
 		profissionalService.alterar(profissionalTransiente);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterProfissionalPersistenteAlterado() throws Exception {
 		Profissional profissional = profissionalService.getEntity(identificador);
 		assertEquals(identificador, profissional.getId());
 		assertEquals("José Maria", profissional.getNome());
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarProfissionalPersistenteAlterado() throws Exception {
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(1, profissionais.size());
 		assertEquals(identificador, profissionais.get(0).getId());

@@ -18,20 +18,20 @@ public class EventoPersistenteAlteradoTest {
 	@Fixture private Evento eventoTransiente;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEvento() throws Exception {
 		eventoTransiente.setNome("Evento alterado");
 		eventoService.alterar(eventoTransiente);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterEventoPersistenteAlterado() throws Exception {
 		Evento evento = eventoService.getEntity(identificador);
 		assertEquals(identificador, evento.getId());
 		assertEquals("Evento alterado", evento.getNome());
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarEventoPersistenteAlterado() throws Exception {
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
 		assertEquals(identificador, eventos.get(0).getId());

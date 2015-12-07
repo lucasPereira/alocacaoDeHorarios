@@ -18,20 +18,20 @@ public class CaracateristicaPersistenteAlteradaTest {
 	@Fixture private Long identificador;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarCaracteristica() throws Exception {
 		caracteristicaTransiente.setNome("Característica alterada");
 		caracteristicaService.alterar(caracteristicaTransiente);
 	}
 
 	@Test
-	public void obter() throws Exception {
+	public void obterCaracteristicaPersistenteAlterada() throws Exception {
 		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
 		assertEquals(identificador, caracteristica.getId());
 		assertEquals("Característica alterada", caracteristica.getNome());
 	}
 
 	@Test
-	public void listar() throws Exception {
+	public void listarCaracteristicaPersistenteAlterada() throws Exception {
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(1, caracteristicas.size());
 		assertEquals(identificador, caracteristicas.get(0).getId());

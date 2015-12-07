@@ -13,14 +13,14 @@ public class EventoTransienteTest {
 	private Evento eventoTransiente;
 
 	@Before
-	public void configurar() throws Exception {
+	public void configurarEvento() throws Exception {
 		eventoTransiente = new Evento();
 		eventoTransiente.setNome("Evento");
 		eventoTransiente.setDescricao("Descrição do evento");
 	}
 
 	@Test
-	public void testar() throws Exception {
+	public void evento() throws Exception {
 		assertNull(eventoTransiente.getId());
 		assertEquals("Evento", eventoTransiente.getNome());
 		assertEquals("Descrição do evento", eventoTransiente.getDescricao());
