@@ -14,28 +14,28 @@ import br.ufsc.sar.service.*;
 @FixtureSetup({ BaseDeDadosZerada.class, CaracateristicaTransienteTest.class })
 public class CaracateristicaPersistenteTest {
 
-	@Fixture private CaracteristicaService caracteristicaService;
 	@Fixture private Caracteristica caracteristicaTransiente;
+	@Fixture private CaracteristicaService caracteristicaService;
 
-	private Long identificador;
+	private Long identificadorCaracteristica;
 
 	@Before
 	public void configurarCaracteristica() throws Exception {
-		identificador = caracteristicaService.incluir(caracteristicaTransiente);
-		assertNotNull(identificador);
+		identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
+		assertNotNull(identificadorCaracteristica);
 	}
 
 	@Test
 	public void obterCaracteristicaPersistente() throws Exception {
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
-		assertEquals(identificador, caracteristica.getId());
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
+		assertEquals(identificadorCaracteristica, caracteristica.getId());
 	}
 
 	@Test
 	public void listarCaracteristicaPersistente() throws Exception {
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(1, caracteristicas.size());
-		assertEquals(identificador, caracteristicas.get(0).getId());
+		assertEquals(identificadorCaracteristica, caracteristicas.get(0).getId());
 	}
 
 }

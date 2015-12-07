@@ -22,21 +22,21 @@ public class EventoProfissionalPersistenteTest {
 	@Fixture private Profissional profissionalTransiente;
 	@Fixture private EventoProfissionalService eventoProfissionalService;
 
-	private Long identificador;
+	private Long identificadorEventoProfissional;
 
 	@Before
 	public void configurarEventoProfissional() throws Exception {
 		EventoProfissional eventoProfissional = new EventoProfissional();
 		eventoProfissional.setEvento(eventoTransiente);
 		eventoProfissional.setProfissional(profissionalTransiente);
-		identificador = eventoProfissionalService.incluir(eventoProfissional);
-		assertNotNull(identificador);
+		identificadorEventoProfissional = eventoProfissionalService.incluir(eventoProfissional);
+		assertNotNull(identificadorEventoProfissional);
 	}
 
 	@Test
 	public void obterEventoProfissionalPersistente() throws Exception {
-		EventoProfissional eventoProssifional = eventoProfissionalService.getEntity(identificador);
-		assertEquals(identificador, eventoProssifional.getId());
+		EventoProfissional eventoProssifional = eventoProfissionalService.getEntity(identificadorEventoProfissional);
+		assertEquals(identificadorEventoProfissional, eventoProssifional.getId());
 		assertEquals(eventoTransiente.getId(), eventoProssifional.getEvento().getId());
 		assertEquals(profissionalTransiente.getId(), eventoProssifional.getProfissional().getId());
 	}
@@ -45,7 +45,7 @@ public class EventoProfissionalPersistenteTest {
 	public void listarEventoProfissionalPersistente() throws Exception {
 		List<EventoProfissional> eventosProfissionais = eventoProfissionalService.getList();
 		assertEquals(1, eventosProfissionais.size());
-		assertEquals(identificador, eventosProfissionais.get(0).getId());
+		assertEquals(identificadorEventoProfissional, eventosProfissionais.get(0).getId());
 		assertEquals(eventoTransiente.getId(), eventosProfissionais.get(0).getEvento().getId());
 		assertEquals(profissionalTransiente.getId(), eventosProfissionais.get(0).getProfissional().getId());
 	}

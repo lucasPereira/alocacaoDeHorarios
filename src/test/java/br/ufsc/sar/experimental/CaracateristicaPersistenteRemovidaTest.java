@@ -13,17 +13,17 @@ import br.ufsc.sar.service.*;
 @FixtureSetup(CaracateristicaPersistenteTest.class)
 public class CaracateristicaPersistenteRemovidaTest {
 
+	@Fixture private Long identificadorCaracteristica;
 	@Fixture private CaracteristicaService caracteristicaService;
-	@Fixture private Long identificador;
 
 	@Before
 	public void configurarCaracteristica() throws Exception {
-		caracteristicaService.excluir(identificador);
+		caracteristicaService.excluir(identificadorCaracteristica);
 	}
 
 	@Test
 	public void obterCaracteristicaPersistenteRemovida() throws Exception {
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
 		assertNull(caracteristica);
 	}
 

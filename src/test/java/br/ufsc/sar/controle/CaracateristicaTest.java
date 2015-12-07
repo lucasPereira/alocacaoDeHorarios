@@ -34,30 +34,30 @@ public class CaracateristicaTest {
 	public void obterCaracteristicaPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
-		assertEquals(identificador, caracteristica.getId());
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
+		assertEquals(identificadorCaracteristica, caracteristica.getId());
 	}
 
 	@Test
 	public void listarCaracteristicaPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(1, caracteristicas.size());
-		assertEquals(identificador, caracteristicas.get(0).getId());
+		assertEquals(identificadorCaracteristica, caracteristicas.get(0).getId());
 	}
 
 	@Test
 	public void obterCaracteristicaPersistenteAlterada() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
 		caracteristicaTransiente.setNome("Característica alterada");
 		caracteristicaService.alterar(caracteristicaTransiente);
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
-		assertEquals(identificador, caracteristica.getId());
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
+		assertEquals(identificadorCaracteristica, caracteristica.getId());
 		assertEquals("Característica alterada", caracteristica.getNome());
 	}
 
@@ -65,12 +65,12 @@ public class CaracateristicaTest {
 	public void listarCaracteristicaPersistenteAlterada() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
 		caracteristicaTransiente.setNome("Característica alterada");
 		caracteristicaService.alterar(caracteristicaTransiente);
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(1, caracteristicas.size());
-		assertEquals(identificador, caracteristicas.get(0).getId());
+		assertEquals(identificadorCaracteristica, caracteristicas.get(0).getId());
 		assertEquals("Característica alterada", caracteristicas.get(0).getNome());
 	}
 
@@ -78,9 +78,9 @@ public class CaracateristicaTest {
 	public void obterCaracteristicaPersistenteRemovida() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
-		caracteristicaService.excluir(identificador);
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
+		caracteristicaService.excluir(identificadorCaracteristica);
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
 		assertNull(caracteristica);
 	}
 
@@ -88,8 +88,8 @@ public class CaracateristicaTest {
 	public void listarCaracteristicaPersistenteRemovida() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		CaracteristicaService caracteristicaService = BaseDeDadosZerada.obterCaracteristicaService();
-		Long identificador = caracteristicaService.incluir(caracteristicaTransiente);
-		caracteristicaService.excluir(identificador);
+		Long identificadorCaracteristica = caracteristicaService.incluir(caracteristicaTransiente);
+		caracteristicaService.excluir(identificadorCaracteristica);
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(0, caracteristicas.size());
 	}

@@ -40,30 +40,30 @@ public class ProfissionalTest {
 	public void obterProfissionalPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
-		Profissional profissional = profissionalService.getEntity(identificador);
-		assertEquals(identificador, profissional.getId());
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
+		Profissional profissional = profissionalService.getEntity(identificadorProfissional);
+		assertEquals(identificadorProfissional, profissional.getId());
 	}
 
 	@Test
 	public void listarProfissionalPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(1, profissionais.size());
-		assertEquals(identificador, profissionais.get(0).getId());
+		assertEquals(identificadorProfissional, profissionais.get(0).getId());
 	}
 
 	@Test
 	public void obterProfissionalPersistenteAlterado() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
 		profissionalTransiente.setNome("José Maria");
 		profissionalService.alterar(profissionalTransiente);
-		Profissional profissional = profissionalService.getEntity(identificador);
-		assertEquals(identificador, profissional.getId());
+		Profissional profissional = profissionalService.getEntity(identificadorProfissional);
+		assertEquals(identificadorProfissional, profissional.getId());
 		assertEquals("José Maria", profissional.getNome());
 	}
 
@@ -71,12 +71,12 @@ public class ProfissionalTest {
 	public void listarProfissionalPersistenteAlterado() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
 		profissionalTransiente.setNome("José Maria");
 		profissionalService.alterar(profissionalTransiente);
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(1, profissionais.size());
-		assertEquals(identificador, profissionais.get(0).getId());
+		assertEquals(identificadorProfissional, profissionais.get(0).getId());
 		assertEquals("José Maria", profissionais.get(0).getNome());
 	}
 
@@ -84,9 +84,9 @@ public class ProfissionalTest {
 	public void obterProfissionalPersistenteRemovido() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
-		profissionalService.excluir(identificador);
-		Profissional profissional = profissionalService.getEntity(identificador);
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
+		profissionalService.excluir(identificadorProfissional);
+		Profissional profissional = profissionalService.getEntity(identificadorProfissional);
 		assertNull(profissional);
 	}
 
@@ -94,8 +94,8 @@ public class ProfissionalTest {
 	public void listarProfissionalPersistenteRemovido() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		ProfissionalService profissionalService = BaseDeDadosZerada.obterProfissionalService();
-		Long identificador = profissionalService.incluir(profissionalTransiente);
-		profissionalService.excluir(identificador);
+		Long identificadorProfissional = profissionalService.incluir(profissionalTransiente);
+		profissionalService.excluir(identificadorProfissional);
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(0, profissionais.size());
 	}

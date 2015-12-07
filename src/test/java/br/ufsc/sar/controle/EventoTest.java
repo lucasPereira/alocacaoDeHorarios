@@ -33,30 +33,30 @@ public class EventoTest {
 	public void obterEventoPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
-		Evento evento = eventoService.getEntity(identificador);
-		assertEquals(identificador, evento.getId());
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
+		Evento evento = eventoService.getEntity(identificadorEvento);
+		assertEquals(identificadorEvento, evento.getId());
 	}
 
 	@Test
 	public void listarEventoPersistente() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
-		assertEquals(identificador, eventos.get(0).getId());
+		assertEquals(identificadorEvento, eventos.get(0).getId());
 	}
 
 	@Test
 	public void obterEventoPersistenteAlterado() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
 		eventoTransiente.setNome("Evento alterado");
 		eventoService.alterar(eventoTransiente);
-		Evento evento = eventoService.getEntity(identificador);
-		assertEquals(identificador, evento.getId());
+		Evento evento = eventoService.getEntity(identificadorEvento);
+		assertEquals(identificadorEvento, evento.getId());
 		assertEquals("Evento alterado", evento.getNome());
 	}
 
@@ -64,12 +64,12 @@ public class EventoTest {
 	public void listarEventoPersistenteAlterado() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
 		eventoTransiente.setNome("Evento alterado");
 		eventoService.alterar(eventoTransiente);
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
-		assertEquals(identificador, eventos.get(0).getId());
+		assertEquals(identificadorEvento, eventos.get(0).getId());
 		assertEquals("Evento alterado", eventos.get(0).getNome());
 	}
 
@@ -77,9 +77,9 @@ public class EventoTest {
 	public void obterEventoPersistenteRemovido() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
-		eventoService.excluir(identificador);
-		Evento evento = eventoService.getEntity(identificador);
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
+		eventoService.excluir(identificadorEvento);
+		Evento evento = eventoService.getEntity(identificadorEvento);
 		assertNull(evento);
 	}
 
@@ -87,8 +87,8 @@ public class EventoTest {
 	public void listarEventoPersistenteRemovido() throws Exception {
 		BaseDeDadosZerada.criarBase();
 		EventoService eventoService = BaseDeDadosZerada.obterEventoService();
-		Long identificador = eventoService.incluir(eventoTransiente);
-		eventoService.excluir(identificador);
+		Long identificadorEvento = eventoService.incluir(eventoTransiente);
+		eventoService.excluir(identificadorEvento);
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(0, eventos.size());
 	}

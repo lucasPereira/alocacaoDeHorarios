@@ -18,25 +18,25 @@ public class ProfissionalPersistenteTest {
 	@Fixture private Profissional profissionalTransiente;
 	@Fixture private ProfissionalService profissionalService;
 
-	private Long identificador;
+	private Long identificadorProfissional;
 
 	@Before
 	public void configurarProfissional() throws Exception {
-		identificador = profissionalService.incluir(profissionalTransiente);
-		assertNotNull(identificador);
+		identificadorProfissional = profissionalService.incluir(profissionalTransiente);
+		assertNotNull(identificadorProfissional);
 	}
 
 	@Test
 	public void obterProfissionalPersistente() throws Exception {
-		Profissional profissional = profissionalService.getEntity(identificador);
-		assertEquals(identificador, profissional.getId());
+		Profissional profissional = profissionalService.getEntity(identificadorProfissional);
+		assertEquals(identificadorProfissional, profissional.getId());
 	}
 
 	@Test
 	public void listarProfissionalPersistente() throws Exception {
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(1, profissionais.size());
-		assertEquals(identificador, profissionais.get(0).getId());
+		assertEquals(identificadorProfissional, profissionais.get(0).getId());
 	}
 
 }

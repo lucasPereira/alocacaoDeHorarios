@@ -15,17 +15,17 @@ import br.ufsc.sar.service.ProfissionalService;
 @FixtureSetup(ProfissionalPersistenteTest.class)
 public class ProfissionalPersistenteRemovidoTest {
 
-	@Fixture private Long identificador;
+	@Fixture private Long identificadorProfissional;
 	@Fixture private ProfissionalService profissionalService;
 
 	@Before
 	public void configurarProfissional() throws Exception {
-		profissionalService.excluir(identificador);
+		profissionalService.excluir(identificadorProfissional);
 	}
 
 	@Test
 	public void obterProfissionalPersistenteRemovido() throws Exception {
-		Profissional profissional = profissionalService.getEntity(identificador);
+		Profissional profissional = profissionalService.getEntity(identificadorProfissional);
 		assertNull(profissional);
 	}
 

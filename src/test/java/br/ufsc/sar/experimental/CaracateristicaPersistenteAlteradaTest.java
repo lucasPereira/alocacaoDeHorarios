@@ -13,9 +13,9 @@ import br.ufsc.sar.service.*;
 @FixtureSetup(CaracateristicaPersistenteTest.class)
 public class CaracateristicaPersistenteAlteradaTest {
 
-	@Fixture private CaracteristicaService caracteristicaService;
+	@Fixture private Long identificadorCaracteristica;
 	@Fixture private Caracteristica caracteristicaTransiente;
-	@Fixture private Long identificador;
+	@Fixture private CaracteristicaService caracteristicaService;
 
 	@Before
 	public void configurarCaracteristica() throws Exception {
@@ -25,8 +25,8 @@ public class CaracateristicaPersistenteAlteradaTest {
 
 	@Test
 	public void obterCaracteristicaPersistenteAlterada() throws Exception {
-		Caracteristica caracteristica = caracteristicaService.getEntity(identificador);
-		assertEquals(identificador, caracteristica.getId());
+		Caracteristica caracteristica = caracteristicaService.getEntity(identificadorCaracteristica);
+		assertEquals(identificadorCaracteristica, caracteristica.getId());
 		assertEquals("Característica alterada", caracteristica.getNome());
 	}
 
@@ -34,7 +34,7 @@ public class CaracateristicaPersistenteAlteradaTest {
 	public void listarCaracteristicaPersistenteAlterada() throws Exception {
 		List<Caracteristica> caracteristicas = caracteristicaService.getList();
 		assertEquals(1, caracteristicas.size());
-		assertEquals(identificador, caracteristicas.get(0).getId());
+		assertEquals(identificadorCaracteristica, caracteristicas.get(0).getId());
 		assertEquals("Característica alterada", caracteristicas.get(0).getNome());
 	}
 

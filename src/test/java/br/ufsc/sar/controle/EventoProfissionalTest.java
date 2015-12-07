@@ -54,9 +54,9 @@ public class EventoProfissionalTest {
 		EventoProfissionalService eventoProfissionalService = BaseDeDadosZerada.obterEventoProfissionalService();
 		eventoService.incluir(eventoTransiente);
 		profissionalService.incluir(profissionalTransiente);
-		Long identificador = eventoProfissionalService.incluir(eventoProfissionalTransiente);
-		EventoProfissional eventoProssifional = eventoProfissionalService.getEntity(identificador);
-		assertEquals(identificador, eventoProssifional.getId());
+		Long identificadorEventoProfissional = eventoProfissionalService.incluir(eventoProfissionalTransiente);
+		EventoProfissional eventoProssifional = eventoProfissionalService.getEntity(identificadorEventoProfissional);
+		assertEquals(identificadorEventoProfissional, eventoProssifional.getId());
 		assertEquals(eventoTransiente.getId(), eventoProssifional.getEvento().getId());
 		assertEquals(profissionalTransiente.getId(), eventoProssifional.getProfissional().getId());
 	}
@@ -69,10 +69,10 @@ public class EventoProfissionalTest {
 		EventoProfissionalService eventoProfissionalService = BaseDeDadosZerada.obterEventoProfissionalService();
 		eventoService.incluir(eventoTransiente);
 		profissionalService.incluir(profissionalTransiente);
-		Long identificador = eventoProfissionalService.incluir(eventoProfissionalTransiente);
+		Long identificadorEventoProfissional = eventoProfissionalService.incluir(eventoProfissionalTransiente);
 		List<EventoProfissional> eventosProfissionais = eventoProfissionalService.getList();
 		assertEquals(1, eventosProfissionais.size());
-		assertEquals(identificador, eventosProfissionais.get(0).getId());
+		assertEquals(identificadorEventoProfissional, eventosProfissionais.get(0).getId());
 		assertEquals(eventoTransiente.getId(), eventosProfissionais.get(0).getEvento().getId());
 		assertEquals(profissionalTransiente.getId(), eventosProfissionais.get(0).getProfissional().getId());
 	}

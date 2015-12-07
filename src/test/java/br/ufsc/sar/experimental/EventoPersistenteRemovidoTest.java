@@ -14,17 +14,17 @@ import br.ufsc.sar.service.*;
 @FixtureSetup(EventoPersistenteTest.class)
 public class EventoPersistenteRemovidoTest {
 
-	@Fixture private Long identificador;
+	@Fixture private Long identificadorEvento;
 	@Fixture private EventoService eventoService;
 
 	@Before
 	public void configurarEvento() throws Exception {
-		eventoService.excluir(identificador);
+		eventoService.excluir(identificadorEvento);
 	}
 
 	@Test
 	public void obterEventoPersistenteRemovido() throws Exception {
-		Evento evento = eventoService.getEntity(identificador);
+		Evento evento = eventoService.getEntity(identificadorEvento);
 		assertNull(evento);
 	}
 
