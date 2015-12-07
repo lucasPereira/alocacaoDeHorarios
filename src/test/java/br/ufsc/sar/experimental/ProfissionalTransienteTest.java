@@ -3,18 +3,14 @@ package br.ufsc.sar.experimental;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.*;
+import java.util.Date;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.entity.*;
-import br.ufsc.sar.service.*;
+import br.ufsc.sar.entity.Profissional;
 
-@FixtureSetup(BaseDeDadosZeradaTest.class)
 public class ProfissionalTransienteTest {
-
-	@Fixture private ProfissionalService profissionalService;
 
 	private Profissional profissionalTransiente;
 

@@ -12,7 +12,7 @@ import br.ufsc.ine.leb.projetos.estoria.FixtureSetup;
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.service.ProfissionalService;
 
-@FixtureSetup(ProfissionalTransienteTest.class)
+@FixtureSetup({ BaseDeDadosZeradaTest.class, ProfissionalTransienteTest.class })
 public class ProfissionalPersistenteTest {
 
 	@Fixture private Profissional profissionalTransiente;

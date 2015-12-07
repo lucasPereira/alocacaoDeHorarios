@@ -3,16 +3,12 @@ package br.ufsc.sar.experimental;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.entity.*;
-import br.ufsc.sar.service.*;
+import br.ufsc.sar.entity.Evento;
 
-@FixtureSetup(BaseDeDadosZeradaTest.class)
 public class EventoTransienteTest {
-
-	@Fixture private EventoService eventoService;
 
 	private Evento eventoTransiente;
 

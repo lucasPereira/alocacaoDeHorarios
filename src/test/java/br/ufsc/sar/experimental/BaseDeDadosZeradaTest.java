@@ -3,7 +3,6 @@ package br.ufsc.sar.experimental;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import br.ufsc.ine.leb.projetos.estoria.Singular;
 import br.ufsc.sar.service.CaracteristicaService;
@@ -54,7 +53,6 @@ public class BaseDeDadosZeradaTest {
 		// servicoEspaco.exluirTodos();
 	}
 
-	@Test
 	public void testar() throws Exception {
 		assertTrue(eventoService.getList().isEmpty());
 		assertTrue(profissionalService.getList().isEmpty());

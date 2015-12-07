@@ -11,7 +11,7 @@ import br.ufsc.ine.leb.projetos.estoria.*;
 import br.ufsc.sar.entity.*;
 import br.ufsc.sar.service.*;
 
-@FixtureSetup(CaracateristicaTransienteTest.class)
+@FixtureSetup({ BaseDeDadosZeradaTest.class, CaracateristicaTransienteTest.class })
 public class CaracateristicaPersistenteTest {
 
 	@Fixture private CaracteristicaService caracteristicaService;

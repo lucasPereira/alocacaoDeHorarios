@@ -11,17 +11,13 @@ import org.junit.Test;
 
 import br.ufsc.sar.entity.Profissional;
 import br.ufsc.sar.service.ProfissionalService;
-import br.ufsc.sar.serviceimpl.ProfissionalServiceImpl;
 
 public class ProfissionalTest {
 
 	private Profissional profissionalTransiente;
-	private ProfissionalService profissionalService;
 
 	@Before
 	public void configurarProfissional() {
-		profissionalService = new ProfissionalServiceImpl();
-		profissionalService.exluirTodos();
 		profissionalTransiente = new Profissional();
 		profissionalTransiente.setNome("José");
 		profissionalTransiente.setProfissao("Analista de Sistemas");
@@ -42,6 +38,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void obterProfissionalPersistente() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		Profissional profissional = profissionalService.getEntity(identificador);
 		assertEquals(identificador, profissional.getId());
@@ -49,6 +47,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void listarProfissionalPersistente() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		List<Profissional> profissionais = profissionalService.getList();
 		assertEquals(1, profissionais.size());
@@ -57,6 +57,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void obterProfissionalPersistenteAlterado() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		profissionalTransiente.setNome("José Maria");
 		profissionalService.alterar(profissionalTransiente);
@@ -67,6 +69,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void listarProfissionalPersistenteAlterado() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		profissionalTransiente.setNome("José Maria");
 		profissionalService.alterar(profissionalTransiente);
@@ -78,6 +82,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void obterProfissionalPersistenteRemovido() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		profissionalService.excluir(identificador);
 		Profissional profissional = profissionalService.getEntity(identificador);
@@ -86,6 +92,8 @@ public class ProfissionalTest {
 
 	@Test
 	public void listarProfissionalPersistenteRemovido() throws Exception {
+		AjudaDeTeste.criarBase();
+		ProfissionalService profissionalService = AjudaDeTeste.obterProfissionalService();
 		Long identificador = profissionalService.incluir(profissionalTransiente);
 		profissionalService.excluir(identificador);
 		List<Profissional> profissionais = profissionalService.getList();

@@ -11,7 +11,7 @@ import br.ufsc.ine.leb.projetos.estoria.*;
 import br.ufsc.sar.entity.*;
 import br.ufsc.sar.service.*;
 
-@FixtureSetup(EventoTransienteTest.class)
+@FixtureSetup({ BaseDeDadosZeradaTest.class, EventoTransienteTest.class })
 public class EventoPersistenteTest {
 
 	@Fixture private EventoService eventoService;

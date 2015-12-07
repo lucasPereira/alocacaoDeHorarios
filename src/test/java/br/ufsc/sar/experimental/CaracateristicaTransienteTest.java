@@ -4,16 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import br.ufsc.ine.leb.projetos.estoria.*;
-import br.ufsc.sar.entity.*;
-import br.ufsc.sar.service.*;
+import br.ufsc.sar.entity.Caracteristica;
 
-@FixtureSetup(BaseDeDadosZeradaTest.class)
 public class CaracateristicaTransienteTest {
-
-	@Fixture private CaracteristicaService caracteristicaService;
 
 	private Caracteristica caracteristicaTransiente;
 
