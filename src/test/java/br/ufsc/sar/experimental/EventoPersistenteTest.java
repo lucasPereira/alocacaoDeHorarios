@@ -14,28 +14,28 @@ import br.ufsc.sar.service.*;
 @FixtureSetup({ BaseDeDadosZerada.class, EventoTransienteTest.class })
 public class EventoPersistenteTest {
 
-	@Fixture private EventoService eventoService;
 	@Fixture private Evento eventoTransiente;
+	@Fixture private EventoService eventoService;
 
-	private Long identificador;
+	private Long identificadorEvento;
 
 	@Before
 	public void configurarEvento() throws Exception {
-		identificador = eventoService.incluir(eventoTransiente);
-		assertNotNull(identificador);
+		identificadorEvento = eventoService.incluir(eventoTransiente);
+		assertNotNull(identificadorEvento);
 	}
 
 	@Test
 	public void obterEventoPersistente() throws Exception {
-		Evento evento = eventoService.getEntity(identificador);
-		assertEquals(identificador, evento.getId());
+		Evento evento = eventoService.getEntity(identificadorEvento);
+		assertEquals(identificadorEvento, evento.getId());
 	}
 
 	@Test
 	public void listarEventoPersistente() throws Exception {
 		List<Evento> eventos = eventoService.getList();
 		assertEquals(1, eventos.size());
-		assertEquals(identificador, eventos.get(0).getId());
+		assertEquals(identificadorEvento, eventos.get(0).getId());
 	}
 
 }
