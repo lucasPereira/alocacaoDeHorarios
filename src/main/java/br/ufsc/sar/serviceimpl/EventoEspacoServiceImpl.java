@@ -74,7 +74,6 @@ public class EventoEspacoServiceImpl extends BaseServiceImpl<EventoEspaco> imple
 		return listEventos;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public StatusVerificacao verificarAssociacaoEspacoAoEvento(Evento evento, Espaco espaco) {
 		StatusVerificacao statusVerificacao = new StatusVerificacao();

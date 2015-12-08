@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import br.ufsc.entity.BaseEntity;
-import br.ufsc.sar.entity.Caracteristica;
 import br.ufsc.service.BaseService;
 
 public abstract class BaseServiceImpl<E extends BaseEntity> implements BaseService<E> {

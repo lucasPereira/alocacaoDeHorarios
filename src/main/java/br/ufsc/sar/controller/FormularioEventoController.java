@@ -241,7 +241,6 @@ public class FormularioEventoController {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public void buscarProfissionaisDoEvento() {		
 		List<EventoProfissional> storedEntities = null;
 		//List<String> nomeProfissionais = new ArrayList<String>();
@@ -499,7 +498,6 @@ public class FormularioEventoController {
 		return getEventoCaracteristicaService().getCaracteristicasNaoAssociadosAoEvento(this.evento);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void buscarCaracteristicasDoEvento() {
 		List<EventoCaracteristica> storedEntities = null;
 		try {
@@ -714,7 +712,6 @@ public class FormularioEventoController {
     	} 		
 	}
 
-	@SuppressWarnings("unchecked")
 	public void buscarEspacosDoEvento() {
 		List<EventoEspaco> storedEntities = null;
 		try {

@@ -1,32 +1,21 @@
 package br.ufsc.sar.gui;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-
-import java.awt.FlowLayout;
-
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-
 import java.awt.GridLayout;
-
-import javax.swing.SwingConstants;
-import javax.swing.text.JTextComponent;
-
-import br.ufsc.sar.controller.EventoController;
-import br.ufsc.sar.entity.Caracteristica;
-import br.ufsc.sar.gui.componentes.EventoTableModel;
-import br.ufsc.sar.listener.EventoListener;
-import br.ufsc.sar.listener.FormularioEspacoListener;
-import br.ufsc.sar.service.EventoEspacoService;
-import br.ufsc.sar.serviceimpl.EventoEspacoServiceImpl;
+import java.awt.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
-import java.awt.List;
+import br.ufsc.sar.gui.componentes.EventoTableModel;
+import br.ufsc.sar.listener.EventoListener;
+import br.ufsc.sar.listener.FormularioEspacoListener;
 
 /**
  * 
@@ -35,9 +24,13 @@ import java.awt.List;
  */
 public class FormularioEspacoGUI extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2988815653120904467L;
+
 	private static AppGUI aplicacaoGUI = null;
 	
-	private static EventoEspacoService eventoEspacoService = new EventoEspacoServiceImpl();
 
 	public static AppGUI getAplicacaoGUI() {
 		return aplicacaoGUI;
@@ -94,7 +87,7 @@ public class FormularioEspacoGUI extends JPanel {
 	private JTabbedPane panelEspaco = null;
 	
 	public FormularioEspacoGUI(AppGUI app) {
-		this.aplicacaoGUI = app;
+		FormularioEspacoGUI.aplicacaoGUI = app;
 		this.setLayout(null);
 		this.setSize(600, 400);
 		this.add(this.getPanelEspaco());
@@ -114,7 +107,7 @@ public class FormularioEspacoGUI extends JPanel {
 	public EventoTableModel getAgendaEventoTableModel() {
 		if(this.agendaEventoTableModel == null){
 			this.agendaEventoTableModel = new EventoTableModel();
-			this.agendaEventoTableModel.addTableModelListener(new EventoListener(new EventoGUI(this.aplicacaoGUI)).getEntityTableListener());
+			this.agendaEventoTableModel.addTableModelListener(new EventoListener(new EventoGUI(FormularioEspacoGUI.aplicacaoGUI)).getEntityTableListener());
 		}
 		return agendaEventoTableModel;
 	}

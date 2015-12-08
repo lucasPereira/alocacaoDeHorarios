@@ -5,9 +5,9 @@ public class Coluna {
 	private String field;
 	private String label;
 	private boolean isEditable;
-	private Class classe;
+	private Class<?> classe;
 	
-	public Coluna(int id, String field, String label, boolean isEditable, Class classe){
+	public Coluna(int id, String field, String label, boolean isEditable, Class<?> classe){
 		this.setId(id);
 		this.setField(field);
 		this.setLabel(label);
@@ -44,11 +44,11 @@ public class Coluna {
 		this.isEditable = isEditable;
 	}
 
-	public Class getClasse() {
+	public Class<?> getClasse() {
 		return this.classe;
 	}
 
-	public void setClasse(Class classe) {
+	public void setClasse(Class<?> classe) {
 		this.classe = classe;
 	}
 	

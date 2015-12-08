@@ -36,7 +36,7 @@ public class FormularioEspacoController {
 	}
 
 	public FormularioEspacoController(FormularioEspacoGUI formularioEspacoGUI) {
-		this.formularioEspacoGUI = formularioEspacoGUI;
+		FormularioEspacoController.formularioEspacoGUI = formularioEspacoGUI;
 	}
 	
 	public static EspacoService getEntityService() {
@@ -45,29 +45,29 @@ public class FormularioEspacoController {
 	
 	public boolean alterar() throws Exception{
 		Espaco espaco = new Espaco();
-		espaco.setId(Long.decode(this.getFormularioEspacoGUI().getId().getText().trim()));
-		espaco.setNome(this.getFormularioEspacoGUI().getNome().getText());
+		espaco.setId(Long.decode(FormularioEspacoController.getFormularioEspacoGUI().getId().getText().trim()));
+		espaco.setNome(FormularioEspacoController.getFormularioEspacoGUI().getNome().getText());
 		
-		if(this.getFormularioEspacoGUI().getCapacidade().getText() != null &&
-			!this.getFormularioEspacoGUI().getCapacidade().getText().equals("null") &&
-			!this.getFormularioEspacoGUI().getCapacidade().getText().trim().equals("")){
-			espaco.setCapacidade(Long.decode(this.getFormularioEspacoGUI().getCapacidade().getText()));
+		if(FormularioEspacoController.getFormularioEspacoGUI().getCapacidade().getText() != null &&
+			!FormularioEspacoController.getFormularioEspacoGUI().getCapacidade().getText().equals("null") &&
+			!FormularioEspacoController.getFormularioEspacoGUI().getCapacidade().getText().trim().equals("")){
+			espaco.setCapacidade(Long.decode(FormularioEspacoController.getFormularioEspacoGUI().getCapacidade().getText()));
 		}
 		
-		if(this.getFormularioEspacoGUI().getDescricao().getText() != null &&
-				!this.getFormularioEspacoGUI().getDescricao().getText().equals("null") &&
-				!this.getFormularioEspacoGUI().getDescricao().getText().trim().equals("")){
-			espaco.setDescricao(this.getFormularioEspacoGUI().getDescricao().getText());
+		if(FormularioEspacoController.getFormularioEspacoGUI().getDescricao().getText() != null &&
+				!FormularioEspacoController.getFormularioEspacoGUI().getDescricao().getText().equals("null") &&
+				!FormularioEspacoController.getFormularioEspacoGUI().getDescricao().getText().trim().equals("")){
+			espaco.setDescricao(FormularioEspacoController.getFormularioEspacoGUI().getDescricao().getText());
 		}
 		
-		if(this.getFormularioEspacoGUI().getForauso() != null){
-			espaco.setForauso(this.getFormularioEspacoGUI().getForauso().isSelected());
+		if(FormularioEspacoController.getFormularioEspacoGUI().getForauso() != null){
+			espaco.setForauso(FormularioEspacoController.getFormularioEspacoGUI().getForauso().isSelected());
 		}
 		
-		if (this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems().length > 0) {
+		if (FormularioEspacoController.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems().length > 0) {
 			List<Caracteristica> listCaracteristicas = new ArrayList<Caracteristica>();
-			for (String nome : this.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()){
-				Caracteristica caracteristica = this.getCaracteristicaservice().getPorNome(nome);
+			for (String nome : FormularioEspacoController.getFormularioEspacoGUI().getCaracteristicas().getSelectedItems()){
+				Caracteristica caracteristica = FormularioEspacoController.getCaracteristicaservice().getPorNome(nome);
 				if(!listCaracteristicas.contains(caracteristica))
 					listCaracteristicas.add(caracteristica);
 			}
@@ -77,7 +77,7 @@ public class FormularioEspacoController {
 		}
 		
 	
-		return this.getEntityService().alterar(espaco);
+		return FormularioEspacoController.getEntityService().alterar(espaco);
 	}
 
 	/**

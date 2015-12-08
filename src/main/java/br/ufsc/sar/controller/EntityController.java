@@ -72,7 +72,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public void salvar() {
 //		//System.out.println(linhasAtualizadas.size());
 		if(linhasAtualizadas != null && !linhasAtualizadas.isEmpty()){
@@ -121,7 +120,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public void buscarTodos() {
 		BaseService<T> service = getEntityService();
 		List<T> storedEntities = null;
@@ -145,7 +143,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public void buscarTodos(EntidadeDetalheInfo<? extends BaseEntity, T> edinfo) {
 		if(edinfo != null) {
 			BaseService<T> service = getEntityService();
@@ -173,7 +170,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	 * 
 	 * @param id
 	 */
-	@SuppressWarnings("unchecked")
 	public void buscar(Long id) {
 		BaseService<T> service = getEntityService();
 		T storedEntity = null;
@@ -198,7 +194,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	 * @param id
 	 * @param row
 	 */
-	@SuppressWarnings("unchecked")
 	public void buscar(Long id, Integer row) {
 		BaseService<T> service = getEntityService();
 		T storedEntity = null;
@@ -222,7 +217,6 @@ public abstract class EntityController<T extends BaseEntity> {
 	 * 
 	 * @param id
 	 */
-	@SuppressWarnings("unchecked")
 	public T buscarEntity(int row) {
 		T entity = this.getEntityGUI().getModeloTabelaEntity().getRow(row);	
 		if(entity != null){

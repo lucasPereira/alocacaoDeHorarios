@@ -4,11 +4,8 @@
 package br.ufsc.sar.listener;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import br.ufsc.sar.controller.FormularioEspacoController;
-import br.ufsc.sar.entity.Espaco;
-import br.ufsc.sar.gui.EspacoGUI;
 import br.ufsc.sar.gui.FormularioEspacoGUI;
 
 /**
@@ -31,7 +28,7 @@ public class FormularioEspacoListener extends AppListener {
 
 
 	public FormularioEspacoListener(FormularioEspacoGUI form) {
-		super(formularioEspacoGUI.getAplicacaoGUI());
+		super(FormularioEspacoGUI.getAplicacaoGUI());
 		formularioEspacoGUI = form;
 		formularioEspacoController = new FormularioEspacoController(formularioEspacoGUI);
 	}
@@ -59,7 +56,7 @@ public class FormularioEspacoListener extends AppListener {
 		
 		if(e.getActionCommand().equals("Cancelar")){
 			//System.out.println("Cancelar e voltar para a tela de consulta!");
-			this.getController().getEspacoGUI();
+			FormularioEspacoListener.getController().getEspacoGUI();
 			
 		}
 		
